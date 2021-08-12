@@ -1,4 +1,4 @@
-const express = require('express') 
+/*const express = require('express') 
 const axios = require('axios')
 const app = express() 
 const cors = require('cors')
@@ -17,4 +17,4 @@ app.get('/api/v1/medir', function (req, res) {
 
 })
 
-app.listen(3000) 
+app.listen(3000) */
