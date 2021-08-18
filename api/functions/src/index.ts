@@ -24,7 +24,7 @@ appApi.get('/', function(req, res){
 appAparelhos.route('/')
   .get(async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
 
-appAparelhos.get('/aparelho-por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorUsuario(req.params.idUsuario)) });
+appAparelhos.get('/aparelhos-por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
 
 appAparelhos.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
 

@@ -6,8 +6,8 @@ class AparelhoBusiness{
         return aparelhoDataSource.consultarTodosAparelhos();
     }
 
-    consultarAparelhoPorUsuario = (idUsuario: string) => {
-        return aparelhoDataSource.consultarAparelhoPorUsuario(idUsuario);
+    consultarAparelhosPorUsuario = (idUsuario: string) => {
+        return aparelhoDataSource.consultarAparelhosPorUsuario(idUsuario);
     }
 
     consultarAparelhoPorId = (id: string) => {

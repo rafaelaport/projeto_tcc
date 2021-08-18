@@ -9,42 +9,47 @@ class AparelhoDataSource {
 
     private collection = firestore.collection('aparelho');
 
-    //TRATAR CONSULTAS QUE NÃO RETORNAM VALOR  https://firebase.google.com/docs/firestore/query-data/get-data
     consultarTodosAparelhos = async (): Promise<MessageTreatment> => {
-        
-        return await this.collection.get().then( async (result) => {
+
+        return await this.collection.get().then(async (result) => {
             return messageTreatmentBusiness.sucessMsg('Aparelhos encontrados.', result.docs.map(doc => doc.data()));
         })
-        .catch((error) => {
-            return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelhos, tente novamente.', error);
-        });
+            .catch((error) => {
+                return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelhos, tente novamente.', error);
+            });
     }
 
-    consultarAparelhoPorUsuario = async (idUsuario: string): Promise<MessageTreatment> => {
+    consultarAparelhosPorUsuario = async (idUsuario: string): Promise<MessageTreatment> => {
 
-        return await this.collection.doc(idUsuario).get()
+        return await this.collection.where('idUsuario', '==', idUsuario).get()
             .then(async (result) => {
-                return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', result.data());
+                if (result.empty) {
+                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.', result.docs.map(doc => doc.data()));
+                }
+                else {
+                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', result.docs.map(doc => doc.data()));
+                }
             })
             .catch((error) => {
                 return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelho, tente novamente.', error);
             });
     }
 
-    //AJUSTAR
     consultarAparelhoPorId = async (id: string): Promise<MessageTreatment> => {
 
-        return await this.collection.where("idUsuario", "==", id).get()
+        return await this.collection.doc(id).get()
             .then(async (result) => {
-                return messageTreatmentBusiness.sucessMsg(`Aparelho encontrado. ${id}`, result);
+                if (!result.exists) {
+                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.', result.data());
+                }
+                else {
+                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', result.data());
+                }
             })
             .catch((error) => {
                 return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelho, tente novamente.', error);
             });
     }
-
-
-
 }
 
 export const aparelhoDataSource = new AparelhoDataSource();

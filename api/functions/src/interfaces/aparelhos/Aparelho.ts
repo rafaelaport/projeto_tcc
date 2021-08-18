@@ -3,4 +3,7 @@ export interface Aparelho{
     nome: string;
     idUsuario: string;
     capacidadeLitros: number;
+    ip: string;
+    nomeRede: string;
+    senhaRede: string;
 }
