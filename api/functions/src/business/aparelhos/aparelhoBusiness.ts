@@ -1,9 +1,9 @@
-import { dataSourceAparelho } from "../../datasource/exportDatasource";
+import { aparelhoDataSource } from "../../datasource/exportDatasource";
 
 class AparelhoBusiness{
 
     getAparelhos = () => {
-        return dataSourceAparelho.getAparelhos();
+        return aparelhoDataSource.getAparelhos();
     }
 
 }

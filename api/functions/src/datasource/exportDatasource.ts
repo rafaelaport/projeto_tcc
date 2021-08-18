@@ -1,1 +1,1 @@
-export * from './aparelhos/datasourceAparelho';
+export * from './aparelhos/aparelhoDataSource';
