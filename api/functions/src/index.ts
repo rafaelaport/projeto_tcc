@@ -22,7 +22,7 @@ appApi.get('/', function(req, res){
 
 // ROTA - APARELHOS
 appAparelhos.route('/')
-  .get(async (req, res) => { res.json(await aparelhoController.getAparelhos()) })
+  .get(async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) })
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);

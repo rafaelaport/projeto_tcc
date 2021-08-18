@@ -7,7 +7,7 @@ const firestore = admin.firestore();
 
 class AparelhoDataSource {
 
-    getAparelhos = async (): Promise<MessageTreatment> => {
+    consultarTodosAparelhos = async (): Promise<MessageTreatment> => {
         
         let collection = firestore.collection('aparelho');
 

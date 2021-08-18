@@ -2,8 +2,8 @@ import { aparelhoDataSource } from "../../datasource/exportDatasource";
 
 class AparelhoBusiness{
 
-    getAparelhos = () => {
-        return aparelhoDataSource.getAparelhos();
+    consultarTodosAparelhos = () => {
+        return aparelhoDataSource.consultarTodosAparelhos();
     }
 
 }
