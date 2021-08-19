@@ -12,7 +12,20 @@ class AparelhoDataSource {
     consultarTodosAparelhos = async (): Promise<MessageTreatment> => {
 
         return await this.collection.get().then(async (result) => {
-            return messageTreatmentBusiness.sucessMsg('Aparelhos encontrados.', result.docs.map(doc => doc.data()));
+            
+            const aparelhos: Aparelho[] = [];
+
+            result.docs.map(doc => {
+                const aparelho = doc.data() as Aparelho;
+                aparelho.id = doc.id;
+
+                aparelhos.push(aparelho);
+                //console.log(aparelho);
+            })
+            
+            console.log(aparelhos);
+
+            return messageTreatmentBusiness.sucessMsg('Aparelhos encontrados.', aparelhos);
         })
             .catch((error) => {
                 return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelhos, tente novamente.', error);
