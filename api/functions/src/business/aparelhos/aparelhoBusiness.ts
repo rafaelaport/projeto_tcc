@@ -14,6 +14,10 @@ class AparelhoBusiness{
         return aparelhoDataSource.consultarAparelhoPorId(id);
     }
 
+    criarAparelho = () => {
+        return aparelhoDataSource.criarAparelho();
+    }
+
 }
 
 export const aparelhoBusiness = new AparelhoBusiness();

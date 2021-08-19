@@ -11,9 +11,14 @@ import * as express from 'express';
 
 import {aparelhoController} from './controller/exportControllers';
 
+const cors = require('cors');
+
 // APIS
 let appApi = express();
 let appAparelhos = express();
+
+appApi.use(cors()) 
+appAparelhos.use(cors()) 
 
 // ROTA - API
 appApi.get('/', function(req, res){
@@ -22,7 +27,8 @@ appApi.get('/', function(req, res){
 
 // ROTA - APARELHOS
 appAparelhos.route('/')
-  .get(async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
+  .get(async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) })
+  .post((req, res) => { res.json(aparelhoController.criarAparelho(req.body)) })
 
 appAparelhos.get('/aparelhos-por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
 

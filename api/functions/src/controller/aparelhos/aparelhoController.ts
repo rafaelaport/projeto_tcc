@@ -14,6 +14,10 @@ class AparelhoController{
         return aparelhoBusiness.consultarAparelhoPorId(id);
     }
 
+    criarAparelho = () => {
+        return aparelhoBusiness.criarAparelho();
+    }
+
 }
 
 export const aparelhoController = new AparelhoController();
