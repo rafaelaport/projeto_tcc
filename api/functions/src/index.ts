@@ -17,8 +17,8 @@ const cors = require('cors');
 let appApi = express();
 let appAparelhos = express();
 
-appApi.use(cors()) 
-appAparelhos.use(cors()) 
+appApi.use(cors());
+appAparelhos.use(cors());
 
 // ROTA - API
 appApi.get('/', function(req, res){
@@ -26,13 +26,11 @@ appApi.get('/', function(req, res){
 });
 
 // ROTA - APARELHOS
-appAparelhos.route('/')
-  .get(async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) })
-  .post((req, res) => { res.json(aparelhoController.criarAparelho(req.body)) })
-
+appAparelhos.get('/', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
 appAparelhos.get('/aparelhos-por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
-
 appAparelhos.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
+appAparelhos.post('/salvar', async (req, res) => { res.json(await aparelhoController.criarAparelho(req.body)) });
+appAparelhos.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.alterarAparelho(req.params.id, req.body)) });
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);

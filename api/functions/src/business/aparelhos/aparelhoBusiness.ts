@@ -1,4 +1,5 @@
 import { aparelhoDataSource } from "../../datasource/exportDatasource";
+import { Aparelho } from "../../interfaces/exportInterfaces";
 
 class AparelhoBusiness{
 
@@ -14,8 +15,12 @@ class AparelhoBusiness{
         return aparelhoDataSource.consultarAparelhoPorId(id);
     }
 
-    criarAparelho = () => {
-        return aparelhoDataSource.criarAparelho();
+    criarAparelho = (aparelho: Aparelho) => {
+        return aparelhoDataSource.criarAparelho(aparelho);
+    }
+
+    alterarAparelho = (id: string, aparelho: Aparelho) => {
+        return aparelhoDataSource.alterarAparelho(id, aparelho);
     }
 
 }

@@ -1,4 +1,5 @@
 import { aparelhoBusiness } from "../../business/exportBusiness";
+import { Aparelho } from "../../interfaces/exportInterfaces";
 
 class AparelhoController{
 
@@ -14,8 +15,12 @@ class AparelhoController{
         return aparelhoBusiness.consultarAparelhoPorId(id);
     }
 
-    criarAparelho = () => {
-        return aparelhoBusiness.criarAparelho();
+    criarAparelho = (aparelho: Aparelho) => {
+        return aparelhoBusiness.criarAparelho(aparelho);
+    }
+
+    alterarAparelho = (id: string, aparelho: Aparelho) => {
+        return aparelhoBusiness.alterarAparelho(id, aparelho);
     }
 
 }

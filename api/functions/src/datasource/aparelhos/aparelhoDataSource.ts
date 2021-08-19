@@ -1,4 +1,4 @@
-import { MessageTreatment } from '../../interfaces/exportInterfaces';
+import { Aparelho, MessageTreatment } from '../../interfaces/exportInterfaces';
 import { messageTreatmentBusiness } from '../../business/exportBusiness';
 
 import * as admin from 'firebase-admin';
@@ -24,7 +24,7 @@ class AparelhoDataSource {
         return await this.collection.where('idUsuario', '==', idUsuario).get()
             .then(async (result) => {
                 if (result.empty) {
-                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.', result.docs.map(doc => doc.data()));
+                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
                 }
                 else {
                     return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', result.docs.map(doc => doc.data()));
@@ -40,7 +40,7 @@ class AparelhoDataSource {
         return await this.collection.doc(id).get()
             .then(async (result) => {
                 if (!result.exists) {
-                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.', result.data());
+                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
                 }
                 else {
                     return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', result.data());
@@ -49,6 +49,18 @@ class AparelhoDataSource {
             .catch((error) => {
                 return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelho, tente novamente.', error);
             });
+    }
+
+    criarAparelho = async (aparelho: Aparelho): Promise<MessageTreatment> => {
+        let documentoInserido = await firestore.collection('aparelho').doc().set(aparelho);
+        
+        return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} adicionado.`, documentoInserido);
+    }
+
+    alterarAparelho = async (id: string, aparelho: Aparelho): Promise<MessageTreatment> => {
+        let documentoInserido = await firestore.collection('aparelho').doc(id).set(aparelho);
+        
+        return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} alterado.`, documentoInserido);
     }
 }
 
