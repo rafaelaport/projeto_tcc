@@ -141,8 +141,11 @@
                                                             <div class="row-sm-2">
                                                                 <button class="btn btn-info mr-1"
                                                                     type="button">Medir</button>
-                                                                <button class="btn btn-primary"
-                                                                    type="button">Consultar</button>
+                                                                <button 
+                                                                    class="btn btn-primary"
+                                                                    type="button"
+                                                                    id="buttonConsultCpfCnpj"
+                                                                    >Consultar</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -174,6 +177,26 @@
     <!-- Custom and plugin javascript -->
     <script src="../js/inspinia.js"></script>
     <script src="../js/plugins/pace/pace.min.js"></script>
+
+    <script>
+        function jqxhr () { $.get("http://localhost:5001/projeto-tcc-209b6/us-central1/aparelhos/aparelhos-por-usuario/10", function (response) {
+          console.log(response);
+        })
+          .done(function () {
+            alert("second success");
+          })
+          .fail(function () {
+            alert("error");
+          })
+          .always(function () {
+            alert("finished");
+          }); }
+
+          $("#buttonConsultCpfCnpj").on('click', function () { 
+              jqxhr();
+           })
+      </script>
+      
 
 </body>
 
