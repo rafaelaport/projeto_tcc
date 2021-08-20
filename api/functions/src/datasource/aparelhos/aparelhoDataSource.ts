@@ -12,18 +12,15 @@ class AparelhoDataSource {
     consultarTodosAparelhos = async (): Promise<MessageTreatment> => {
 
         return await this.collection.get().then(async (result) => {
-            
-            const aparelhos: Aparelho[] = [];
+
+            const aparelhos: Array<Aparelho> = new Array<Aparelho>();
 
             result.docs.map(doc => {
                 const aparelho = doc.data() as Aparelho;
                 aparelho.id = doc.id;
 
                 aparelhos.push(aparelho);
-                //console.log(aparelho);
             })
-            
-            console.log(aparelhos);
 
             return messageTreatmentBusiness.sucessMsg('Aparelhos encontrados.', aparelhos);
         })
@@ -36,11 +33,23 @@ class AparelhoDataSource {
 
         return await this.collection.where('idUsuario', '==', idUsuario).get()
             .then(async (result) => {
+
                 if (result.empty) {
+
                     return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
                 }
                 else {
-                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', result.docs.map(doc => doc.data()));
+
+                    const aparelhos: Array<Aparelho> = new Array<Aparelho>();
+
+                    result.docs.map(doc => {
+                        const aparelho = doc.data() as Aparelho;
+                        aparelho.id = doc.id;
+
+                        aparelhos.push(aparelho);
+                    })
+
+                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', aparelhos);
                 }
             })
             .catch((error) => {
@@ -53,10 +62,15 @@ class AparelhoDataSource {
         return await this.collection.doc(id).get()
             .then(async (result) => {
                 if (!result.exists) {
+
                     return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
                 }
                 else {
-                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', result.data());
+
+                    const aparelho = result.data() as Aparelho;
+                    aparelho.id = result.id;
+
+                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', aparelho);
                 }
             })
             .catch((error) => {
@@ -65,15 +79,26 @@ class AparelhoDataSource {
     }
 
     criarAparelho = async (aparelho: Aparelho): Promise<MessageTreatment> => {
-        let documentoInserido = await firestore.collection('aparelho').doc().set(aparelho);
-        
+        let documentoInserido = await this.collection.doc().set(aparelho);
+
         return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} adicionado.`, documentoInserido);
     }
 
     alterarAparelho = async (id: string, aparelho: Aparelho): Promise<MessageTreatment> => {
-        let documentoInserido = await firestore.collection('aparelho').doc(id).set(aparelho);
-        
+        let documentoInserido = await this.collection.doc(id).set(aparelho);
+
         return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} alterado.`, documentoInserido);
+    }
+
+    excluirAparelho = async (id: string): Promise<MessageTreatment> => {
+        
+        return await this.collection.doc(id).delete()
+            .then(function () {
+                return messageTreatmentBusiness.sucessMsg(`Aparelho com o id ${id} removido.`);
+            })
+            .catch(function (error) {
+                return messageTreatmentBusiness.errorMsg('Falha ao remover aparelgo, tente novamente.', error);
+            })
     }
 }
 

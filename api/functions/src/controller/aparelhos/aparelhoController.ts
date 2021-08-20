@@ -23,6 +23,10 @@ class AparelhoController{
         return aparelhoBusiness.alterarAparelho(id, aparelho);
     }
 
+    excluirAparelho = (id: string) => {
+        return aparelhoBusiness.excluirAparelho(id);
+    }
+
 }
 
 export const aparelhoController = new AparelhoController();

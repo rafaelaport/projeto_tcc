@@ -23,6 +23,10 @@ class AparelhoBusiness{
         return aparelhoDataSource.alterarAparelho(id, aparelho);
     }
 
+    excluirAparelho = (id: string) => {
+        return aparelhoDataSource.excluirAparelho(id);
+    }
+
 }
 
 export const aparelhoBusiness = new AparelhoBusiness();

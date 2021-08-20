@@ -31,6 +31,7 @@ appAparelhos.get('/aparelhos-por-usuario/:idUsuario', async (req, res) => { res.
 appAparelhos.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
 appAparelhos.post('/salvar', async (req, res) => { res.json(await aparelhoController.criarAparelho(req.body)) });
 appAparelhos.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.alterarAparelho(req.params.id, req.body)) });
+appAparelhos.delete('/excluir/:id', async (req, res) => { res.json(await aparelhoController.excluirAparelho(req.params.id)) });
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);
