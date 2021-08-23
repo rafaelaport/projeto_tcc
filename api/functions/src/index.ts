@@ -9,13 +9,14 @@ admin.initializeApp({
 import * as functions from 'firebase-functions';
 import * as express from 'express';
 
-import {aparelhoController} from './controller/exportControllers';
+import {aparelhoController, historicoController} from './controller/exportControllers';
 
 const cors = require('cors');
 
 // APIS
 let appApi = express();
 let appAparelhos = express();
+let appHistoricos = express();
 
 appApi.use(cors());
 appAparelhos.use(cors());
@@ -27,13 +28,19 @@ appApi.get('/', function(req, res){
 
 // ROTA - APARELHOS
 appAparelhos.get('/', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
-appAparelhos.get('/aparelhos-por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
+appAparelhos.get('/por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
 appAparelhos.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
 appAparelhos.post('/salvar', async (req, res) => { res.json(await aparelhoController.criarAparelho(req.body)) });
 appAparelhos.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.alterarAparelho(req.params.id, req.body)) });
 appAparelhos.delete('/excluir/:id', async (req, res) => { res.json(await aparelhoController.excluirAparelho(req.params.id)) });
 
+// ROTA - HISTORICOS 
+appHistoricos.get('/', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
+appHistoricos.get('/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
+//appHistoricos.get('/medir', async (req, res) => { res.json(await historicoController.medirPh( )) });
+
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);
 exports.aparelhos = functions.https.onRequest(appAparelhos);
+exports.historicos = functions.https.onRequest(appHistoricos);
 
