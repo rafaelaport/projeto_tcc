@@ -9,6 +9,10 @@ class HistoricoController {
     consultarHistoricosPorAparelho = (idAparelho: string) => {
         return historicoBusiness.consultarHistoricosPorAparelho(idAparelho);
     }
+
+    salvarHistorico = (idAparelho: string) => {
+        return historicoBusiness.salvarHistorico(idAparelho);
+    }
 }
 
 export const historicoController = new HistoricoController();

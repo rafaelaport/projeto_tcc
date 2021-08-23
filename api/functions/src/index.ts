@@ -37,7 +37,7 @@ appAparelhos.delete('/excluir/:id', async (req, res) => { res.json(await aparelh
 // ROTA - HISTORICOS 
 appHistoricos.get('/', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
 appHistoricos.get('/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
-//appHistoricos.get('/medir', async (req, res) => { res.json(await historicoController.medirPh( )) });
+appHistoricos.get('/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);

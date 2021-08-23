@@ -97,7 +97,7 @@ class AparelhoDataSource {
                 return messageTreatmentBusiness.sucessMsg(`Aparelho com o id ${id} removido.`);
             })
             .catch(function (error) {
-                return messageTreatmentBusiness.errorMsg('Falha ao remover aparelgo, tente novamente.', error);
+                return messageTreatmentBusiness.errorMsg('Falha ao remover aparelho, tente novamente.', error);
             })
     }
 }

@@ -56,6 +56,13 @@ class HistoricoDataSource {
                 return messageTreatmentBusiness.errorMsg('Falha ao buscar histórico, tente novamente.', error);
             });
     }
+
+    salvarHistorico = async (historico: Historico): Promise<MessageTreatment> => {
+        
+        let documentoInserido = await this.collection.doc().set(historico);
+
+        return messageTreatmentBusiness.sucessMsg(`Histórico adicionado.`, documentoInserido);
+    }
 }
 
 export const historicoDataSource = new HistoricoDataSource();
