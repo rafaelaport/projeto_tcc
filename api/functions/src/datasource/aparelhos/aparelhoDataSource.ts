@@ -11,7 +11,8 @@ class AparelhoDataSource {
 
     consultarTodosAparelhos = async (): Promise<MessageTreatment> => {
 
-        return await this.collection.get().then(async (result) => {
+        try {
+            const result = await this.collection.get();
 
             const aparelhos: Array<Aparelho> = new Array<Aparelho>();
 
@@ -23,82 +24,95 @@ class AparelhoDataSource {
             })
 
             return messageTreatmentBusiness.sucessMsg('Aparelhos encontrados.', aparelhos);
-        })
-            .catch((error) => {
-                return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelhos, tente novamente.', error);
-            });
+        }
+        catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelhos, entre em contato com o administrador.', error);
+        }
     }
 
     consultarAparelhosPorUsuario = async (idUsuario: string): Promise<MessageTreatment> => {
 
-        return await this.collection.where('idUsuario', '==', idUsuario).get()
-            .then(async (result) => {
+        try {
+            const result = await this.collection.where('idUsuario', '==', idUsuario).get();
 
-                if (result.empty) {
+            if (result.empty) {
 
-                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
-                }
-                else {
+                return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
+            }
+            else {
 
-                    const aparelhos: Array<Aparelho> = new Array<Aparelho>();
+                const aparelhos: Array<Aparelho> = new Array<Aparelho>();
 
-                    result.docs.map(doc => {
-                        const aparelho = doc.data() as Aparelho;
-                        aparelho.id = doc.id;
+                result.docs.map(doc => {
+                    const aparelho = doc.data() as Aparelho;
+                    aparelho.id = doc.id;
 
-                        aparelhos.push(aparelho);
-                    })
+                    aparelhos.push(aparelho);
+                })
 
-                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', aparelhos);
-                }
-            })
-            .catch((error) => {
-                return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelho, tente novamente.', error);
-            });
+                return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', aparelhos);
+            }
+        }
+        catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelho, entre em contato com o administrador.', error);
+        }
     }
 
     consultarAparelhoPorId = async (id: string): Promise<MessageTreatment> => {
 
-        return await this.collection.doc(id).get()
-            .then(async (result) => {
-                if (!result.exists) {
+        try {
+            const response = await this.collection.doc(id).get();
 
-                    return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
-                }
-                else {
+            if (!response.exists) {
 
-                    const aparelho = result.data() as Aparelho;
-                    aparelho.id = result.id;
+                return messageTreatmentBusiness.sucessMsg("Aparelho não encontrado.");
 
-                    return messageTreatmentBusiness.sucessMsg('Aparelho encontrado.', aparelho);
-                }
-            })
-            .catch((error) => {
-                return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelho, tente novamente.', error);
-            });
+            } else {
+
+                const aparelho = response.data() as Aparelho;
+                aparelho.id = response.id;
+
+                return messageTreatmentBusiness.sucessMsg("Aparelho encontrado.", aparelho);
+            }
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg("Falha ao buscar aparelho, entre em contato com o administrador.");
+        }
     }
 
-    criarAparelho = async (aparelho: Aparelho): Promise<MessageTreatment> => {
-        let documentoInserido = await this.collection.doc().set(aparelho);
+    salvarAparelho = async (aparelho: Aparelho): Promise<MessageTreatment> => {
+        try {
+            let documentoInserido = await this.collection.doc().set(aparelho);
 
-        return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} adicionado.`, documentoInserido);
+            return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} adicionado.`, documentoInserido);
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao adicionar aparelho, entre em contato com o administrador.', error);
+        }
+
     }
 
-    alterarAparelho = async (id: string, aparelho: Aparelho): Promise<MessageTreatment> => {
-        let documentoInserido = await this.collection.doc(id).set(aparelho);
+    editarAparelho = async (id: string, aparelho: Aparelho): Promise<MessageTreatment> => {
 
-        return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} alterado.`, documentoInserido);
+        try {
+            let documentoInserido = await this.collection.doc(id).set(aparelho);
+
+            return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} alterado.`, documentoInserido);
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao alterar aparelho, entre em contato com o administrador.', error);
+        }
+
     }
 
     excluirAparelho = async (id: string): Promise<MessageTreatment> => {
-        
-        return await this.collection.doc(id).delete()
-            .then(function () {
-                return messageTreatmentBusiness.sucessMsg(`Aparelho com o id ${id} removido.`);
-            })
-            .catch(function (error) {
-                return messageTreatmentBusiness.errorMsg('Falha ao remover aparelho, tente novamente.', error);
-            })
+
+        try {
+            await this.collection.doc(id).delete();
+            return messageTreatmentBusiness.sucessMsg(`Aparelho com o id ${id} removido.`);
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao remover aparelho, entre em contato com o administrador.', error);
+        }
     }
 }
 

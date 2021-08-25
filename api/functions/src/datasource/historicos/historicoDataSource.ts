@@ -11,7 +11,8 @@ class HistoricoDataSource {
 
     consultarTodosHistoricos = async (): Promise<MessageTreatment> => {
 
-        return await this.collection.get().then(async (result) => {
+        try {
+            const result = await this.collection.get();
 
             const historicos: Array<Historico> = new Array<Historico>();
 
@@ -23,45 +24,51 @@ class HistoricoDataSource {
             })
 
             return messageTreatmentBusiness.sucessMsg('Históricos encontrados.', historicos);
-        })
-            .catch((error) => {
-                return messageTreatmentBusiness.errorMsg('Falha ao buscar históricos, tente novamente.', error);
-            });
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao buscar históricos, entre em contato com o administrador.', error);
+        }
     }
 
-    consultarHistoricosPorAparelho =  async (idAparelho: string): Promise<MessageTreatment> => {
+    consultarHistoricosPorAparelho = async (idAparelho: string): Promise<MessageTreatment> => {
 
-        return await this.collection.where('idAparelho', '==', idAparelho).get()
-            .then(async (result) => {
+        try {
+            const result = await this.collection.where('idAparelho', '==', idAparelho).get();
 
-                if (result.empty) {
+            if (result.empty) {
 
-                    return messageTreatmentBusiness.sucessMsg('Histórico não encontrado.');
-                }
-                else {
+                return messageTreatmentBusiness.sucessMsg('Histórico não encontrado.');
+            }
+            else {
 
-                    const historicos: Array<Historico> = new Array<Historico>();
+                const historicos: Array<Historico> = new Array<Historico>();
 
-                    result.docs.map(doc => {
-                        const historico = doc.data() as Historico;
-                        historico.id = doc.id;
+                result.docs.map(doc => {
+                    const historico = doc.data() as Historico;
+                    historico.id = doc.id;
 
-                        historicos.push(historico);
-                    })
+                    historicos.push(historico);
+                })
 
-                    return messageTreatmentBusiness.sucessMsg('Histórico encontrado.', historicos);
-                }
-            })
-            .catch((error) => {
-                return messageTreatmentBusiness.errorMsg('Falha ao buscar histórico, tente novamente.', error);
-            });
+                return messageTreatmentBusiness.sucessMsg('Histórico encontrado.', historicos);
+            }
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao buscar histórico, entre em contato com o administrador.', error);
+        }
     }
 
     salvarHistorico = async (historico: Historico): Promise<MessageTreatment> => {
-        
-        let documentoInserido = await this.collection.doc().set(historico);
 
-        return messageTreatmentBusiness.sucessMsg(`Histórico adicionado.`, documentoInserido);
+        try {
+            let documentoInserido = await this.collection.doc().set(historico);
+
+            return messageTreatmentBusiness.sucessMsg(`Histórico adicionado.`, documentoInserido);
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao adicionar histórico, entre em contato com o administrador.', error);
+        }
+
     }
 }
 

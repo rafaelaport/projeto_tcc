@@ -1,5 +1,5 @@
-import { historicoDataSource } from '../../datasource/exportDatasource'
-import { Historico } from '../../interfaces/exportInterfaces';
+import { historicoDataSource, aparelhoDataSource } from '../../datasource/exportDatasource';
+import { Aparelho } from '../../interfaces/exportInterfaces';
 
 const axios = require('axios')
 
@@ -13,16 +13,16 @@ class HistoricoBusiness {
         return historicoDataSource.consultarHistoricosPorAparelho(idAparelho);
     }
 
-    salvarHistorico = (idAparelho: string) => {
+    salvarHistorico = async (idAparelho: string) => {
 
         //CONSULTAR APARELHO
-        const aparelho = this.consultarHistoricosPorAparelho(idAparelho);
+        const aparelho: Aparelho = (await aparelhoDataSource.consultarAparelhoPorId(idAparelho)).response;
+        const ip = aparelho.ip.replace(/\,/g,'.');
         
         const historico: any = null;
 
-        
         //MEDIR PH -- PASSAR INFORMAÇÕES DO APARELHO PARA ARDUINO
-        axios.get('http://192.168.0.18').then(function (resposta: any) {
+        axios.get(`http://${ip}`).then(function (resposta: any) {
 
             historico.leitura = resposta.data.leitura_ph;
             console.log(resposta.data.leitura_ph);
@@ -38,7 +38,7 @@ class HistoricoBusiness {
         
 
         //SALVAR HISTORICO
-        return historicoDataSource.salvarHistorico(historico);
+        //return historicoDataSource.salvarHistorico(historico);
     }
 }
 

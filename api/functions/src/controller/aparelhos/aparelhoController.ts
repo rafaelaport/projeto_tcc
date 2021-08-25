@@ -15,12 +15,12 @@ class AparelhoController{
         return aparelhoBusiness.consultarAparelhoPorId(id);
     }
 
-    criarAparelho = (aparelho: Aparelho) => {
-        return aparelhoBusiness.criarAparelho(aparelho);
+    salvarAparelho = (aparelho: Aparelho) => {
+        return aparelhoBusiness.salvarAparelho(aparelho);
     }
 
-    alterarAparelho = (id: string, aparelho: Aparelho) => {
-        return aparelhoBusiness.alterarAparelho(id, aparelho);
+    editarAparelho = (id: string, aparelho: Aparelho) => {
+        return aparelhoBusiness.editarAparelho(id, aparelho);
     }
 
     excluirAparelho = (id: string) => {

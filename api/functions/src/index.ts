@@ -30,8 +30,8 @@ appApi.get('/', function(req, res){
 appAparelhos.get('/', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
 appAparelhos.get('/por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
 appAparelhos.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
-appAparelhos.post('/salvar', async (req, res) => { res.json(await aparelhoController.criarAparelho(req.body)) });
-appAparelhos.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.alterarAparelho(req.params.id, req.body)) });
+appAparelhos.post('/salvar', async (req, res) => { res.json(await aparelhoController.salvarAparelho(req.body)) });
+appAparelhos.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.editarAparelho(req.params.id, req.body)) });
 appAparelhos.delete('/excluir/:id', async (req, res) => { res.json(await aparelhoController.excluirAparelho(req.params.id)) });
 
 // ROTA - HISTORICOS 

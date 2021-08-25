@@ -15,12 +15,12 @@ class AparelhoBusiness{
         return aparelhoDataSource.consultarAparelhoPorId(id);
     }
 
-    criarAparelho = (aparelho: Aparelho) => {
-        return aparelhoDataSource.criarAparelho(aparelho);
+    salvarAparelho = (aparelho: Aparelho) => {
+        return aparelhoDataSource.salvarAparelho(aparelho);
     }
 
-    alterarAparelho = (id: string, aparelho: Aparelho) => {
-        return aparelhoDataSource.alterarAparelho(id, aparelho);
+    editarAparelho = (id: string, aparelho: Aparelho) => {
+        return aparelhoDataSource.editarAparelho(id, aparelho);
     }
 
     excluirAparelho = (id: string) => {
