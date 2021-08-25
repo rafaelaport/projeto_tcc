@@ -92,14 +92,16 @@
                         </div>
 
                         <div class="ibox-content">
-                            <form>
+                            <form id="formCheckUser">
                                 <div class="form-group row">
                                     <div class="col-sm-12">
                                         <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
-                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj" />
+                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj"
+                                            value="" required maxlength="18" />
                                         <span class="text-muted">Insira apenas números</span>
                                         <div class="row-sm-2 mt-3">
-                                            <button class="btn btn-primary" type="submit">
+                                            <button class="btn btn-primary" type="submit" name="buttonCheckUser"
+                                                id="buttonCheckUser">
                                                 Avançar
                                             </button>
                                         </div>
@@ -109,7 +111,7 @@
                         </div>
                     </div>
                     <!-- Div para informar os dados do usuário -->
-                    <div class="mt-3">
+                    <div class="mt-3" id="divAddForm">
                         <div class="ibox-title">
                             <h5>Formulário de cadastro</h5>
                         </div>
@@ -123,7 +125,8 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label class="col-form-label" for="inputFullName">Nome completo</label>
+                                                    <label class="col-form-label" for="inputFullName">Nome
+                                                        completo</label>
                                                     <input type="text" class="form-control" name="inputFullName"
                                                         id="inputFullName" />
                                                 </div>
@@ -136,7 +139,8 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label class="col-form-label" for="inputDeviceName">Nome/Local</label>
+                                                    <label class="col-form-label"
+                                                        for="inputDeviceName">Nome/Local</label>
                                                     <input type="text" class="form-control" name="inputDeviceName"
                                                         id="inputDeviceName" />
                                                 </div>
@@ -146,17 +150,19 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <div class="col-md-6"></div>
-                                                    <label class="col-form-label" for="inputDeviceIp">IP do aparelho</label>
+                                                    <label class="col-form-label" for="inputDeviceIp">IP do
+                                                        aparelho</label>
                                                     <input type="text" class="form-control" name="inputDeviceIp"
-                                                        id="inputDeviceIp"/>
+                                                        id="inputDeviceIp" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <div class="col-md-6"></div>
-                                                    <label class="col-form-label" for="inputRecipeCapacity">Capacidade(L)</label>
+                                                    <label class="col-form-label"
+                                                        for="inputRecipeCapacity">Capacidade(L)</label>
                                                     <input type="text" class="form-control" name="inputRecipeCapacity"
-                                                        id="inputRecipeCapacity"/>
+                                                        id="inputRecipeCapacity" />
                                                 </div>
                                             </div>
                                         </div>
@@ -164,24 +170,35 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <div class="col-md-6"></div>
-                                                    <label class="col-form-label" for="inputNetworkName">Nome da rede</label>
+                                                    <label class="col-form-label" for="inputNetworkName">Nome da
+                                                        rede</label>
                                                     <input type="text" class="form-control" name="inputNetworkName"
-                                                        id="inputNetworkName"/>
+                                                        id="inputNetworkName" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <div class="col-md-6"></div>
-                                                    <label class="col-form-label" for="inputNetworkPassword">Senha da rede</label>
+                                                    <label class="col-form-label" for="inputNetworkPassword">Senha da
+                                                        rede</label>
                                                     <input type="text" class="form-control" name="inputNetworkPassword"
-                                                        id="inputNetworkPassword"/>
+                                                        id="inputNetworkPassword" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <button class="btn btn-primary" type="submit">
-                                                Cadastrar
-                                            </button>
+                                            <div class="col">
+                                                <button class="btn btn-primary" type="submit" name="buttonAddDevice"
+                                                    id="buttonAddDevice">
+                                                    Cadastrar
+                                                </button>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-primary" type="submit"
+                                                    name="buttonAddAnotherDevice" id="buttonAddAnotherDevice">
+                                                    Cadastrar e adicionar outro aparelho
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -204,6 +221,56 @@
     <!-- Custom and plugin javascript -->
     <script src="../js/inspinia.js"></script>
     <script src="../js/plugins/pace/pace.min.js"></script>
+
+    <!-- Custom scripts test -->
+    <script>
+        var cpf = "99999999999";
+        /* Verifica, ao carregar a página, se o campo de cpf/cnpj está preenchido */
+        $(document).ready(function () {
+            if ($("#inputCpfCnpj").val() === "") {
+                $("#divAddForm").hide();
+            }
+        });
+
+        $("#inputCpfCnpj").on("blur", function (event) {
+
+            checkCpfCnpj(event.target);
+
+        });
+
+        $("#formCheckUser").submit(function (event) {
+            event.preventDefault();
+            if ($("#inputCpfCnpj").val() === cpf) {
+                alert("Usuário existe");
+            }
+        });
+
+        function formatCpfCnpj(text) {
+            const badchars = /[^\d]/g
+            const maskCpf = /(\d{3})(\d{3})(\d{3})(\d{2})/
+            const maskCnpj = /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/
+            const value = new String(text).replace(badchars, "");
+            if (value.length === 11) {
+                return value.replace(maskCpf, "$1.$2.$3-$4");
+            } else if (value.length === 14) {
+                return value.replace(maskCnpj, "$1.$2.$3/$4-$5");
+            } else {
+                return value;
+            }
+        }
+
+        function checkCpfCnpj(idField) {
+            console.log(idField.id)
+            if (idField.value.length === 11 || idField.value.length === 14 || idField.value.length ===
+                18) {
+                $("#"+idField.id).val(formatCpfCnpj(idField.value));
+                $("#"+idField.id).css("border-color", "#1ab394");
+            } else {
+                $("#"+idField.id).val(formatCpfCnpj(idField.value));
+                $("#"+idField.id).css("border-color", "#ED5565");
+            }
+        }
+    </script>
 </body>
 
 </html>
