@@ -1,5 +1,5 @@
-import { historicoDataSource, aparelhoDataSource } from '../../datasource/exportDatasource';
-import { Aparelho } from '../../interfaces/exportInterfaces';
+import {  aparelhoDataSource, historicoDataSource } from '../../datasource/exportDatasource';
+import {  Historico } from '../../interfaces/exportInterfaces';
 
 const axios = require('axios')
 
@@ -15,30 +15,46 @@ class HistoricoBusiness {
 
     salvarHistorico = async (idAparelho: string) => {
 
-        //CONSULTAR APARELHO
-        const aparelho: Aparelho = (await aparelhoDataSource.consultarAparelhoPorId(idAparelho)).response;
-        const ip = aparelho.ip.replace(/\,/g,'.');
-        
-        const historico: any = null;
+        //CONSULTAR CAPACIDADE
+        const capacidadeLitros = (await aparelhoDataSource.consultarAparelhoPorId(idAparelho)).response.capacidadeLitros;
+                
+        //MEDIR PH 
+        const retornoLeituraArduino = (await axios.post('http://192.168.0.18')).data;
 
-        //MEDIR PH -- PASSAR INFORMAÇÕES DO APARELHO PARA ARDUINO
-        axios.get(`http://${ip}`).then(function (resposta: any) {
-
-            historico.leitura = resposta.data.leitura_ph;
-            console.log(resposta.data.leitura_ph);
-
-        }).catch(function (error: any) {
-            console.log(error);
-        });
-
+        const historico = { } as Historico;
+        historico.idAparelho = idAparelho;
+        historico.leitura = retornoLeituraArduino.leitura_ph;
 
         //CALCULAR PRODUTO
+        if(historico.leitura >= 7,4 && historico.leitura <= 8){
+            // redutor 13ml/m3
+            // 1000 L = 1m3
+            let capacidadeMetrosCubicos = capacidadeLitros / 1000;
+            historico.quantidadeProduto = 13 * capacidadeMetrosCubicos;
+        }
 
-
+        if(historico.leitura > 8 ){
+            //redutor 25ml/m3
+            let capacidadeMetrosCubicos = capacidadeLitros / 1000;
+            historico.quantidadeProduto = 25 * capacidadeMetrosCubicos;
+        }
         
+        if(historico.leitura >= 6,8 && historico.leitura <= 7){
+            //elevador 15ml/m3            
+            let capacidadeMetrosCubicos = capacidadeLitros / 1000;
+            historico.quantidadeProduto = 15 * capacidadeMetrosCubicos;
+        }
+        
+        if(historico.leitura < 6,8){
+            //elevador 20ml/m3
+            let capacidadeMetrosCubicos = capacidadeLitros / 1000;
+            historico.quantidadeProduto = 20 * capacidadeMetrosCubicos;
+        }
 
+        //TRANSFORMAR ML PARA L QUANDO NECESSARIO
+            
         //SALVAR HISTORICO
-        //return historicoDataSource.salvarHistorico(historico);
+        return historicoDataSource.salvarHistorico(historico);
     }
 }
 
