@@ -240,7 +240,14 @@
 
         $("#formCheckUser").submit(function (event) {
             event.preventDefault();
-            if ($("#inputCpfCnpj").val() === cpf) {
+            // criar function para validar cpf 
+            // criar function para abrir o form de aparelhos
+            // criar function para bloquear o field de CPF
+            // criar function para limpar os dados do form de aparelho
+            // criar function para salvar um aparelho e mudar de pagina
+            // criar function para salvar um aparelho e continuar na pagina
+
+            if (removeSpecialCharacters($("#inputCpfCnpj").val()) === cpf) {
                 alert("Usuário existe");
             }
         });
@@ -259,16 +266,20 @@
             }
         }
 
-        function checkCpfCnpj(idField) {
-            console.log(idField.id)
+        function handleCheckCpfCnpj(idField) {
             if (idField.value.length === 11 || idField.value.length === 14 || idField.value.length ===
                 18) {
-                $("#"+idField.id).val(formatCpfCnpj(idField.value));
-                $("#"+idField.id).css("border-color", "#1ab394");
+                $("#" + idField.id).val(formatCpfCnpj(idField.value));
+                $("#" + idField.id).css("border-color", "#1ab394");
             } else {
-                $("#"+idField.id).val(formatCpfCnpj(idField.value));
-                $("#"+idField.id).css("border-color", "#ED5565");
+                $("#" + idField.id).val(formatCpfCnpj(idField.value));
+                $("#" + idField.id).css("border-color", "#ED5565");
             }
+        }
+
+        function removeSpecialCharacters(fieldValue) {
+            let value = new String(fieldValue).replace(/(\-|\/|\.)/g, '');
+            return value;
         }
     </script>
 </body>
