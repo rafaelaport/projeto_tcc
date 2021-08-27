@@ -114,92 +114,103 @@
                     <div class="mt-3" id="divAddForm">
                         <div class="ibox-title">
                             <h5>Formulário de cadastro</h5>
+                            <br>
+                            <span class="text-muted" id="spanUserResponse"></span>
                         </div>
                         <div class="ibox-content">
                             <form>
                                 <div class="">
                                     <div class="col-sm-12 col-md-12">
-                                        <div class="row">
-                                            <h3>Usuário</h3>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="inputFullName">Nome
-                                                        completo</label>
-                                                    <input type="text" class="form-control" name="inputFullName"
-                                                        id="inputFullName" />
+                                        <section id="sectionUser">
+                                            <div class="row">
+                                                <h3>Usuário</h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="inputFullName">Nome
+                                                            completo</label>
+                                                        <input type="text" class="form-control" name="inputFullName"
+                                                            id="inputFullName" required />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="row">
-                                            <h3>Aparelho</h3>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label class="col-form-label"
-                                                        for="inputDeviceName">Nome/Local</label>
-                                                    <input type="text" class="form-control" name="inputDeviceName"
-                                                        id="inputDeviceName" />
+                                            <div class="hr-line-dashed"></div>
+                                        </section>
+                                        <section id="sectionDevice">
+                                            <div class="row">
+                                                <h3>Aparelho</h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label"
+                                                            for="inputDeviceName">Nome/Local</label>
+                                                        <input type="text" class="form-control" name="inputDeviceName"
+                                                            id="inputDeviceName" required />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <div class="col-md-6"></div>
-                                                    <label class="col-form-label" for="inputDeviceIp">IP do
-                                                        aparelho</label>
-                                                    <input type="text" class="form-control" name="inputDeviceIp"
-                                                        id="inputDeviceIp" />
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <div class="col-md-6"></div>
+                                                        <label class="col-form-label" for="inputDeviceIp">IP do
+                                                            aparelho</label>
+                                                        <input type="text" class="form-control" name="inputDeviceIp"
+                                                            id="inputDeviceIp" required />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <div class="col-md-6"></div>
+                                                        <label class="col-form-label"
+                                                            for="inputRecipeCapacity">Capacidade(L)</label>
+                                                        <input type="number" class="form-control"
+                                                            name="inputRecipeCapacity" id="inputRecipeCapacity"
+                                                            required />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <div class="col-md-6"></div>
-                                                    <label class="col-form-label"
-                                                        for="inputRecipeCapacity">Capacidade(L)</label>
-                                                    <input type="text" class="form-control" name="inputRecipeCapacity"
-                                                        id="inputRecipeCapacity" />
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <div class="col-md-6"></div>
+                                                        <label class="col-form-label" for="inputNetworkName">Nome da
+                                                            rede</label>
+                                                        <input type="text" class="form-control" name="inputNetworkName"
+                                                            id="inputNetworkName" required />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <div class="col-md-6"></div>
+                                                        <label class="col-form-label" for="inputNetworkPassword">Senha
+                                                            da
+                                                            rede</label>
+                                                        <input type="password" class="form-control"
+                                                            name="inputNetworkPassword" id="inputNetworkPassword"
+                                                            required />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <div class="col-md-6"></div>
-                                                    <label class="col-form-label" for="inputNetworkName">Nome da
-                                                        rede</label>
-                                                    <input type="text" class="form-control" name="inputNetworkName"
-                                                        id="inputNetworkName" />
+                                        </section>
+                                        <section id="sectionButtons">
+                                            <div class="row mt-3">
+                                                <div class="col">
+                                                    <button class="btn btn-primary" type="submit" name="buttonAddDevice"
+                                                        id="buttonAddDevice">
+                                                        Cadastrar
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <button class="btn btn-primary" type="submit"
+                                                        name="buttonAddAnotherDevice" id="buttonAddAnotherDevice">
+                                                        Cadastrar e adicionar outro aparelho
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <div class="col-md-6"></div>
-                                                    <label class="col-form-label" for="inputNetworkPassword">Senha da
-                                                        rede</label>
-                                                    <input type="text" class="form-control" name="inputNetworkPassword"
-                                                        id="inputNetworkPassword" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col">
-                                                <button class="btn btn-primary" type="submit" name="buttonAddDevice"
-                                                    id="buttonAddDevice">
-                                                    Cadastrar
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn btn-primary" type="submit"
-                                                    name="buttonAddAnotherDevice" id="buttonAddAnotherDevice">
-                                                    Cadastrar e adicionar outro aparelho
-                                                </button>
-                                            </div>
-                                        </div>
+                                        </section>
                                     </div>
                                 </div>
                             </form>
@@ -224,6 +235,13 @@
 
     <!-- Custom scripts test -->
     <script>
+        // [x] criar function para validar cpf 
+        // [x] criar function para abrir o form de aparelhos
+        // [x] criar function para bloquear o field de CPF
+        // [] criar function para limpar os dados do form de aparelho
+        // [] criar function para salvar um aparelho e mudar de pagina
+        // [] criar function para salvar um aparelho e continuar na pagina
+
         var cpf = "99999999999";
         /* Verifica, ao carregar a página, se o campo de cpf/cnpj está preenchido */
         $(document).ready(function () {
@@ -232,25 +250,32 @@
             }
         });
 
-        $("#inputCpfCnpj").on("blur", function (event) {
-
-            checkCpfCnpj(event.target);
-
+        $("#inputCpfCnpj").on("input", function (event) {
+            handleCheckCpfCnpj($("#inputCpfCnpj"));
         });
 
-        $("#formCheckUser").submit(function (event) {
+        $("#buttonCheckUser").on("click", function (event) {
             event.preventDefault();
-            // criar function para validar cpf 
-            // criar function para abrir o form de aparelhos
-            // criar function para bloquear o field de CPF
-            // criar function para limpar os dados do form de aparelho
-            // criar function para salvar um aparelho e mudar de pagina
-            // criar function para salvar um aparelho e continuar na pagina
-
-            if (removeSpecialCharacters($("#inputCpfCnpj").val()) === cpf) {
-                alert("Usuário existe");
+            if(handleCheckCpfCnpj($("#inputCpfCnpj"))){
+                handleFormShow();
             }
         });
+
+        $("#buttonAddDevice").on("click", function (event) {
+            event.preventDefault();
+            inputFullName
+            inputDeviceName
+            inputDeviceIp
+            inputRecipeCapacity
+            inputNetworkName
+            
+        });
+
+        $("#buttonAddAnotherDevice").on("click", function (event) {
+            event.preventDefault();
+            
+        });
+
 
         function formatCpfCnpj(text) {
             const badchars = /[^\d]/g
@@ -266,20 +291,35 @@
             }
         }
 
-        function handleCheckCpfCnpj(idField) {
-            if (idField.value.length === 11 || idField.value.length === 14 || idField.value.length ===
-                18) {
-                $("#" + idField.id).val(formatCpfCnpj(idField.value));
-                $("#" + idField.id).css("border-color", "#1ab394");
-            } else {
-                $("#" + idField.id).val(formatCpfCnpj(idField.value));
-                $("#" + idField.id).css("border-color", "#ED5565");
-            }
-        }
-
         function removeSpecialCharacters(fieldValue) {
             let value = new String(fieldValue).replace(/(\-|\/|\.)/g, '');
             return value;
+        }
+
+        function handleFormShow() {
+            if (removeSpecialCharacters($("#inputCpfCnpj").val()) === cpf) {
+                $("#spanUserResponse").text("Usuário já cadastrado.")
+                $("#divAddForm").fadeIn(1000);
+                $("#inputCpfCnpj").prop('disabled', true);
+                $("#sectionUser").hide();
+            } else {
+                $("#spanUserResponse").text("Usuário não cadastrado.")
+                $("#divAddForm").fadeIn(1000);
+                $("#inputCpfCnpj").prop('disabled', true);
+            }
+        }
+
+        function handleCheckCpfCnpj(idField) {
+            if (idField.val().length === 11 || idField.val().length === 14 || idField.val().length ===
+                18) {
+                $(idField).val(formatCpfCnpj(idField.val()));
+                $(idField).css("border-color", "#1ab394");
+                return true;
+            } else {
+                $(idField).val(formatCpfCnpj(idField.val()));
+                $(idField).css("border-color", "#ED5565");
+                return false;
+            }
         }
     </script>
 </body>
