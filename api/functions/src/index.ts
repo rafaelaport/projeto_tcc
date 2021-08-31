@@ -10,16 +10,20 @@ import * as functions from 'firebase-functions';
 import * as express from 'express';
 
 import {aparelhoController, historicoController} from './controller/exportControllers';
+import { usuariocontroller } from './controller/usuario/usuarioController';
 
 const cors = require('cors');
 
 // APIS
 let appApi = express();
-let appAparelhos = express();
-let appHistoricos = express();
+let appAparelho = express();
+let appHistorico = express();
+let appUsuario = express();
 
 appApi.use(cors());
-appAparelhos.use(cors());
+appAparelho.use(cors());
+appHistorico.use(cors());
+appUsuario.use(cors());
 
 // ROTA - API
 appApi.get('/', function(req, res){
@@ -27,20 +31,23 @@ appApi.get('/', function(req, res){
 });
 
 // ROTA - APARELHOS
-appAparelhos.get('/', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
-appAparelhos.get('/por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
-appAparelhos.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
-appAparelhos.post('/salvar', async (req, res) => { res.json(await aparelhoController.salvarAparelho(req.body)) });
-appAparelhos.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.editarAparelho(req.params.id, req.body)) });
-appAparelhos.delete('/excluir/:id', async (req, res) => { res.json(await aparelhoController.excluirAparelho(req.params.id)) });
+appAparelho.get('/', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
+appAparelho.get('/por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
+appAparelho.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
+appAparelho.post('/salvar', async (req, res) => { res.json(await aparelhoController.salvarAparelho(req.body)) });
+appAparelho.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.editarAparelho(req.params.id, req.body)) });
+appAparelho.delete('/excluir/:id', async (req, res) => { res.json(await aparelhoController.excluirAparelho(req.params.id)) });
 
 // ROTA - HISTORICOS 
-appHistoricos.get('/', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
-appHistoricos.get('/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
-appHistoricos.get('/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
+appHistorico.get('/', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
+appHistorico.get('/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
+appHistorico.get('/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
+
+// ROTA - USUARIO
+appUsuario.get('/:id', async (req, res) => { res.json(await usuariocontroller.consultarUsuarioPorId(req.params.id)) });
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);
-exports.aparelhos = functions.https.onRequest(appAparelhos);
-exports.historicos = functions.https.onRequest(appHistoricos);
+exports.aparelho = functions.https.onRequest(appAparelho);
+exports.historico = functions.https.onRequest(appHistorico);
 

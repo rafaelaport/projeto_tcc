@@ -1,0 +1,35 @@
+import { MessageTreatment, Usuario } from "../../interfaces/exportInterfaces";
+import { messageTreatmentBusiness } from "../../business/exportBusiness";
+
+import * as admin from 'firebase-admin';
+
+const firestore = admin.firestore();
+
+class UsuarioDataSource{
+
+    private collection = firestore.collection('usuario');
+
+    consultarUsuarioPorId = async (id: string): Promise<MessageTreatment> => {
+
+        try {
+            const response = await this.collection.doc(id).get();
+
+            if (!response.exists) {
+
+                return messageTreatmentBusiness.sucessMsg("Usuário não encontrado.");
+
+            } else {
+
+                const usuario = response.data() as Usuario;
+                usuario.id = response.id;
+
+                return messageTreatmentBusiness.sucessMsg("Usuário encontrado.", usuario);
+            }
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg("Falha ao buscar usuário, entre em contato com o administrador.");
+        }
+    }
+
+}
+
+export const usuarioDataSource = new UsuarioDataSource();

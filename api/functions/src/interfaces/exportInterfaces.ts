@@ -1,3 +1,4 @@
-export * from './aparelhos/Aparelho';
+export * from './aparelho/Aparelho';
 export * from './utils/MessageTreatment';
-export * from './historicos/Historico';
+export * from './historico/Historico';
+export * from './usuario/Usuario';

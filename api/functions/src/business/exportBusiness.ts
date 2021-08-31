@@ -1,3 +1,4 @@
-export * from './aparelhos/aparelhoBusiness';
+export * from './aparelho/aparelhoBusiness';
 export * from './utils/messageTreatmentBusiness';
-export * from './historicos/historicoBusiness'
+export * from './historico/historicoBusiness';
+export * from './usuario/usuarioBusiness';
