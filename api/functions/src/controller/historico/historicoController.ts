@@ -13,6 +13,10 @@ class HistoricoController {
     salvarHistorico = (idAparelho: string) => {
         return historicoBusiness.salvarHistorico(idAparelho);
     }
+
+    excluirHistoricoPorAparelho = (idAparelho: string) => {
+        return historicoBusiness.excluirHistoricoPorAparelho(idAparelho);
+    }
 }
 
 export const historicoController = new HistoricoController();

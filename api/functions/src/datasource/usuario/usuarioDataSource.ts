@@ -30,6 +30,42 @@ class UsuarioDataSource{
         }
     }
 
+    salvarUsuario = async (usuario: Usuario): Promise<MessageTreatment> => {
+        try {
+            let documentoInserido = await this.collection.doc().set(usuario);
+
+            return messageTreatmentBusiness.sucessMsg(`Usuário ${usuario.nome} adicionado.`, documentoInserido);
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao adicionar usuário, entre em contato com o administrador.', error);
+        }
+
+    }
+
+    editarUsuario = async (id: string, usuario: Usuario): Promise<MessageTreatment> => {
+
+        try {
+            let documentoInserido = await this.collection.doc(id).set(usuario);
+
+            return messageTreatmentBusiness.sucessMsg(`Usuário ${usuario.nome} alterado.`, documentoInserido);
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao alterar usuário, entre em contato com o administrador.', error);
+        }
+
+    }
+
+    excluirUsuario = async (id: string): Promise<MessageTreatment> => {
+
+        try {
+            await this.collection.doc(id).delete();
+            return messageTreatmentBusiness.sucessMsg(`Usuário com o id ${id} removido.`);
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao remover usuário, entre em contato com o administrador.', error);
+        }
+    }
+
 }
 
 export const usuarioDataSource = new UsuarioDataSource();

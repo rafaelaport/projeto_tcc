@@ -62,6 +62,10 @@ class HistoricoBusiness {
         }
 
     }
+
+    excluirHistoricoPorAparelho = (idAparelho: string) => {
+        return historicoDataSource.excluirHistoricoPorAparelho(idAparelho);
+    }
 }
 
 export const historicoBusiness = new HistoricoBusiness();

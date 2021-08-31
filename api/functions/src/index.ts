@@ -41,13 +41,18 @@ appAparelho.delete('/excluir/:id', async (req, res) => { res.json(await aparelho
 // ROTA - HISTORICOS 
 appHistorico.get('/', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
 appHistorico.get('/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
-appHistorico.get('/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
+appHistorico.post('/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
+appHistorico.delete('/excluir/:idAparelho', async (req, res) => { res.json(await historicoController.excluirHistoricoPorAparelho(req.params.idAparelho)) });
 
 // ROTA - USUARIO
 appUsuario.get('/:id', async (req, res) => { res.json(await usuariocontroller.consultarUsuarioPorId(req.params.id)) });
+appUsuario.post('/salvar', async (req, res) => { res.json(await usuariocontroller.salvarUsuario(req.body)) });
+appUsuario.put('/editar/:id', async (req, res) => { res.json(await usuariocontroller.editarUsuario(req.params.id, req.body)) });
+appUsuario.delete('/excluir/:id', async (req, res) => { res.json(await usuariocontroller.excluirUsuario(req.params.id)) });
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);
 exports.aparelho = functions.https.onRequest(appAparelho);
 exports.historico = functions.https.onRequest(appHistorico);
+exports.usuario = functions.https.onRequest(appUsuario);
 

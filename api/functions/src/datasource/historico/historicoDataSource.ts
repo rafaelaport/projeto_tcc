@@ -70,6 +70,29 @@ class HistoricoDataSource {
         }
 
     }
+
+    excluirHistoricoPorAparelho = async (idAparelho: string): Promise<MessageTreatment> => {
+
+        try {
+            const result = await this.collection.where('idAparelho', '==', idAparelho).get();
+
+            if (result.empty) {
+
+                return messageTreatmentBusiness.sucessMsg('Histórico do aparelho não encontrado.');
+            }
+            else {
+
+                result.docs.map(doc => {
+                    doc.ref.delete();
+                })
+
+                return messageTreatmentBusiness.sucessMsg(`Histórico do aparelho com o id ${idAparelho} removido.`);
+            }
+
+        } catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao remover histórico do aparelho, entre em contato com o administrador.', error);
+        }
+    }
 }
 
 export const historicoDataSource = new HistoricoDataSource();
