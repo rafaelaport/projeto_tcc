@@ -7,6 +7,10 @@ class UsuarioController{
         return usuarioBusiness.consultarUsuarioPorId(id);
     }
 
+    ConsultarUsuarioPorCpfCnpj = (cpf_cnpj: string) => {
+        return usuarioBusiness.ConsultarUsuarioPorCpfCnpj(cpf_cnpj);
+    }
+
     salvarUsuario = (usuario: Usuario) => {
         return usuarioBusiness.salvarUsuario(usuario);
     }

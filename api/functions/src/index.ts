@@ -46,6 +46,7 @@ appHistorico.delete('/excluir/:idAparelho', async (req, res) => { res.json(await
 
 // ROTA - USUARIO
 appUsuario.get('/:id', async (req, res) => { res.json(await usuariocontroller.consultarUsuarioPorId(req.params.id)) });
+appUsuario.get('/por-cpf-cnpj/:cpf_cnpj', async (req, res) => { res.json(await usuariocontroller.ConsultarUsuarioPorCpfCnpj(req.params.cpf_cnpj)) });
 appUsuario.post('/salvar', async (req, res) => { res.json(await usuariocontroller.salvarUsuario(req.body)) });
 appUsuario.put('/editar/:id', async (req, res) => { res.json(await usuariocontroller.editarUsuario(req.params.id, req.body)) });
 appUsuario.delete('/excluir/:id', async (req, res) => { res.json(await usuariocontroller.excluirUsuario(req.params.id)) });
