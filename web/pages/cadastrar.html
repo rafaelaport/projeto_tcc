@@ -81,7 +81,7 @@
                     <h2>Cadastrar</h2>
                 </div>
             </div>
-            <!-- Div para campo de conculta e tabela de aparelhos -->
+            <!-- -->
             <div class="row justify-content-md-center mt-3">
                 <div class="col-lg-4"></div>
                 <div class="col">
@@ -254,7 +254,6 @@
                 $("#divAddForm").hide();
             }
         });
-        set
 
         $(".input").on("input", function (event) {
             this.value = this.value.toUpperCase();
@@ -349,26 +348,33 @@
             });
         }
 
-        function addDevice() { 
+        function addDevice() {
             let isUserValidated = validateInputsForm("data-user");
             let isDeviceValidated = validateInputsForm("data-device");
             /**
              * Montar aqui o objeto para os post
              */
-            if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
-                if (isDeviceValidated) {
-                    alert("Aparelho cadastrado com sucesso!");
-                    window.location.href = 'consultar.html';
-                }
-            } else {
-                if (isDeviceValidated && isUserValidated) {
-                    alert("Aparelho cadastrado com sucesso!");
-                    window.location.href = 'consultar.html';
-                }
-            }
-         }
 
-         function addAnotherDevice() { 
+            const data = {
+                "nome": $("#inputFullName").val(),
+                "cpf": removeSpecialCharacters($("#inputCpfCnpj"))
+            }
+
+            if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
+                if (isDeviceValidated) {
+                    alert("Aparelho cadastrado com sucesso!");
+                    window.location.href = 'consultar.html';
+                }
+            } else {
+                if (isDeviceValidated && isUserValidated) {
+                    createUser(data);
+                    alert("Aparelho cadastrado com sucesso!");
+                    window.location.href = 'consultar.html';
+                }
+            }
+        }
+
+        function addAnotherDevice() {
             let isUserValidated = validateInputsForm("data-user");
             let isDeviceValidated = validateInputsForm("data-device");
             /**
@@ -385,7 +391,24 @@
                     clearFields("data-device");
                 }
             }
-          }
+        }
+
+        function createUser(data) {
+            /* data example
+             data: {
+                 name: "John",
+                 location: "Boston"
+                 }
+             */
+            let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/salvar";
+            $.post({
+                    url,
+                    data
+                })
+                .done(function (response) {
+                    console.log(response);
+                });
+        }
     </script>
 </body>
 
