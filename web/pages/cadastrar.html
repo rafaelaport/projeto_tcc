@@ -355,9 +355,16 @@
              * Montar aqui o objeto para os post
              */
 
-            const data = {
+            const dataUser = {
                 "nome": $("#inputFullName").val(),
-                "cpf": removeSpecialCharacters($("#inputCpfCnpj"))
+                "cpf": removeSpecialCharacters($("#inputCpfCnpj").val())
+            }
+
+            const dataDevice = {
+                "nome": $("#inputDeviceName").val(),
+                "idUsuario": $("#inputCpfCnpj").val(),
+                "capacidadeLitros": $("#inputRecipeCapacity").val()
+
             }
 
             if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
@@ -367,7 +374,7 @@
                 }
             } else {
                 if (isDeviceValidated && isUserValidated) {
-                    createUser(data);
+                    createUser(dataUser);
                     alert("Aparelho cadastrado com sucesso!");
                     window.location.href = 'consultar.html';
                 }
