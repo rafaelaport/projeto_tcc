@@ -7,6 +7,10 @@ class UsuarioBusiness{
         return usuarioDataSource.consultarUsuarioPorId(id);
     }
 
+    ConsultarUsuarioPorCpfCnpj = (cpf_cnpj: string) => {
+        return usuarioDataSource.ConsultarUsuarioPorCpfCnpj(cpf_cnpj);
+    }
+
     salvarUsuario = (usuario: Usuario) => {
         return usuarioDataSource.salvarUsuario(usuario);
     }

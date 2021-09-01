@@ -20,14 +20,14 @@ class HistoricoBusiness {
             const capacidadeLitros = (await aparelhoDataSource.consultarAparelhoPorId(idAparelho)).response.capacidadeLitros;
 
             //MEDIR PH 
-            const retornoLeituraArduino = (await axios.post('http://192.168.0.18')).data;
+            const retornoLeituraArduino = (await axios.post('http://192.168.0.20')).data;
 
             const historico = {} as Historico;
             historico.idAparelho = idAparelho;
             historico.leitura = retornoLeituraArduino.leitura_ph;
 
             //CALCULAR PRODUTO
-            if (historico.leitura >= 7, 4 && historico.leitura <= 8) {
+            if (historico.leitura >= 7.4 && historico.leitura <= 8) {
                 // redutor 13ml/m3
                 // 1000 L = 1m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
@@ -40,13 +40,13 @@ class HistoricoBusiness {
                 historico.quantidadeProduto = 25 * capacidadeMetrosCubicos;
             }
 
-            if (historico.leitura >= 6, 8 && historico.leitura <= 7) {
+            if (historico.leitura >= 6.8 && historico.leitura <= 7) {
                 //elevador 15ml/m3            
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 15 * capacidadeMetrosCubicos;
             }
 
-            if (historico.leitura < 6, 8) {
+            if (historico.leitura < 6.8) {
                 //elevador 20ml/m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 20 * capacidadeMetrosCubicos;
@@ -56,7 +56,7 @@ class HistoricoBusiness {
 
             //SALVAR HISTORICO
             return historicoDataSource.salvarHistorico(historico);
-            
+
         } catch (error) {
             return error;
         }

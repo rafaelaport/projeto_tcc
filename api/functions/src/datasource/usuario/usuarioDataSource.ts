@@ -30,6 +30,32 @@ class UsuarioDataSource{
         }
     }
 
+    ConsultarUsuarioPorCpfCnpj = async (cpf_cnpj: string): Promise<MessageTreatment> => {
+
+        try {
+            const result = await this.collection.where('cpf_cnpj', '==', cpf_cnpj).get();
+
+            if (result.empty) {
+
+                return messageTreatmentBusiness.sucessMsg('Usuário não encontrado.');
+            }
+            else {
+
+                let usuario = { } as Usuario;
+
+                result.docs.map(doc => {
+                    usuario = doc.data() as Usuario;
+                    usuario.id = doc.id;
+                })
+
+                return messageTreatmentBusiness.sucessMsg('Usuário encontrado.', usuario);
+            }
+        }
+        catch (error) {
+            return messageTreatmentBusiness.errorMsg('Falha ao buscar usuário, entre em contato com o administrador.', error);
+        }
+    }
+
     salvarUsuario = async (usuario: Usuario): Promise<MessageTreatment> => {
         try {
             let documentoInserido = await this.collection.doc().set(usuario);
