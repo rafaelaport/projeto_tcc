@@ -24,13 +24,16 @@ void setup()
   Serial.begin(9600); //INICIALIZA A SERIAL
   Serial1.begin(9600); //INICIALIZA A SERIAL PARA O ESP8266
   WiFi.init(&Serial1); //INICIALIZA A COMUNICAÇÃO SERIAL COM O ESP8266
-  WiFi.config(IPAddress(192,168,0,18)); //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR
+  WiFi.config(IPAddress(192,168,0,20)); //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR
 
   //INÍCIO - VERIFICA SE O ESP8266 ESTÁ CONECTADO AO ARDUINO, CONECTA A REDE SEM FIO E INICIA O WEBSERVER
   if(WiFi.status() == WL_NO_SHIELD){
+  
     while (true);
   }
+  
   while(status != WL_CONNECTED){
+    
     status = WiFi.begin(ssid, pass);
   }
   server.begin();
@@ -42,13 +45,13 @@ void setup()
 void loop() {
 
   wifi();
-  //sensor();
+  
 }
 
 void wifi(){
 
   WiFiEspClient client = server.available(); //ATENDE AS SOLICITAÇÕES DO CLIENTE
-
+  
   if (client) { //SE CLIENTE TENTAR SE CONECTAR, FAZ
 
     boolean currentLineIsBlank = true; // an http request ends with a blank line
@@ -63,9 +66,9 @@ void wifi(){
         // if you've gotten to the end of the line (received a newline
         // character) and the line is blank, the http request has ended,
         // so you can send a reply
-        
-        if(c == '\n' && currentLineIsBlank){ 
-          Serial.println("mudou");
+
+          if(c == '\n' && currentLineIsBlank){ 
+          Serial.println("com delay");
 
           sensor();
           
@@ -80,7 +83,7 @@ void wifi(){
           delay(1);
           client.stop(); //FINALIZA A REQUISIÇÃO HTTP E DESCONECTA O CLIENTE
           
-        }
+          }
         
         if (c == '\n') {
           
@@ -95,7 +98,7 @@ void wifi(){
         }
       }
     }
-
+    
     delay(1);
     client.stop(); //FINALIZA A REQUISIÇÃO HTTP E DESCONECTA O CLIENTE
   }
