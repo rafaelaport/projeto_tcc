@@ -23,6 +23,7 @@
 
 <body>
     <div id="wrapper">
+        <!-- Div para menu lateral -->
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
@@ -301,7 +302,10 @@
         }
 
         function handleFormShow() {
-            if (removeSpecialCharacters($("#inputCpfCnpj").val()) === cpf) {
+            let cpfCnpjUser = removeSpecialCharacters($("#inputCpfCnpj").val());
+            //let idUser = consultUser(cpfCnpjUser);
+            //if(idUser){}
+            if (cpfCnpjUser === cpf) {
                 $("#spanUserResponse").text("Usuário já cadastrado.")
                 $("#divAddForm").fadeIn(1000);
                 $("#inputCpfCnpj").prop('disabled', true);
@@ -414,23 +418,22 @@
                  }
              */
             let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/salvar";
-            $.post(
-                    url,
-                    data
-                )
-                .done((response) => {
-                    console.log(response);
-                });
-        }
-
-        function saveDevice(data) {
-            let url = "";
-            $.post(
+            $.post({
                 url,
                 data
-            ).done((response) => {
-                console.log(response)
-            });
+            })
+                .done(response => console.log(response))
+                .fail(error => console.log(error));
+        }
+
+        function consultUser(cpfCnpf) {
+            let url = `${cpfCnpj}`;
+            let idUser;
+            $.get(url)
+                .done(response => console.log(response))
+                .fail(error => console.log(error));
+            // retorna o id ou todo o objeto
+            return idUser;
         }
     </script>
 </body>
