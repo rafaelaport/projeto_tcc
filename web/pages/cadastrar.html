@@ -272,12 +272,12 @@
 
         $("#buttonAddDevice").on("click", function (event) {
             event.preventDefault();
-            addDevice();
+            handleAddDevice();
         });
 
         $("#buttonAddAnotherDevice").on("click", function (event) {
             event.preventDefault();
-            addAnotherDevice();
+            handleAddAnotherDevice();
         });
 
 
@@ -348,7 +348,7 @@
             });
         }
 
-        function addDevice() {
+        function handleAddDevice() {
             let isUserValidated = validateInputsForm("data-user");
             let isDeviceValidated = validateInputsForm("data-device");
             /**
@@ -358,6 +358,12 @@
             const dataUser = {
                 "nome": $("#inputFullName").val(),
                 "cpf": removeSpecialCharacters($("#inputCpfCnpj").val())
+            }
+
+            const dataDevice = {
+                "nome": $("#inputDeviceName").val(),
+                "idUsuario": "",
+                "capacidadeLitros": $("#inputRecipeCapacity").val()
             }
 
             const dataDevice = {
@@ -374,14 +380,14 @@
                 }
             } else {
                 if (isDeviceValidated && isUserValidated) {
-                    createUser(dataUser);
+                    saveUser(dataUser);
                     alert("Aparelho cadastrado com sucesso!");
                     window.location.href = 'consultar.html';
                 }
             }
         }
 
-        function addAnotherDevice() {
+        function handleAddAnotherDevice() {
             let isUserValidated = validateInputsForm("data-user");
             let isDeviceValidated = validateInputsForm("data-device");
             /**
@@ -400,7 +406,7 @@
             }
         }
 
-        function createUser(data) {
+        function saveUser(data) {
             /* data example
              data: {
                  name: "John",
@@ -408,13 +414,23 @@
                  }
              */
             let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/salvar";
-            $.post({
+            $.post(
                     url,
                     data
-                })
-                .done(function (response) {
+                )
+                .done((response) => {
                     console.log(response);
                 });
+        }
+
+        function saveDevice(data) {
+            let url = "";
+            $.post(
+                url,
+                data
+            ).done((response) => {
+                console.log(response)
+            });
         }
     </script>
 </body>
