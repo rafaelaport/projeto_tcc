@@ -84,7 +84,7 @@
             </div>
             <!-- -->
             <div class="row justify-content-md-center mt-3">
-                <div class="col-lg-4"></div>
+                <div class="col-sm-1 col-md-2 col-lg-2 col-xl-3"></div>
                 <div class="col">
                     <!-- Div para informar o cpf/cnpj -->
                     <div class="">
@@ -101,8 +101,8 @@
                                             value="" required maxlength="18" data-user />
                                         <span class="text-muted">Insira apenas números</span>
                                         <div class="row-sm-2 mt-3">
-                                            <button class="btn btn-primary" type="submit" name="buttonCheckUser"
-                                                id="buttonCheckUser">
+                                            <button class="btn btn-primary btn-block" type="submit"
+                                                name="buttonCheckUser" id="buttonCheckUser">
                                                 Avançar
                                             </button>
                                         </div>
@@ -201,15 +201,16 @@
                                         </section>
                                         <section id="sectionButtons">
                                             <div class="row mt-3">
-                                                <div class="col">
-                                                    <button class="btn btn-primary" type="submit" name="buttonAddDevice"
-                                                        id="buttonAddDevice">
+                                                <div class="col mb-3">
+                                                    <button class="btn btn-primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                                                        type="submit" name="buttonAddDevice" id="buttonAddDevice">
                                                         Cadastrar
                                                     </button>
                                                 </div>
                                                 <div class="col">
-                                                    <button class="btn btn-primary" type="submit"
-                                                        name="buttonAddAnotherDevice" id="buttonAddAnotherDevice">
+                                                    <button class="btn btn-secondary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                                                        type="submit" name="buttonAddAnotherDevice"
+                                                        id="buttonAddAnotherDevice">
                                                         Cadastrar e adicionar outro aparelho
                                                     </button>
                                                 </div>
@@ -221,7 +222,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4"></div>
+                <div class="col-sm-1 col-md-2 col-lg-2 col-xl-3"></div>
             </div>
         </div>
     </div>
@@ -352,18 +353,12 @@
 
             const dataUser = {
                 "nome": $("#inputFullName").val(),
-                "cpf": removeSpecialCharacters($("#inputCpfCnpj").val())
+                "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val())
             }
 
             const dataDevice = {
                 "nome": $("#inputDeviceName").val(),
-                "idUsuario": "",
-                "capacidadeLitros": $("#inputRecipeCapacity").val()
-            }
-
-            const dataDevice = {
-                "nome": $("#inputDeviceName").val(),
-                "idUsuario": $("#inputCpfCnpj").val(),
+                "cpf_cnpj": removeSpecialCharacters(("#inputCpfCnpj").val()),
                 "capacidadeLitros": $("#inputRecipeCapacity").val()
 
             }
