@@ -32,7 +32,7 @@ appApi.get('/', function(req, res){
 
 // ROTA - APARELHOS
 appAparelho.get('/', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
-appAparelho.get('/por-usuario/:idUsuario', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.idUsuario)) });
+appAparelho.get('/por-usuario/:cpf_cnpj', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.cpf_cnpj)) });
 appAparelho.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
 appAparelho.post('/salvar', async (req, res) => { res.json(await aparelhoController.salvarAparelho(req.body)) });
 appAparelho.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.editarAparelho(req.params.id, req.body)) });

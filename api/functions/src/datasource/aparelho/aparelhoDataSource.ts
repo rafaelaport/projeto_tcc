@@ -30,10 +30,10 @@ class AparelhoDataSource {
         }
     }
 
-    consultarAparelhosPorUsuario = async (idUsuario: string): Promise<MessageTreatment> => {
+    consultarAparelhosPorUsuario = async (cpf_cnpj: string): Promise<MessageTreatment> => {
 
         try {
-            const result = await this.collection.where('idUsuario', '==', idUsuario).get();
+            const result = await this.collection.where('cpf_cnpj', '==', cpf_cnpj).get();
 
             if (result.empty) {
 
