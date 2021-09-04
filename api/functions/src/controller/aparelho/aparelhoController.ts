@@ -7,8 +7,8 @@ class AparelhoController{
         return aparelhoBusiness.consultarTodosAparelhos();
     }
 
-    consultarAparelhosPorUsuario = (idUsuario: string) => {
-        return aparelhoBusiness.consultarAparelhosPorUsuario(idUsuario);
+    consultarAparelhosPorUsuario = (cpf_cnpj: string) => {
+        return aparelhoBusiness.consultarAparelhosPorUsuario(cpf_cnpj);
     }
 
     consultarAparelhoPorId = (id: string) => {

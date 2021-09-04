@@ -1,6 +1,6 @@
 export interface Aparelho{
     id: string;
     nome: string;
-    idUsuario: string;
+    cpf_cnpj: string;
     capacidadeLitros: number;
 }
