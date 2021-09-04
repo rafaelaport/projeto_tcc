@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,102 +19,92 @@
 
     <link href="../css/animate.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-
-    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
 </head>
 
 <body>
     <div id="wrapper">
+        <!-- Div para menu lateral -->
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="block m-t-xs font-bold">David Williams</span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-label="ADM">
+                                <span class="block m-t-xs font-bold">Nome do adm logado</span>
                             </a>
                         </div>
-                        <div class="logo-element">
-                            Easier pH
-                        </div>
+                        <div class="logo-element">Easier pH</div>
                     </li>
                     <li>
-                        <a href="../index.html"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                        <a href="../index.html" aria-label="Home"><i class="fa fa-home"></i>
+                            <span class="nav-label">Home</span></a>
                     </li>
 
                     <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
                     <li>
-                        <a href="../pages/cadastrar.html"><i class="fa fa-plus-circle"></i> <span
+                        <a href="../pages/cadastrar.html" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i> <span
                                 class="nav-label">Cadastrar</span></a>
                     </li>
-
                     <li class="active">
-                        <a href="../pages/consultar.html"><i class="fa fa-search"></i> <span
+                        <a href="../pages/consultar.html" aria-label="Consultar"><i class="fa fa-search"></i> <span
                                 class="nav-label">Consultar</span></a>
                     </li>
                 </ul>
             </div>
-
         </nav>
-        
+
         <div id="page-wrapper" class="gray-bg">
             <!-- Div para header -->
             <div class="row border-bottom">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <nav class="navbar navbar-static-top" role="navigation">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
-                                class="fa fa-bars"></i> </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#" aria-label="Menu"><i
+                                class="fa fa-bars"></i>
+                        </a>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li style="padding: 20px">
                             <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
                         </li>
-
                         <li>
                             <a href="login.html">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
-
                     </ul>
-
                 </nav>
             </div>
             <!-- Div para título da página -->
             <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
                     <h2>Consultar</h2>
                 </div>
             </div>
             <!-- Div para campo de conculta e tabela de aparelhos -->
-            <div class="row mt-3">
-                <div class="col-lg-12">
-                    <div class="ibox ">
-
+            <div class="row justify-content-md-center mt-3">
+                <div class="col-sm-1 col-md-2 col-lg-2 col-xl-3"></div>
+                <div class="col">
+                    <div class="">
                         <div class="ibox-title">
                             <h5>Informe seu CPF / CNPJ para consultar seus aparelhos</h5>
                         </div>
-
                         <div class="ibox-content">
                             <form>
                                 <div class="form-group row">
-
-                                    <div class="col-sm-5 mr-5">
+                                    <div class="col-md-1 col-lg-1 col-xl-2"></div>
+                                    <div class="col">
                                         <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
-
-                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj">
-
-                                        <div class="row-sm-2 mt-2">
-                                            <button class="btn btn-primary" type="submit">Pesquisar</button>
+                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj"
+                                            value="" required maxlength="18" data-user>
+                                        <span class="text-muted">Insira apenas números</span>
+                                        <div class="row-sm-2 mt-3">
+                                            <button class="btn btn-primary btn-block" type="submit">Pesquisar</button>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-1 col-lg-1 col-xl-2"></div>
                                 </div>
                             </form>
                         </div>
-
                         <div class="row mt-3">
                             <div class="col-lg-12">
                                 <div class="ibox ">
@@ -134,22 +123,18 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-
                                                         <td>01</td>
                                                         <td>Teste Descrição</td>
                                                         <td>
-                                                            <div class="row-sm-2">
+                                                            <div class="row">
                                                                 <button class="btn btn-info mr-1"
                                                                     type="button">Medir</button>
-                                                                <button 
-                                                                    class="btn btn-primary"
-                                                                    type="button"
-                                                                    id="buttonConsultCpfCnpj"
-                                                                    >Consultar</button>
+                                                                <button class="btn btn-primary" type="button"
+                                                                    id="buttonConsultCpfCnpj">Consultar</button>
+
                                                             </div>
                                                         </td>
                                                     </tr>
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -157,12 +142,10 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
-
                     </div>
                 </div>
+                <div class="col-sm-1 col-md-2 col-lg-2 col-xl-3"></div>
             </div>
         </div>
     </div>
@@ -179,25 +162,7 @@
     <script src="../js/plugins/pace/pace.min.js"></script>
 
     <script>
-        function jqxhr () { $.get("http://localhost:5001/projeto-tcc-209b6/us-central1/aparelhos/aparelhos-por-usuario/10", function (response) {
-          console.log(response);
-        })
-          .done(function () {
-            alert("second success");
-          })
-          .fail(function () {
-            alert("error");
-          })
-          .always(function () {
-            alert("finished");
-          }); }
-
-          $("#buttonConsultCpfCnpj").on('click', function () { 
-              jqxhr();
-           })
-      </script>
-      
-
+    </script>
 </body>
 
 </html>
