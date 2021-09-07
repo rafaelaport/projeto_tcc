@@ -12,15 +12,17 @@ class UsuarioBusiness{
     }
 
     salvarUsuario = (usuario: Usuario) => {
+        usuario.ativo = true;
         return usuarioDataSource.salvarUsuario(usuario);
     }
 
     editarUsuario = (id: string, usuario: Usuario) => {
+        usuario.ativo = true;
         return usuarioDataSource.editarUsuario(id, usuario);
     }
 
-    excluirUsuario = (id: string) => {
-        return usuarioDataSource.excluirUsuario(id);
+    desativarUsuario = (id: string) => {
+        return usuarioDataSource.desativarUsuario(id);
     }
 
 }

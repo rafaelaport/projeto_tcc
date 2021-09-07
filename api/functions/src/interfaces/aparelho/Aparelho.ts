@@ -3,4 +3,5 @@ export interface Aparelho{
     nome: string;
     cpf_cnpj: string;
     capacidadeLitros: number;
+    ativo: boolean;
 }

@@ -3,4 +3,5 @@ export interface Historico {
     idAparelho: string;
     leitura: number;
     quantidadeProduto: number; // qual unidade de medida?
+    ativo: boolean;
 }

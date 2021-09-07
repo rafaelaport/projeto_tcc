@@ -23,6 +23,7 @@ class HistoricoBusiness {
             const retornoLeituraArduino = (await axios.post('http://192.168.0.20')).data;
 
             const historico = {} as Historico;
+            historico.ativo = true;
             historico.idAparelho = idAparelho;
             historico.leitura = retornoLeituraArduino.leitura_ph;
 
@@ -63,8 +64,8 @@ class HistoricoBusiness {
 
     }
 
-    excluirHistoricoPorAparelho = (idAparelho: string) => {
-        return historicoDataSource.excluirHistoricoPorAparelho(idAparelho);
+    desativarHistoricoPorAparelho = (idAparelho: string) => {
+        return historicoDataSource.desativarHistoricoPorAparelho(idAparelho);
     }
 }
 

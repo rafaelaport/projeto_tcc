@@ -1,7 +1,7 @@
 import { aparelhoDataSource } from "../../datasource/exportDatasource";
 import { Aparelho } from "../../interfaces/exportInterfaces";
 
-class AparelhoBusiness{
+class AparelhoBusiness {
 
     consultarTodosAparelhos = () => {
         return aparelhoDataSource.consultarTodosAparelhos();
@@ -16,15 +16,17 @@ class AparelhoBusiness{
     }
 
     salvarAparelho = (aparelho: Aparelho) => {
+        aparelho.ativo = true;
         return aparelhoDataSource.salvarAparelho(aparelho);
     }
 
     editarAparelho = (id: string, aparelho: Aparelho) => {
+        aparelho.ativo = true;
         return aparelhoDataSource.editarAparelho(id, aparelho);
     }
 
-    excluirAparelho = (id: string) => {
-        return aparelhoDataSource.excluirAparelho(id);
+    desativarAparelho = (id: string) => {
+        return aparelhoDataSource.desativarAparelho(id);
     }
 
 }

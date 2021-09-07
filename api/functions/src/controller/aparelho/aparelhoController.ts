@@ -23,8 +23,8 @@ class AparelhoController{
         return aparelhoBusiness.editarAparelho(id, aparelho);
     }
 
-    excluirAparelho = (id: string) => {
-        return aparelhoBusiness.excluirAparelho(id);
+    desativarAparelho = (id: string) => {
+        return aparelhoBusiness.desativarAparelho(id);
     }
 
 }
