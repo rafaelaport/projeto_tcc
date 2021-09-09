@@ -36,20 +36,20 @@ appAparelho.get('/por-usuario/:cpf_cnpj', async (req, res) => { res.json(await a
 appAparelho.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
 appAparelho.post('/salvar', async (req, res) => { res.json(await aparelhoController.salvarAparelho(req.body)) });
 appAparelho.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.editarAparelho(req.params.id, req.body)) });
-appAparelho.delete('/excluir/:id', async (req, res) => { res.json(await aparelhoController.excluirAparelho(req.params.id)) });
+appAparelho.put('/desativar/:id', async (req, res) => { res.json(await aparelhoController.desativarAparelho(req.params.id)) });
 
 // ROTA - HISTORICOS 
 appHistorico.get('/', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
 appHistorico.get('/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
 appHistorico.post('/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
-appHistorico.delete('/excluir/:idAparelho', async (req, res) => { res.json(await historicoController.excluirHistoricoPorAparelho(req.params.idAparelho)) });
+appHistorico.put('/desativar/:idAparelho', async (req, res) => { res.json(await historicoController.desativarHistoricoPorAparelho(req.params.idAparelho)) });
 
 // ROTA - USUARIO
 appUsuario.get('/:id', async (req, res) => { res.json(await usuariocontroller.consultarUsuarioPorId(req.params.id)) });
 appUsuario.get('/por-cpf-cnpj/:cpf_cnpj', async (req, res) => { res.json(await usuariocontroller.ConsultarUsuarioPorCpfCnpj(req.params.cpf_cnpj)) });
 appUsuario.post('/salvar', async (req, res) => { res.json(await usuariocontroller.salvarUsuario(req.body)) });
 appUsuario.put('/editar/:id', async (req, res) => { res.json(await usuariocontroller.editarUsuario(req.params.id, req.body)) });
-appUsuario.delete('/excluir/:id', async (req, res) => { res.json(await usuariocontroller.excluirUsuario(req.params.id)) });
+appUsuario.put('/desativar/:id', async (req, res) => { res.json(await usuariocontroller.desativarUsuario(req.params.id)) });
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);

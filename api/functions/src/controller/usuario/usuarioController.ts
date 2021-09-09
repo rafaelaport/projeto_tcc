@@ -19,8 +19,8 @@ class UsuarioController{
         return usuarioBusiness.editarUsuario(id, usuario);
     }
 
-    excluirUsuario = (id: string) => {
-        return usuarioBusiness.excluirUsuario(id);
+    desativarUsuario = (id: string) => {
+        return usuarioBusiness.desativarUsuario(id);
     }
 }
 
