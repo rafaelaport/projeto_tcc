@@ -42,25 +42,26 @@
                         </div>
                     </li>
                     <li>
-                        <a href="../index.html"><i class="fa fa-diamond"></i> <span class="nav-label">Home</span></a>
+                        <a href="../index.html"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                     </li>
 
                     <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
                     <li>
-                        <a href="../pages/cadastrar.html"><i class="fa fa-diamond"></i> <span
+                        <a href="../pages/cadastrar.html"><i class="fa fa-plus-circle"></i> <span
                                 class="nav-label">Cadastrar</span></a>
                     </li>
 
                     <li class="active">
-                        <a href="../pages/consultar.html"><i class="fa fa-diamond"></i> <span
+                        <a href="../pages/consultar.html"><i class="fa fa-search"></i> <span
                                 class="nav-label">Consultar</span></a>
                     </li>
                 </ul>
             </div>
 
         </nav>
-
+        
         <div id="page-wrapper" class="gray-bg">
+            <!-- Div para header -->
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
@@ -82,13 +83,13 @@
 
                 </nav>
             </div>
-
+            <!-- Div para título da página -->
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
                     <h2>Consultar</h2>
                 </div>
             </div>
-
+            <!-- Div para campo de conculta e tabela de aparelhos -->
             <div class="row mt-3">
                 <div class="col-lg-12">
                     <div class="ibox ">
@@ -102,9 +103,9 @@
                                 <div class="form-group row">
 
                                     <div class="col-sm-5 mr-5">
-                                        <label class="col-form-label">CPF / CNPJ</label>
+                                        <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
 
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj">
 
                                         <div class="row-sm-2 mt-2">
                                             <button class="btn btn-primary" type="submit">Pesquisar</button>
@@ -140,8 +141,11 @@
                                                             <div class="row-sm-2">
                                                                 <button class="btn btn-info mr-1"
                                                                     type="button">Medir</button>
-                                                                <button class="btn btn-primary"
-                                                                    type="button">Consultar</button>
+                                                                <button 
+                                                                    class="btn btn-primary"
+                                                                    type="button"
+                                                                    id="buttonConsultCpfCnpj"
+                                                                    >Consultar</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -160,9 +164,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <!-- Mainly scripts -->
@@ -175,6 +177,26 @@
     <!-- Custom and plugin javascript -->
     <script src="../js/inspinia.js"></script>
     <script src="../js/plugins/pace/pace.min.js"></script>
+
+    <script>
+        function jqxhr () { $.get("http://localhost:5001/projeto-tcc-209b6/us-central1/aparelhos/aparelhos-por-usuario/10", function (response) {
+          console.log(response);
+        })
+          .done(function () {
+            alert("second success");
+          })
+          .fail(function () {
+            alert("error");
+          })
+          .always(function () {
+            alert("finished");
+          }); }
+
+          $("#buttonConsultCpfCnpj").on('click', function () { 
+              jqxhr();
+           })
+      </script>
+      
 
 </body>
 

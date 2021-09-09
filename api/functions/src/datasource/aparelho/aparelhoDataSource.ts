@@ -12,28 +12,36 @@ class AparelhoDataSource {
     consultarTodosAparelhos = async (): Promise<MessageTreatment> => {
 
         try {
-            const result = await this.collection.get();
 
-            const aparelhos: Array<Aparelho> = new Array<Aparelho>();
+            const result = await this.collection.where('ativo', '==', true).get();
 
-            result.docs.map(doc => {
-                const aparelho = doc.data() as Aparelho;
-                aparelho.id = doc.id;
+            if (result.empty) {
 
-                aparelhos.push(aparelho);
-            })
+                return messageTreatmentBusiness.sucessMsg('Aparelho não encontrado.');
 
-            return messageTreatmentBusiness.sucessMsg('Aparelhos encontrados.', aparelhos);
+            } else {
+
+                const aparelhos: Array<Aparelho> = new Array<Aparelho>();
+
+                result.docs.map(doc => {
+                    const aparelho = doc.data() as Aparelho;
+                    aparelho.id = doc.id;
+
+                    aparelhos.push(aparelho);
+                })
+
+                return messageTreatmentBusiness.sucessMsg('Aparelhos encontrados.', aparelhos);
+            }
         }
         catch (error) {
             return messageTreatmentBusiness.errorMsg('Falha ao buscar aparelhos, entre em contato com o administrador.', error);
         }
     }
 
-    consultarAparelhosPorUsuario = async (idUsuario: string): Promise<MessageTreatment> => {
+    consultarAparelhosPorUsuario = async (cpf_cnpj: string): Promise<MessageTreatment> => {
 
         try {
-            const result = await this.collection.where('idUsuario', '==', idUsuario).get();
+            const result = await this.collection.where('cpf_cnpj', '==', cpf_cnpj).where('ativo', '==', true).get();
 
             if (result.empty) {
 
@@ -61,19 +69,27 @@ class AparelhoDataSource {
     consultarAparelhoPorId = async (id: string): Promise<MessageTreatment> => {
 
         try {
-            const response = await this.collection.doc(id).get();
+            const result = await this.collection.doc(id).get();
 
-            if (!response.exists) {
+            if (!result.exists) {
 
                 return messageTreatmentBusiness.sucessMsg("Aparelho não encontrado.");
 
             } else {
 
-                const aparelho = response.data() as Aparelho;
-                aparelho.id = response.id;
+                const aparelho = result.data() as Aparelho;
+                aparelho.id = result.id;
 
-                return messageTreatmentBusiness.sucessMsg("Aparelho encontrado.", aparelho);
+                if (aparelho.ativo) {
+
+                    return messageTreatmentBusiness.sucessMsg("Aparelho encontrado.", aparelho);
+
+                } else {
+
+                    return messageTreatmentBusiness.sucessMsg("Aparelho não encontrado.");
+                }
             }
+
         } catch (error) {
             return messageTreatmentBusiness.errorMsg("Falha ao buscar aparelho, entre em contato com o administrador.");
         }
@@ -81,6 +97,7 @@ class AparelhoDataSource {
 
     salvarAparelho = async (aparelho: Aparelho): Promise<MessageTreatment> => {
         try {
+            
             let documentoInserido = await this.collection.doc().set(aparelho);
 
             return messageTreatmentBusiness.sucessMsg(`Aparelho ${aparelho.nome} adicionado.`, documentoInserido);
@@ -104,14 +121,15 @@ class AparelhoDataSource {
 
     }
 
-    excluirAparelho = async (id: string): Promise<MessageTreatment> => {
+    desativarAparelho = async (id: string): Promise<MessageTreatment> => {
 
         try {
-            await this.collection.doc(id).delete();
-            return messageTreatmentBusiness.sucessMsg(`Aparelho com o id ${id} removido.`);
+            await this.collection.doc(id).update({ativo: false});
+
+            return messageTreatmentBusiness.sucessMsg(`Aparelho com o id ${id} desativado.`);
 
         } catch (error) {
-            return messageTreatmentBusiness.errorMsg('Falha ao remover aparelho, entre em contato com o administrador.', error);
+            return messageTreatmentBusiness.errorMsg('Falha ao desativar aparelho, entre em contato com o administrador.', error);
         }
     }
 }

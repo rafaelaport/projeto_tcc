@@ -12,19 +12,26 @@ class HistoricoDataSource {
     consultarTodosHistoricos = async (): Promise<MessageTreatment> => {
 
         try {
-            const result = await this.collection.get();
+            const result = await this.collection.where('ativo', '==', true).get();
 
-            const historicos: Array<Historico> = new Array<Historico>();
+            if (result.empty) {
 
-            result.docs.map(doc => {
-                const historico = doc.data() as Historico;
-                historico.id = doc.id;
+                return messageTreatmentBusiness.sucessMsg('Histórico não encontrado.');
+            
+            } else {
 
-                historicos.push(historico);
-            })
+                const historicos: Array<Historico> = new Array<Historico>();
 
-            return messageTreatmentBusiness.sucessMsg('Históricos encontrados.', historicos);
+                result.docs.map(doc => {
+                    const historico = doc.data() as Historico;
+                    historico.id = doc.id;
 
+                    historicos.push(historico);
+                })
+
+                return messageTreatmentBusiness.sucessMsg('Históricos encontrados.', historicos);
+            }
+            
         } catch (error) {
             return messageTreatmentBusiness.errorMsg('Falha ao buscar históricos, entre em contato com o administrador.', error);
         }
@@ -33,7 +40,7 @@ class HistoricoDataSource {
     consultarHistoricosPorAparelho = async (idAparelho: string): Promise<MessageTreatment> => {
 
         try {
-            const result = await this.collection.where('idAparelho', '==', idAparelho).get();
+            const result = await this.collection.where('idAparelho', '==', idAparelho).where('ativo', '==', true).get();
 
             if (result.empty) {
 
@@ -71,7 +78,7 @@ class HistoricoDataSource {
 
     }
 
-    excluirHistoricoPorAparelho = async (idAparelho: string): Promise<MessageTreatment> => {
+    desativarHistoricoPorAparelho = async (idAparelho: string): Promise<MessageTreatment> => {
 
         try {
             const result = await this.collection.where('idAparelho', '==', idAparelho).get();
@@ -83,14 +90,14 @@ class HistoricoDataSource {
             else {
 
                 result.docs.map(doc => {
-                    doc.ref.delete();
+                    doc.ref.update({ ativo: false });
                 })
 
-                return messageTreatmentBusiness.sucessMsg(`Histórico do aparelho com o id ${idAparelho} removido.`);
+                return messageTreatmentBusiness.sucessMsg(`Histórico do aparelho com o id ${idAparelho} desativado.`);
             }
 
         } catch (error) {
-            return messageTreatmentBusiness.errorMsg('Falha ao remover histórico do aparelho, entre em contato com o administrador.', error);
+            return messageTreatmentBusiness.errorMsg('Falha ao desativar histórico do aparelho, entre em contato com o administrador.', error);
         }
     }
 }

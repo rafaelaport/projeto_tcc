@@ -14,8 +14,8 @@ class HistoricoController {
         return historicoBusiness.salvarHistorico(idAparelho);
     }
 
-    excluirHistoricoPorAparelho = (idAparelho: string) => {
-        return historicoBusiness.excluirHistoricoPorAparelho(idAparelho);
+    desativarHistoricoPorAparelho = (idAparelho: string) => {
+        return historicoBusiness.desativarHistoricoPorAparelho(idAparelho);
     }
 }
 
