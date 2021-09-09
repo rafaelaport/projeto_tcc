@@ -172,7 +172,7 @@ function saveUser(data) {
 }
 
 function saveDevice(data) {
-  let url = "";
+  let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/aparelho/salvar";
   $.post(
     url,
     data
