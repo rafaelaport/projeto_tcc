@@ -1,4 +1,3 @@
-
 var cpf = "99999999999";
 /* Verifica, ao carregar a página, se o campo de cpf/cnpj está preenchido */
 $(document).ready(function () {
@@ -53,19 +52,27 @@ function removeSpecialCharacters(fieldValue) {
 }
 
 function handleFormShow() {
-  let cpfCnpjUser = removeSpecialCharacters($("#inputCpfCnpj").val());
-  //let idUser = consultUser(cpfCnpjUser);
-  //if(idUser){}
-  if (cpfCnpjUser === cpf) {
-    $("#spanUserResponse").text("Usuário já cadastrado.")
-    $("#divAddForm").fadeIn(1000);
-    $("#inputCpfCnpj").prop('disabled', true);
-    $("#sectionUser").hide();
-  } else {
-    $("#spanUserResponse").text("Usuário não cadastrado.")
-    $("#divAddForm").fadeIn(1000);
-    $("#inputCpfCnpj").prop('disabled', true);
-  }
+  let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
+  let idUser = $.ajax({
+      method: "GET",
+      url: `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpjUserForm}`,
+    })
+    .done(function (response) {
+      if (response.message !== "Sucesso: Usuário não encontrado.") {
+        if (cpfCnpjUserForm === response.response.cpf_cnpj) {
+          $("#spanUserResponse").text("Usuário já cadastrado.")
+          $("#divAddForm").fadeIn(1000);
+          $("#inputCpfCnpj").prop('disabled', true);
+          $("#sectionUser").hide();
+          return response.response.cpf_cnpj;
+        }
+      } else {
+        $("#spanUserResponse").text("Usuário não cadastrado.")
+        $("#divAddForm").fadeIn(1000);
+        $("#inputCpfCnpj").prop('disabled', true);
+        return response.message;
+      }
+    });
 }
 
 function validateCpfCnpj(idField) {
@@ -117,20 +124,22 @@ function handleAddDevice() {
 
   const dataDevice = {
     "nome": $("#inputDeviceName").val(),
-    "cpf_cnpj": removeSpecialCharacters(("#inputCpfCnpj").val()),
+    "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val()),
     "capacidadeLitros": $("#inputRecipeCapacity").val()
 
   }
 
   if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
     if (isDeviceValidated) {
+      saveDevice(dataDevice);
       alert("Aparelho cadastrado com sucesso!");
       window.location.href = 'consultar.html';
     }
   } else {
     if (isDeviceValidated && isUserValidated) {
       saveUser(dataUser);
-      alert("Aparelho cadastrado com sucesso!");
+      saveDevice(dataDevice);
+      alert("Aparelho cadastrado com sucesso!")
       window.location.href = 'consultar.html';
     }
   }
@@ -164,29 +173,24 @@ function saveUser(data) {
    */
   let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/salvar";
   $.post(
-    url,
-    data
-  )
-    .done(response => console.log(response))
+      url,
+      data
+    )
+    .done(response => response)
     .fail(error => console.log(error));
 }
 
 function saveDevice(data) {
   let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/aparelho/salvar";
   $.post(
-    url,
-    data
-  )
-    .done(response => console.log(response))
+      url,
+      data
+    )
+    .done(response => response)
     .fail(error => console.log(error));
 }
 
 function consultUser(cpfCnpf) {
-  let url = `${cpfCnpj}`;
-  let idUser;
-  $.get(url)
-    .done(response => console.log(response))
-    .fail(error => console.log(error));
-  // retorna o id ou todo o objeto
-  return idUser;
+  let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpf}`;
+  return $.get(url).done(response => response.response).done(cpf_cnpj => cpf_cnpj);
 }
