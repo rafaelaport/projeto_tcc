@@ -2,23 +2,23 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <title>Easier ph</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
 
     <!-- Toastr style -->
-    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet" />
 
     <!-- Gritter -->
-    <link href="../js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="../js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
 
-    <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -42,12 +42,12 @@
 
                     <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
                     <li>
-                        <a href="../pages/cadastrar.html" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i> <span
-                                class="nav-label">Cadastrar</span></a>
+                        <a href="../pages/cadastrar.html" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i>
+                            <span class="nav-label">Cadastrar</span></a>
                     </li>
                     <li class="active">
-                        <a href="../pages/consultar.html" aria-label="Consultar"><i class="fa fa-search"></i> <span
-                                class="nav-label">Consultar</span></a>
+                        <a href="../pages/consultar.html" aria-label="Consultar"><i class="fa fa-search"></i>
+                            <span class="nav-label">Consultar</span></a>
                     </li>
                 </ul>
             </div>
@@ -95,10 +95,13 @@
                                     <div class="col">
                                         <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
                                         <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj"
-                                            value="" required maxlength="18" data-user>
+                                            value="" required maxlength="18" data-user />
                                         <span class="text-muted">Insira apenas números</span>
                                         <div class="row-sm-2 mt-3">
-                                            <button class="btn btn-primary btn-block" type="submit">Pesquisar</button>
+                                            <button class="btn btn-primary btn-block" type="submit"
+                                                name="buttonSearchUser" id="buttonSearchUser">
+                                                Pesquisar
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="col-md-1 col-lg-1 col-xl-2"></div>
@@ -107,7 +110,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-lg-12">
-                                <div class="ibox ">
+                                <div class="ibox">
                                     <div class="ibox-title">
                                         <h5>Aparelhos</h5>
                                     </div>
@@ -127,18 +130,19 @@
                                                         <td>Teste Descrição</td>
                                                         <td>
                                                             <div class="row">
-                                                                <button class="btn btn-info mr-1"
-                                                                    type="button">Medir</button>
+                                                                <button class="btn btn-info mr-1" type="button">
+                                                                    Medir
+                                                                </button>
                                                                 <button class="btn btn-primary" type="button"
-                                                                    id="buttonConsultCpfCnpj">Consultar</button>
-
+                                                                    id="buttonConsultCpfCnpj">
+                                                                    Consultar
+                                                                </button>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +165,20 @@
     <script src="../js/inspinia.js"></script>
     <script src="../js/plugins/pace/pace.min.js"></script>
 
+    <!-- Custom scripts cadastrar -->
+    <script src="../js/helpers/helpers.js"></script>
+
     <script>
+        $("#inputCpfCnpj").on("input", function (event) {
+            validateCpfCnpj($("#inputCpfCnpj"));
+        });
+        
+        $("#buttonSearchUser").on("click", function (event) {
+            event.preventDefault();
+            if (validateCpfCnpj($("#inputCpfCnpj"))) {
+                alert('Oi')
+            }
+        });
     </script>
 </body>
 
