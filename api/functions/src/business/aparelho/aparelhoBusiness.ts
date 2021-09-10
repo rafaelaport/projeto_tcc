@@ -1,5 +1,6 @@
 import { aparelhoDataSource } from "../../datasource/exportDatasource";
 import { Aparelho } from "../../interfaces/exportInterfaces";
+import { historicoBusiness } from "../exportBusiness";
 
 class AparelhoBusiness {
 
@@ -25,7 +26,10 @@ class AparelhoBusiness {
         return aparelhoDataSource.editarAparelho(id, aparelho);
     }
 
-    desativarAparelho = (id: string) => {
+    desativarAparelho = async (id: string) => {
+
+        await historicoBusiness.desativarHistoricoPorAparelho(id);
+
         return aparelhoDataSource.desativarAparelho(id);
     }
 

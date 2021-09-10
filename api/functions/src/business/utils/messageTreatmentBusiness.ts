@@ -9,13 +9,13 @@ class MessageTreatmentBusiness{
     }
 
     infoMsg = (message: string, info?: any) => {
-        let _message: MessageTreatment = {message: `Info: ${message}`, status: 250, response: info};
+        let _message: MessageTreatment = {message: `Atenção: ${message}`, status: 400, response: info};
         //console.log(_message);
         return _message;
     }
 
     errorMsg = (message: string, error?: any) => {
-        let _message: MessageTreatment = {message: `Error: ${message}`, status: 400, response: error};
+        let _message: MessageTreatment = {message: `Error: ${message}`, status: 500, response: error};
         //console.log(_message);
         return _message;
     }
