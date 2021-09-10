@@ -1,8 +1,9 @@
 import { usuarioDataSource } from "../../datasource/exportDatasource";
-import { Usuario } from "../../interfaces/exportInterfaces";
+import { Aparelho, Usuario } from "../../interfaces/exportInterfaces";
+import { aparelhoBusiness, messageTreatmentBusiness } from "../exportBusiness";
 
-class UsuarioBusiness{
-    
+class UsuarioBusiness {
+
     consultarUsuarioPorId = (id: string) => {
         return usuarioDataSource.consultarUsuarioPorId(id);
     }
@@ -21,8 +22,17 @@ class UsuarioBusiness{
         return usuarioDataSource.editarUsuario(id, usuario);
     }
 
-    desativarUsuario = (id: string) => {
-        return usuarioDataSource.desativarUsuario(id);
+    desativarUsuario = async (id: string) => {
+
+        const cpf_cnpj = (await this.consultarUsuarioPorId(id)).response.cpf_cnpj;
+        const aparelhos = (await aparelhoBusiness.consultarAparelhosPorUsuario(cpf_cnpj)).response as Array<Aparelho>;
+
+        if (aparelhos === undefined || aparelhos.length == 0) {
+
+            return usuarioDataSource.desativarUsuario(id);
+        }
+
+        return messageTreatmentBusiness.infoMsg('Não é possível excluir o usuário pois existem aparelhos ativos.');
     }
 
 }

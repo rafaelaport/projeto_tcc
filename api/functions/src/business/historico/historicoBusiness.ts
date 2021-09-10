@@ -1,5 +1,6 @@
-import { aparelhoDataSource, historicoDataSource } from '../../datasource/exportDatasource';
+import { historicoDataSource } from '../../datasource/exportDatasource';
 import { Historico } from '../../interfaces/exportInterfaces';
+import { aparelhoBusiness } from '../exportBusiness';
 
 const axios = require('axios')
 
@@ -17,7 +18,7 @@ class HistoricoBusiness {
 
         try {
             //CONSULTAR CAPACIDADE
-            const capacidadeLitros = (await aparelhoDataSource.consultarAparelhoPorId(idAparelho)).response.capacidadeLitros;
+            const capacidadeLitros = (await aparelhoBusiness.consultarAparelhoPorId(idAparelho)).response.capacidadeLitros;
 
             //MEDIR PH 
             const retornoLeituraArduino = (await axios.post('http://192.168.0.20')).data;
@@ -52,8 +53,6 @@ class HistoricoBusiness {
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 20 * capacidadeMetrosCubicos;
             }
-
-            //TRANSFORMAR ML PARA L QUANDO NECESSARIO
 
             //SALVAR HISTORICO
             return historicoDataSource.salvarHistorico(historico);
