@@ -60,7 +60,7 @@ function handleFormShow() {
     .done(function (response) {
       if (response.message !== "Sucesso: Usuário não encontrado.") {
         if (cpfCnpjUserForm === response.response.cpf_cnpj) {
-          $("#spanUserResponse").text("Usuário já cadastrado.")
+          $("#spanUserResponse").text("Usuário já cadastrado.");
           $("#divAddForm").fadeIn(1000);
           $("#inputCpfCnpj").prop('disabled', true);
           $("#sectionUser").hide();
@@ -113,33 +113,18 @@ function clearFields(dataAttribute) {
 function handleAddDevice() {
   let isUserValidated = validateInputsForm("data-user");
   let isDeviceValidated = validateInputsForm("data-device");
-  /**
-   * Montar aqui o objeto para os post
-   */
-
-  const dataUser = {
-    "nome": $("#inputFullName").val(),
-    "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val())
-  }
-
-  const dataDevice = {
-    "nome": $("#inputDeviceName").val(),
-    "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val()),
-    "capacidadeLitros": $("#inputRecipeCapacity").val()
-
-  }
 
   if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
     if (isDeviceValidated) {
-      saveDevice(dataDevice);
+      saveDevice();
       alert("Aparelho cadastrado com sucesso!");
       window.location.href = 'consultar.html';
     }
   } else {
     if (isDeviceValidated && isUserValidated) {
-      saveUser(dataUser);
-      saveDevice(dataDevice);
-      alert("Aparelho cadastrado com sucesso!")
+      saveUser();
+      saveDevice();
+      alert("Aparelho e Usuário cadastrado com sucesso!")
       window.location.href = 'consultar.html';
     }
   }
@@ -148,29 +133,27 @@ function handleAddDevice() {
 function handleAddAnotherDevice() {
   let isUserValidated = validateInputsForm("data-user");
   let isDeviceValidated = validateInputsForm("data-device");
-  /**
-   * Montar aqui o objeto para os post
-   */
+
   if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
     if (isDeviceValidated) {
+      saveDevice();
       alert("Aparelho cadastrado com sucesso!");
       clearFields("data-device");
     }
   } else {
     if (isDeviceValidated && isUserValidated) {
-      alert("Aparelho cadastrado com sucesso!");
+      saveUser();
+      saveDevice();
+      alert("Aparelho e Usuário cadastrado com sucesso!");
+      $("#spanUserResponse").text("Usuário já cadastrado.");
       clearFields("data-device");
     }
   }
 }
 
-function saveUser(data) {
-  /* data example
-   data: {
-       name: "John",
-       location: "Boston"
-       }
-   */
+function saveUser() {
+  const data = buildDataUser();
+
   let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/salvar";
   $.post(
       url,
@@ -180,7 +163,8 @@ function saveUser(data) {
     .fail(error => console.log(error));
 }
 
-function saveDevice(data) {
+function saveDevice() {
+  const data = buildDataDevice();
   let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/aparelho/salvar";
   $.post(
       url,
@@ -194,3 +178,21 @@ function consultUser(cpfCnpf) {
   let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpf}`;
   return $.get(url).done(response => response.response).done(cpf_cnpj => cpf_cnpj);
 }
+
+function buildDataUser() {
+  const dataUser = {
+    "nome": $("#inputFullName").val(),
+    "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val())
+  }
+  return dataUser;
+}
+
+function buildDataDevice() { 
+  const dataDevice = {
+    "nome": $("#inputDeviceName").val(),
+    "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val()),
+    "capacidadeLitros": $("#inputRecipeCapacity").val()
+
+  }
+  return dataDevice;
+ }
