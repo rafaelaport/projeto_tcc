@@ -38,16 +38,17 @@ $("#buttonAddAnotherDevice").on("click", function (event) {
 function handleFormShow() {
   let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
   let idUser = $.ajax({
-      method: "GET",
-      url: `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpjUserForm}`,
-    })
+    method: "GET",
+    url: `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpjUserForm}`,
+  })
     .done(function (response) {
       if (response.message !== "Sucesso: Usuário não encontrado.") {
         if (cpfCnpjUserForm === response.response.cpf_cnpj) {
           $("#spanUserResponse").text("Usuário já cadastrado.");
           $("#divAddForm").fadeIn(1000);
           $("#inputCpfCnpj").prop('disabled', true);
-          $("#sectionUser").hide();
+          $("#inputFullName").val(response.response.nome).prop('disabled', true);
+          //$("#selectProfile").prop('disabled', true);
           return response.response.cpf_cnpj;
         }
       } else {
@@ -94,6 +95,8 @@ function handleAddAnotherDevice() {
       saveUser();
       saveDevice();
       alert("Aparelho e Usuário cadastrado com sucesso!");
+      $("#inputFullName").prop('disabled', true);
+      $("#selectProfile").prop('disabled', true);
       $("#spanUserResponse").text("Usuário já cadastrado.");
       clearFields("data-device");
     }
@@ -105,9 +108,9 @@ function saveUser() {
 
   let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/salvar";
   $.post(
-      url,
-      data
-    )
+    url,
+    data
+  )
     .done(response => response)
     .fail(error => console.log(error));
 }
@@ -116,9 +119,9 @@ function saveDevice() {
   const data = buildDataDevice();
   let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/aparelho/salvar";
   $.post(
-      url,
-      data
-    )
+    url,
+    data
+  )
     .done(response => response)
     .fail(error => console.log(error));
 }
@@ -136,7 +139,7 @@ function buildDataUser() {
   return dataUser;
 }
 
-function buildDataDevice() { 
+function buildDataDevice() {
   const dataDevice = {
     "nome": $("#inputDeviceName").val(),
     "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val()),
@@ -144,4 +147,4 @@ function buildDataDevice() {
 
   }
   return dataDevice;
- }
+}

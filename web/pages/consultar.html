@@ -172,13 +172,32 @@
         $("#inputCpfCnpj").on("input", function (event) {
             validateCpfCnpj($("#inputCpfCnpj"));
         });
-        
+
         $("#buttonSearchUser").on("click", function (event) {
             event.preventDefault();
             if (validateCpfCnpj($("#inputCpfCnpj"))) {
-                alert('Oi')
+                let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
+                console.log(cpfCnpjUserForm);
+                console.log(consultUser(cpfCnpjUserForm));
             }
         });
+
+        async function consultUser(cpfCnpf) {
+            let result = false;
+            let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpf}`;
+            $.get(url).done(response => response).done(response => {
+                if (response.message !== "Sucesso: Usuário não encontrado.") {
+                    console.log(response.message);
+                    
+                    result = true;
+                    
+                } else {
+                    console.log(response.message);
+                    result = true;
+                }
+            });
+            return await result;
+        }
     </script>
 </body>
 
