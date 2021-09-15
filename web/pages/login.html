@@ -60,7 +60,7 @@
                             .signInWithEmailAndPassword(login, password)
                             .then(({ user }) => {
                                 return user.getIdToken().then((idToken) => {
-                                    return fetch("/sessionLogin", {
+                                    return fetch("http://localhost:5001/projeto-tcc-209b6/us-central1/api/sessionLogin", {
                                         method: "POST",
                                         headers: {
                                             Accept: "application/json",
@@ -75,7 +75,7 @@
                                 return firebase.auth().signOut();
                             })
                             .then(() => {
-                                window.location.assign("/profile");
+                                window.location.assign("../index");
                             });
                         return false;
                     });

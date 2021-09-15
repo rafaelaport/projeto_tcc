@@ -13,31 +13,20 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as cookieParser from 'cookie-parser';
 import * as csrf from 'csurf';
-
-const bodyParser = require("body-parser");
+import * as bodyParser from 'body-parser';
 
 
 const csrfMiddleware = csrf({ cookie: true });
 const appApi = express();
-//let appAparelho = express();
-//let appHistorico = express();
-//let appUsuario = express();
 
 appApi.engine("html", require("ejs").renderFile);
-appApi.use(express.static("static"));
+appApi.set("views",  __dirname.replace('\\api\\functions\\lib', '\\web'));
+//appApi.use(express.static("static"));
 
 appApi.use(cors());
 appApi.use(bodyParser.json());
 appApi.use(cookieParser());
 appApi.use(csrfMiddleware);
-//appAparelho.use(cors());
-//appHistorico.use(cors());
-//appUsuario.use(cors());
-
-// ROTA - API
-/*appApi.get('/', function(req, res){
-  res.send('API');
-});*/
 
 appApi.all("*", (req, res, next) => {
   res.cookie("XSRF-TOKEN", req.csrfToken());
@@ -45,7 +34,7 @@ appApi.all("*", (req, res, next) => {
 });
 
 appApi.get("/login", function (req, res) {
-  res.render("login.html");
+  res.render("pages/login.html");
 });
 
 appApi.get("/signup", function (req, res) {
@@ -59,10 +48,10 @@ appApi.get("/profile", function (req, res) {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(() => {
-      res.render("profile.html");
+      res.render("pages/profile.html");
     })
     .catch((error) => {
-      res.redirect("/login");
+      res.redirect("pages/login");
     });
 });
 
@@ -92,7 +81,7 @@ appApi.post("/sessionLogin", (req, res) => {
 
 appApi.get("/sessionLogout", (req, res) => {
   res.clearCookie("session");
-  res.redirect("/login");
+  res.redirect("pages/login");
 });
 
 // ROTA - APARELHO
@@ -118,7 +107,4 @@ appApi.put('/usuario/desativar/:id', async (req, res) => { res.json(await usuari
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);
-//exports.aparelho = functions.https.onRequest(appAparelho);
-//exports.historico = functions.https.onRequest(appHistorico);
-//exports.usuario = functions.https.onRequest(appUsuario);
 
