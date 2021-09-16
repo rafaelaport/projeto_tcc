@@ -28,8 +28,10 @@ appApi.use(bodyParser.json());
 appApi.use(cookieParser());
 appApi.use(csrfMiddleware);
 
-appApi.all("*", (req, res, next) => {
-  res.cookie("XSRF-TOKEN", req.csrfToken());
+appApi.use(function (req, res, next) {
+  var token = req.csrfToken();
+  res.cookie('XSRF-TOKEN', token);
+  res.locals.csrfToken = token;
   next();
 });
 
@@ -44,6 +46,7 @@ appApi.get("/signup", function (req, res) {
 appApi.get("/profile", function (req, res) {
   const sessionCookie = req.cookies.session || "";
 
+  console.log(sessionCookie)
   admin
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
@@ -51,7 +54,7 @@ appApi.get("/profile", function (req, res) {
       res.render("pages/profile.html");
     })
     .catch((error) => {
-      res.redirect("pages/login");
+      res.render("pages/login.html");
     });
 });
 
@@ -69,6 +72,7 @@ appApi.post("/sessionLogin", (req, res) => {
     .createSessionCookie(idToken, { expiresIn })
     .then(
       (sessionCookie) => {
+        console.log(sessionCookie)
         const options = { maxAge: expiresIn, httpOnly: true };
         res.cookie("session", sessionCookie, options);
         res.end(JSON.stringify({ status: "success" }));
@@ -80,8 +84,9 @@ appApi.post("/sessionLogin", (req, res) => {
 });
 
 appApi.get("/sessionLogout", (req, res) => {
+  console.log(req.cookies.session)
   res.clearCookie("session");
-  res.redirect("pages/login");
+  res.redirect("/login");
 });
 
 // ROTA - APARELHO
