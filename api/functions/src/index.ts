@@ -11,31 +11,29 @@ import { usuariocontroller } from './controller/usuario/usuarioController';
 import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as cors from 'cors';
-import * as cookieParser from 'cookie-parser';
-import * as csrf from 'csurf';
-import * as bodyParser from 'body-parser';
+//import * as cookieParser from 'cookie-parser';
+//import * as csrf from 'csurf';
+//import * as bodyParser from 'body-parser';
 
 
-const csrfMiddleware = csrf({ cookie: true });
+//const csrfMiddleware = csrf({ cookie: true });
 const appApi = express();
 
-appApi.engine("html", require("ejs").renderFile);
-appApi.set("views",  __dirname.replace('\\api\\functions\\lib', '\\web'));
+//appApi.engine("html", require("ejs").renderFile);
+//appApi.set("views",  __dirname.replace('\\api\\functions\\lib', '\\web'));
 //appApi.use(express.static("static"));
 
 appApi.use(cors());
-appApi.use(bodyParser.json());
-appApi.use(cookieParser());
-appApi.use(csrfMiddleware);
+//appApi.use(bodyParser.json());
+//appApi.use(cookieParser());
+//appApi.use(csrfMiddleware);
 
-appApi.use(function (req, res, next) {
-  var token = req.csrfToken();
-  res.cookie('XSRF-TOKEN', token);
-  res.locals.csrfToken = token;
+/*appApi.all("*", (req, res, next) => {
+  res.cookie("XSRF-TOKEN", req.csrfToken());
   next();
-});
+});*/
 
-appApi.get("/login", function (req, res) {
+/*appApi.get("/login", function (req, res) {
   res.render("pages/login.html");
 });
 
@@ -49,8 +47,8 @@ appApi.get("/profile", function (req, res) {
   console.log(sessionCookie)
   admin
     .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-    .then(() => {
+    .verifySessionCookie(sessionCookie, true /** checkRevoked *//*)
+   /* .then(() => {
       res.render("pages/profile.html");
     })
     .catch((error) => {
@@ -60,19 +58,19 @@ appApi.get("/profile", function (req, res) {
 
 appApi.get("/", function (req, res) {
   res.render("index.html");
-});
+});*/
 
 appApi.post("/sessionLogin", (req, res) => {
   const idToken = req.body.idToken.toString();
 
-  const expiresIn = 60 * 60 * 24 * 5 * 1000;
+  const expiresIn = 300; // expira em 2 minutos
 
   admin
     .auth()
     .createSessionCookie(idToken, { expiresIn })
     .then(
       (sessionCookie) => {
-        console.log(sessionCookie)
+        console.log(idToken)
         const options = { maxAge: expiresIn, httpOnly: true };
         res.cookie("session", sessionCookie, options);
         res.end(JSON.stringify({ status: "success" }));
@@ -83,11 +81,11 @@ appApi.post("/sessionLogin", (req, res) => {
     );
 });
 
-appApi.get("/sessionLogout", (req, res) => {
+/*appApi.get("/sessionLogout", (req, res) => {
   console.log(req.cookies.session)
   res.clearCookie("session");
   res.redirect("/login");
-});
+});*/
 
 // ROTA - APARELHO
 appApi.get('/aparelho', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
