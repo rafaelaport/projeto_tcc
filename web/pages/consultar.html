@@ -97,12 +97,29 @@
                                         <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj"
                                             value="" required maxlength="18" data-user />
                                         <span class="text-muted">Insira apenas números</span>
-                                        <div class="row-sm-2 mt-3">
+                                        <div class="row-sm-2 mt-3" id="divRowButtonSearch">
                                             <button class="btn btn-primary btn-block" type="submit"
                                                 name="buttonSearchUser" id="buttonSearchUser">
                                                 Pesquisar
                                             </button>
                                         </div>
+                                        <section id="sectionUser">
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="row">
+                                                <h3>Usuário</h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="inputFullName">Nome
+                                                            completo</label>
+                                                        <input type="text" class="form-control input"
+                                                            name="inputFullName" id="inputFullName" required data-user
+                                                            disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
                                     </div>
                                     <div class="col-md-1 col-lg-1 col-xl-2"></div>
                                 </div>
@@ -134,7 +151,7 @@
                                                                     Medir
                                                                 </button>
                                                                 <button class="btn btn-primary" type="button"
-                                                                    id="buttonConsultCpfCnpj">
+                                                                    id="buttonSearchCpfCnpj">
                                                                     Consultar
                                                                 </button>
                                                             </div>
@@ -151,6 +168,9 @@
                 </div>
                 <div class="col-sm-1 col-md-2 col-lg-2 col-xl-3"></div>
             </div>
+        </div>
+        <div>
+            <input type="hidden" name="inputAuxiliarSearchUser" id="inputAuxiliarSearchUser" value="">
         </div>
     </div>
 
@@ -169,6 +189,12 @@
     <script src="../js/helpers/helpers.js"></script>
 
     <script>
+        $(document).ready(function () {
+            if ($("#inputCpfCnpj").val() === "") {
+                $("#sectionUser").hide();
+            }
+        });
+
         $("#inputCpfCnpj").on("input", function (event) {
             validateCpfCnpj($("#inputCpfCnpj"));
         });
@@ -177,26 +203,25 @@
             event.preventDefault();
             if (validateCpfCnpj($("#inputCpfCnpj"))) {
                 let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
-                console.log(cpfCnpjUserForm);
-                console.log(consultUser(cpfCnpjUserForm));
+                searchUser(cpfCnpjUserForm);
             }
         });
 
-        async function consultUser(cpfCnpf) {
-            let result = false;
+        function searchUser(cpfCnpf) {
             let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpf}`;
             $.get(url).done(response => response).done(response => {
                 if (response.message !== "Sucesso: Usuário não encontrado.") {
-                    console.log(response.message);
-                    
-                    result = true;
-                    
+                    $("#inputAuxiliarSearchUser").val(true);
+                    $("#inputCpfCnpj")
+                        .css("border-color", "#1ab394")
+                        .prop("disabled", true);
+                    $("#sectionUser").fadeIn(1000);
+                    $("#divRowButtonSearch").hide();
                 } else {
-                    console.log(response.message);
-                    result = true;
+                    $("#inputAuxiliarSearchUser").val(false);
+                    $("#inputCpfCnpj").css("border-color", "#ED5565");
                 }
             });
-            return await result;
         }
     </script>
 </body>
