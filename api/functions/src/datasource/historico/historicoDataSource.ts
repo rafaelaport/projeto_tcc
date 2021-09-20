@@ -81,7 +81,7 @@ class HistoricoDataSource {
     desativarHistoricoPorAparelho = async (idAparelho: string): Promise<MessageTreatment> => {
 
         try {
-            const result = await this.collection.where('idAparelho', '==', idAparelho).get();
+            const result = await this.collection.where('idAparelho', '==', idAparelho).where('ativo', '==', true).get();
 
             if (result.empty) {
 
