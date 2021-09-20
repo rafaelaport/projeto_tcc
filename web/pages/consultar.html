@@ -214,9 +214,14 @@
                     $("#inputAuxiliarSearchUser").val(true);
                     $("#inputCpfCnpj")
                         .css("border-color", "#1ab394")
-                        .prop("disabled", true);
+                        .prop("disabled", true);                        
                     $("#sectionUser").fadeIn(1000);
+                    $("#inputFullName").val(response.response.nome);
                     $("#divRowButtonSearch").hide();
+
+                    // chamando o recurso para pegar os devices
+                    $.get(`http://localhost:5001/projeto-tcc-209b6/us-central1/por-usuario/${cpfCnpf}`).done(response => console.log(response));
+
                 } else {
                     $("#inputAuxiliarSearchUser").val(false);
                     $("#inputCpfCnpj").css("border-color", "#ED5565");
