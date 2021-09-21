@@ -92,6 +92,7 @@
                             <form>
                                 <div class="form-group row">
                                     <div class="col-md-1 col-lg-1 col-xl-2"></div>
+                                    <!-- div col formulário -->
                                     <div class="col">
                                         <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
                                         <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj"
@@ -133,7 +134,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <div class="table-responsive">
-                                            <table class="table table-striped">
+                                            <table class="table table-striped" id="tableDevices">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -142,7 +143,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td>01</td>
                                                         <td>Teste Descrição</td>
                                                         <td>
@@ -156,7 +157,7 @@
                                                                 </button>
                                                             </div>
                                                         </td>
-                                                    </tr>
+                                                    </tr> -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -207,25 +208,51 @@
             }
         });
 
-        function searchUser(cpfCnpf) {
-            let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpf}`;
+        function searchUser(cpfCnpj) {
+            let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpj}`;
             $.get(url).done(response => response).done(response => {
                 if (response.message !== "Sucesso: Usuário não encontrado.") {
                     $("#inputAuxiliarSearchUser").val(true);
                     $("#inputCpfCnpj")
                         .css("border-color", "#1ab394")
-                        .prop("disabled", true);                        
+                        .prop("disabled", true);
                     $("#sectionUser").fadeIn(1000);
                     $("#inputFullName").val(response.response.nome);
                     $("#divRowButtonSearch").hide();
 
                     // chamando o recurso para pegar os devices
-                    $.get(`http://localhost:5001/projeto-tcc-209b6/us-central1/por-usuario/${cpfCnpf}`).done(response => console.log(response));
+                    searchAllDevices(cpfCnpj);
 
                 } else {
                     $("#inputAuxiliarSearchUser").val(false);
                     $("#inputCpfCnpj").css("border-color", "#ED5565");
                 }
+            });
+        }
+
+        function searchAllDevices(cpfCnpj) {
+            let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/aparelho/por-usuario/${cpfCnpj}`;
+            $.get(url).done(response => {
+                // console.log(response.response);
+                let data = response.response;
+
+                let table = $('#tableDevices tr');
+                table.not(':first').not(':last').remove();
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    html += `<tr>
+                                <td>${i+1}</td>
+                                <td id="${data[i].id}">${data[i].nome}</td>
+                                <td>
+                                    <div class="row">
+                                        <button class="btn btn-info mr-1" type="button" id="buttonMeasureByDeviceId">Medir</button>
+                                        <button class="btn btn-primary mr-1" type="button" id="buttonSearchHistoryByDeviceId">Consultar</button>
+                                        <button class="btn btn-danger mr-1" type="button" id="buttonDisableDeviceByDeviceId">Desativar</button>
+                                    </div>
+                                </td>
+                            </tr>`;
+                    }
+                table.first().after(html);
             });
         }
     </script>
