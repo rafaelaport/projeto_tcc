@@ -80,9 +80,10 @@
               </li>
 
               <li>
-                <a href="login.html">
+                <!--<a href="login.html">
                   <i class="fa fa-sign-out"></i> Log out
-                </a>
+                </a>-->
+                <button class="btn btn-primary" type="button" id="logOut" name="logOut">Log out</button>
               </li>
             </ul>
           </nav>
@@ -100,5 +101,15 @@
     <!-- Custom and plugin javascript -->
     <script src="./js/inspinia.js"></script>
     <script src="./js/plugins/pace/pace.min.js"></script>
+
+    <script src="../js/jquery-3.1.1.min.js"></script>
+
+    <script>
+
+      $("#logOut").on('click', function () {
+        $.get(`http://localhost:5001/projeto-tcc-209b6/us-central1/api/sessionLogout`);
+      })
+  
+    </script>
   </body>
 </html>

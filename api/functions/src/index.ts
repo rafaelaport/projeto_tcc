@@ -19,9 +19,9 @@ import * as cors from 'cors';
 //const csrfMiddleware = csrf({ cookie: true });
 const appApi = express();
 
-//appApi.engine("html", require("ejs").renderFile);
-//appApi.set("views",  __dirname.replace('\\api\\functions\\lib', '\\web'));
-//appApi.use(express.static("static"));
+appApi.engine("html", require("ejs").renderFile);
+appApi.set("views",  __dirname.replace('\\api\\functions', '\\web'));
+appApi.use(express.static("static"));
 
 appApi.use(cors());
 //appApi.use(bodyParser.json());
@@ -33,11 +33,11 @@ appApi.use(cors());
   next();
 });*/
 
-/*appApi.get("/login", function (req, res) {
-  res.render("pages/login.html");
+appApi.get("/login", function (req, res) {
+  res.sendfile("../../web/pages/login.html");
 });
 
-appApi.get("/signup", function (req, res) {
+/*appApi.get("/signup", function (req, res) {
   res.render("signup.html");
 });
 
@@ -61,8 +61,8 @@ appApi.get("/", function (req, res) {
 });*/
 
 appApi.post("/sessionLogin", (req, res) => {
+  
   const idToken = req.body.idToken.toString();
-
   const expiresIn = 300; // expira em 2 minutos
 
   admin
@@ -70,7 +70,7 @@ appApi.post("/sessionLogin", (req, res) => {
     .createSessionCookie(idToken, { expiresIn })
     .then(
       (sessionCookie) => {
-        console.log(idToken)
+        
         const options = { maxAge: expiresIn, httpOnly: true };
         res.cookie("session", sessionCookie, options);
         res.end(JSON.stringify({ status: "success" }));
@@ -81,11 +81,11 @@ appApi.post("/sessionLogin", (req, res) => {
     );
 });
 
-/*appApi.get("/sessionLogout", (req, res) => {
-  console.log(req.cookies.session)
+appApi.get("/sessionLogout", (req, res) => {
+
   res.clearCookie("session");
-  res.redirect("/login");
-});*/
+  res.redirect("http://localhost:5001/projeto-tcc-209b6/us-central1/api/login");
+});
 
 // ROTA - APARELHO
 appApi.get('/aparelho', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
