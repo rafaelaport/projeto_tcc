@@ -21,12 +21,13 @@ class HistoricoBusiness {
             const capacidadeLitros = (await aparelhoBusiness.consultarAparelhoPorId(idAparelho)).response.capacidadeLitros;
 
             //MEDIR PH 
-            const retornoLeituraArduino = (await axios.post('http://192.168.0.20')).data;
+            // const retornoLeituraArduino = (await axios.post('http://192.168.0.20')).data;
 
             const historico = {} as Historico;
             historico.ativo = true;
             historico.idAparelho = idAparelho;
-            historico.leitura = retornoLeituraArduino.leitura_ph;
+            // historico.leitura = retornoLeituraArduino.leitura_ph;
+            historico.leitura = 5;
 
             //CALCULAR PRODUTO
             if (historico.leitura >= 7.4 && historico.leitura <= 8) {

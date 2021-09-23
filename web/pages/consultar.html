@@ -208,6 +208,12 @@
             }
         });
 
+        $("#buttonMeasureByDeviceId").on("click", (event) => {
+            let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/historico/salvar/${id}`;
+            console.log(event.target);
+            console.log(this);
+        });
+
         function searchUser(cpfCnpj) {
             let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpj}`;
             $.get(url).done(response => response).done(response => {
@@ -240,9 +246,9 @@
                 table.not(':first').not(':last').remove();
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
-                    html += `<tr>
+                    html += `<tr id="${data[i].id}">
                                 <td>${i+1}</td>
-                                <td id="${data[i].id}">${data[i].nome}</td>
+                                <td>${data[i].nome}</td>
                                 <td>
                                     <div class="row">
                                         <button class="btn btn-info mr-1" type="button" id="buttonMeasureByDeviceId">Medir</button>
