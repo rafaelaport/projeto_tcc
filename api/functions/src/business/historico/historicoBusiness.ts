@@ -2,7 +2,7 @@ import { historicoDataSource } from '../../datasource/exportDatasource';
 import { Historico } from '../../interfaces/exportInterfaces';
 import { aparelhoBusiness } from '../exportBusiness';
 
-const axios = require('axios')
+// const axios = require('axios')
 
 class HistoricoBusiness {
 
