@@ -27,7 +27,7 @@ class HistoricoBusiness {
             historico.ativo = true;
             historico.idAparelho = idAparelho;
             // historico.leitura = retornoLeituraArduino.leitura_ph;
-            historico.leitura = 5;
+            historico.leitura = Math.floor(Math.random() * 10);
 
             //CALCULAR PRODUTO
             if (historico.leitura >= 7.4 && historico.leitura <= 8) {

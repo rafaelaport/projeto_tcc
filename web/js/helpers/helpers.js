@@ -51,3 +51,7 @@ function clearFields(dataAttribute) {
     $(input).css("border-color", "#e5e6e7")
   });
 }
+
+function showMessage(text) {
+  alert(text);
+}

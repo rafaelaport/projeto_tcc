@@ -67,14 +67,14 @@ function handleAddDevice() {
   if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
     if (isDeviceValidated) {
       saveDevice();
-      alert("Aparelho cadastrado com sucesso!");
+      showMessage("Aparelho cadastrado com sucesso!");
       window.location.href = 'consultar.html';
     }
   } else {
     if (isDeviceValidated && isUserValidated) {
       saveUser();
       saveDevice();
-      alert("Aparelho e Usuário cadastrado com sucesso!")
+      showMessage("Aparelho e Usuário cadastrado com sucesso!");
       window.location.href = 'consultar.html';
     }
   }
@@ -87,14 +87,14 @@ function handleAddAnotherDevice() {
   if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
     if (isDeviceValidated) {
       saveDevice();
-      alert("Aparelho cadastrado com sucesso!");
+      showMessage("Aparelho cadastrado com sucesso!");
       clearFields("data-device");
     }
   } else {
     if (isDeviceValidated && isUserValidated) {
       saveUser();
       saveDevice();
-      alert("Aparelho e Usuário cadastrado com sucesso!");
+      showMessage("Aparelho e Usuário cadastrado com sucesso!");
       $("#inputFullName").prop('disabled', true);
       $("#selectProfile").prop('disabled', true);
       $("#spanUserResponse").text("Usuário já cadastrado.");

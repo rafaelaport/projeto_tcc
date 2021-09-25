@@ -145,7 +145,7 @@
                                                 <tbody>
                                                     <tr id="tr-0" data-device-id>
                                                         <td>1</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-0"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -160,18 +160,22 @@
                                                     </tr>
                                                     <tr id="tr-1" data-device-id>
                                                         <td>2</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-1"></td>
                                                         <td>
                                                             <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id"type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1"type="button">Desativar</button>
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" id="">Medir</button>
+                                                                <button class="btn btn-primary mr-1"
+                                                                    type="button">Consultar</button>
+                                                                <button class="btn btn-danger mr-1"
+                                                                    type="button">Desativar</button>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr id="tr-2">
                                                         <td>3</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-2"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -186,7 +190,7 @@
                                                     </tr>
                                                     <tr id="tr-3">
                                                         <td>4</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-3"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -201,7 +205,7 @@
                                                     </tr>
                                                     <tr id="tr-4">
                                                         <td>5</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-4"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -216,7 +220,7 @@
                                                     </tr>
                                                     <tr id="tr-5">
                                                         <td>6</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-5"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -231,7 +235,7 @@
                                                     </tr>
                                                     <tr id="tr-6">
                                                         <td>7</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-6"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -246,7 +250,7 @@
                                                     </tr>
                                                     <tr id="tr-7">
                                                         <td>8</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-7"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -261,7 +265,7 @@
                                                     </tr>
                                                     <tr id="tr-8">
                                                         <td>9</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-8"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -276,7 +280,7 @@
                                                     </tr>
                                                     <tr id="tr-9">
                                                         <td>10</td>
-                                                        <td></td>
+                                                        <td id="nameDevice-9"></td>
                                                         <td>
                                                             <div class="row">
                                                                 <button
@@ -342,8 +346,7 @@
 
         $(".button-measure-by-device-id").on("click", (event) => {
             // let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/historico/salvar/${id}`;
-            console.log(event.target);
-            console.log(this);
+            handleMeasure(event);
         });
 
         function searchUser(cpfCnpj) {
@@ -374,39 +377,39 @@
                 // console.log(response.response);
                 let data = response.response;
 
-                let table = $('#tableDevices tr').not(":first");
-                console.log(table)
-                //table.not(':first').not(':last').remove();
-                // var html = '';
-                if (data.length > 0) {
-                    for (var i = 0; i < data.length; i++) {
-                        console.log(i);
-                        console.log(data[i].id);
-                        console.log($("#tr-" + i).attr("id"));
-                        $("#tr-" + i).attr("data-device-id", data[i].id);
-                        /*
-                        html += `<tr id="${data[i].id}">
-                                <td>${i + 1}</td>
-                                <td>${data[i].nome}</td>
-                                <td>
-                                    <div class="row">
-                                        <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="buttonMeasureByDeviceId">Medir</button>
-                                        <button class="btn btn-primary mr-1" type="button" id="buttonSearchHistoryByDeviceId">Consultar</button>
-                                        <button class="btn btn-danger mr-1" type="button" id="buttonDisableDeviceByDeviceId">Desativar</button>
-                                    </div>
-                                </td>
-                            </tr>`;
-                            */
-                    }
-                    //table.first().after(html);
-                }
+                buildTableDevices(data);
 
             });
         }
 
+        function calculateSaveDeviceMeasure(id) {
+            let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/historico/salvar/${id}`;
+            $.post(url).done(response => showMessage(response.message));
+        }
+
         function handleMeasure(event) {
             console.log(event.target);
-            console.log(this);
+            console.log();
+            let idDevice = $(event.target).parent().parent().parent().attr("data-device-id");
+            // console.log(this);
+            calculateSaveDeviceMeasure(idDevice);
+        }
+
+        function buildTableDevices(data) {
+            let table = $('#tableDevices tr').not(":first");
+            console.log(table);
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    console.log(i);
+                    console.log(data[i].id);
+                    console.log($("#tr-" + i).attr("id"));
+                    $("#tr-" + i).attr("data-device-id", data[i].id);
+                    $("#nameDevice-" + i).text(data[i].nome);
+                }
+            }
+        }
+
+        function messageErroUserWithoutDevice(data) {
         }
 
         /**
@@ -415,7 +418,7 @@
          *
          *
          * Resolver problema quando existir usuario sem nenhum aparelho
-        */
+         */
     </script>
 </body>
 
