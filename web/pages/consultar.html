@@ -308,6 +308,30 @@
         <div>
             <input type="hidden" name="inputAuxiliarSearchUser" id="inputAuxiliarSearchUser" value="">
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalShowHistorical" tabindex="-1" role="dialog"
+            aria-labelledby="modalShowHistoricalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim quasi alias tempora odio velit iure deleniti cum aspernatur voluptate, blanditiis quod ullam expedita recusandae commodi porro corrupti id excepturi. Minima.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet vitae nesciunt quisquam iure, provident repellendus delectus molestias nemo et nam cupiditate cumque dolorum tempora ex dolore unde esse nihil voluptates.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, numquam. Impedit cupiditate repellendus tempore quaerat, itaque nobis perspiciatis fugit voluptatum. Natus nihil dolor adipisci numquam magni voluptatem cupiditate rerum repellat!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, deserunt error aspernatur consectetur at numquam laboriosam porro accusamus ab qui repellendus debitis cum nobis officiis asperiores assumenda, saepe, repudiandae exercitationem?
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Mainly scripts -->
@@ -328,7 +352,8 @@
         $(document).ready(function () {
             if ($("#inputCpfCnpj").val() === "") {
                 $("#sectionUser").hide();
-                // $("#divRowTableDevices").hide();
+                $("#divRowTableDevices").hide();
+                $("#modalShowHistorical").hide();
             }
         });
 
@@ -345,7 +370,6 @@
         });
 
         $(".button-measure-by-device-id").on("click", (event) => {
-            // let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/historico/salvar/${id}`;
             handleMeasure(event);
         });
 
@@ -374,11 +398,8 @@
         function searchAllDevices(cpfCnpj) {
             let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/aparelho/por-usuario/${cpfCnpj}`;
             $.get(url).done(response => {
-                // console.log(response.response);
                 let data = response.response;
-
                 buildTableDevices(data);
-
             });
         }
 
@@ -388,37 +409,44 @@
         }
 
         function handleMeasure(event) {
-            console.log(event.target);
-            console.log();
             let idDevice = $(event.target).parent().parent().parent().attr("data-device-id");
-            // console.log(this);
             calculateSaveDeviceMeasure(idDevice);
         }
 
         function buildTableDevices(data) {
             let table = $('#tableDevices tr').not(":first");
-            console.log(table);
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
-                    console.log(i);
-                    console.log(data[i].id);
-                    console.log($("#tr-" + i).attr("id"));
                     $("#tr-" + i).attr("data-device-id", data[i].id);
                     $("#nameDevice-" + i).text(data[i].nome);
                 }
+                hideRowsUnused(data.length);
+                showTableDevices();
+                /***
+                 * 
+                 * 
+                 * 
+                 * 
+                 */
+                showModalHistorical();
+            } else {
+                showMessage("Usuário sem aparelhos ativos.");
             }
         }
 
-        function messageErroUserWithoutDevice(data) {
+        function hideRowsUnused(dataLength) {
+            for (let i = dataLength; i < 10; i++) {
+                $("#tr-" + i).hide();
+            }
         }
 
-        /**
-         *
-         *
-         *
-         *
-         * Resolver problema quando existir usuario sem nenhum aparelho
-         */
+        function showTableDevices() {
+            $("#divRowTableDevices").fadeIn(1500);
+        }
+
+        function showModalHistorical() { 
+            $('#modalShowHistorical').modal('toggle');
+         }
     </script>
 </body>
 
