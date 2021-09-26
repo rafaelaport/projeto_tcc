@@ -39,7 +39,7 @@ function handleFormShow() {
   let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
   let idUser = $.ajax({
     method: "GET",
-    url: `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpjUserForm}`,
+    url: BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpjUserForm}`,
   })
     .done(function (response) {
       if (response.message !== "Sucesso: Usuário não encontrado.") {
@@ -106,7 +106,7 @@ function handleAddAnotherDevice() {
 function saveUser() {
   const data = buildDataUser();
 
-  let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/salvar";
+  let url = BASE_URL + "usuario/salvar";
   $.post(
     url,
     data
@@ -117,7 +117,7 @@ function saveUser() {
 
 function saveDevice() {
   const data = buildDataDevice();
-  let url = "http://localhost:5001/projeto-tcc-209b6/us-central1/aparelho/salvar";
+  let url = BASE_URL + "aparelho/salvar";
   $.post(
     url,
     data
@@ -127,7 +127,7 @@ function saveDevice() {
 }
 
 function consultUser(cpfCnpf) {
-  let url = `http://localhost:5001/projeto-tcc-209b6/us-central1/usuario/por-cpf-cnpj/${cpfCnpf}`;
+  let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpf}`;
   return $.get(url).done(response => response.response).done(cpf_cnpj => cpf_cnpj);
 }
 
