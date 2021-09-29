@@ -99,10 +99,7 @@
                                             value="" required maxlength="18" data-user />
                                         <span class="text-muted">Insira apenas números</span>
                                         <div class="row-sm-2 mt-3" id="divRowButtonSearch">
-                                            <button class="btn btn-primary btn-block" type="submit"
-                                                name="buttonSearchUser" id="buttonSearchUser">
-                                                Pesquisar
-                                            </button>
+                                            <button class="btn btn-primary btn-block" type="submit" name="buttonSearchUser" id="buttonSearchUser">Pesquisar</button>
                                         </div>
                                         <section id="sectionUser">
                                             <div class="hr-line-dashed"></div>
@@ -112,11 +109,8 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label class="col-form-label" for="inputFullName">Nome
-                                                            completo</label>
-                                                        <input type="text" class="form-control input"
-                                                            name="inputFullName" id="inputFullName" required data-user
-                                                            disabled />
+                                                        <label class="col-form-label" for="inputFullName">Nome completo</label>
+                                                        <input type="text" class="form-control input" name="inputFullName" id="inputFullName" required data-user disabled />
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,14 +142,9 @@
                                                         <td id="nameDevice-0"></td>
                                                         <td>
                                                             <div class="row">
-                                                                <button
-                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
-                                                                    type="button" id="">Medir</button>
-                                                                <button
-                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
-                                                                    type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1"
-                                                                    type="button">Desativar</button>
+                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
+                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
+                                                                <button class="btn btn-danger mr-1" type="button">Desativar</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -228,14 +217,9 @@
                                                         <td id="nameDevice-5"></td>
                                                         <td>
                                                             <div class="row">
-                                                                <button
-                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
-                                                                    type="button" id="">Medir</button>
-                                                                <button
-                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
-                                                                    type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1"
-                                                                    type="button">Desativar</button>
+                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
+                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
+                                                                <button class="btn btn-danger mr-1" type="button">Desativar</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -244,14 +228,9 @@
                                                         <td id="nameDevice-6"></td>
                                                         <td>
                                                             <div class="row">
-                                                                <button
-                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
-                                                                    type="button" id="">Medir</button>
-                                                                <button
-                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
-                                                                    type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1"
-                                                                    type="button">Desativar</button>
+                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
+                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
+                                                                <button class="btn btn-danger mr-1" type="button">Desativar</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -368,7 +347,7 @@
             validateCpfCnpj($("#inputCpfCnpj"));
         });
 
-        $("#buttonSearchUser").on("click", function (event) {
+        $("#buttonSearchUser").on('click', event => {
             event.preventDefault();
             if (validateCpfCnpj($("#inputCpfCnpj"))) {
                 let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
@@ -383,15 +362,13 @@
         $(".button-consult-historical-id").on("click", (event) => {
             handleConsultHistoricalByDeviceId(event);
         });
-
+        
         function searchUser(cpfCnpj) {
             let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
             $.get(url).done(response => response).done(response => {
                 if (response.message !== "Sucesso: Usuário não encontrado.") {
                     $("#inputAuxiliarSearchUser").val(true);
-                    $("#inputCpfCnpj")
-                        .css("border-color", "#1ab394")
-                        .prop("disabled", true);
+                    $("#inputCpfCnpj").css("border-color", "#1ab394").prop("disabled", true);
                     $("#sectionUser").fadeIn(1000);
                     $("#inputFullName").val(response.response.nome);
                     $("#divRowButtonSearch").hide();
@@ -405,7 +382,7 @@
                 }
             });
         }
-
+        
         function searchAllDevices(cpfCnpj) {
             let url = BASE_URL + `aparelho/por-usuario/${cpfCnpj}`;
             $.get(url).done(response => {
@@ -512,6 +489,7 @@
         function showModalHistorical() {
             $('#modalShowHistorical').modal('toggle');
         }
+        
     </script>
 </body>
 
