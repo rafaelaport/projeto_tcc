@@ -24,8 +24,7 @@ $("#buttonCheckUser").on("click", (event) => {
 });
 
 $("#buttonSaveUser").on("click", (event) => {
-  event.preventDefault();
-  
+  event.preventDefault();  
   let isUserValidated = validateInputsForm("data-user");
   if (isUserValidated) {
     if (checkIfIsRegistered() === true) {
@@ -33,6 +32,14 @@ $("#buttonSaveUser").on("click", (event) => {
     } else {
       saveUser();
     }
+  }
+});
+
+$("#buttonDeactivateUser").on("click", (event) => {
+  event.preventDefault();
+  let isUserValidated = validateInputsForm("data-user");
+  if (isUserValidated) {
+    deactivateUser();
   }
 });
 
@@ -48,7 +55,7 @@ function saveUser() {
   const data = buildDataUser();
   let url = BASE_URL + "usuario/salvar";
   $.post(url, data).done(response => {
-    let decision = messageConfirm(`${response.message}\nDeseja ir para página de consulta?`);
+    let decision = confirm(`${response.message}\nDeseja ir para página de consulta?`);
     if (decision) {
       window.location.href = 'consultarUsuario.html';
     } else {
@@ -63,9 +70,21 @@ function editUser() {
   let idUser = $("#inputFullName").attr("data-user-id");
   let url = BASE_URL + `usuario/editar/${idUser}`;
   $.ajax({method: "PUT", url: url, data: data}).done(response => {
-    let decision = messageConfirm(`${response.message}\nDeseja ir para página de consulta?`);
+    let decision = confirm(`${response.message}\nDeseja ir para página de consulta?`);
     if (decision) {
       window.location.href = 'consultarUsuario.html';
+    }
+  }).fail(error => console.log(error));
+}
+
+function deactivateUser() {
+  const data = buildDataUser();
+  let idUser = $("#inputFullName").attr("data-user-id");
+  let url = BASE_URL + `usuario/desativar/${idUser}`;
+  $.ajax({method: "PUT", url: url, data: data}).done(response => {
+    let decision = confirm(`${response.message}\nDeseja ir para a página de cadastro de aparelho?`);
+    if (decision) {
+      window.location.href = 'consultarAparelho.html';
     }
   }).fail(error => console.log(error));
 }
@@ -94,11 +113,6 @@ function handleFormShow(response, cpfCnpj) {
     $("#inputCpfCnpj").prop('disabled', true);
   }
   $("#buttonCheckUser").prop('disabled', true);
-}
-
-function messageConfirm(text) {
-  let result = confirm(text);
-  return result
 }
 
 function setUserIdInDataAttribute(id) {
