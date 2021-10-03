@@ -35,19 +35,23 @@
                         </div>
                         <div class="logo-element">Easier pH</div>
                     </li>
-                    <li>
-                        <a href="../index.html" aria-label="Home"><i class="fa fa-home"></i>
-                            <span class="nav-label">Home</span></a>
+                    <li class="">
+                        <a href="../index.html" aria-label="Home"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
                     </li>
-
                     <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
                     <li>
-                        <a href="../pages/cadastrar.html" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i>
-                            <span class="nav-label">Cadastrar</span></a>
+                        <a href="#" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i><span class="nav-label">Cadastrar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class=""><a href="../pages/cadastrarAparelho.html">Aparelho</a></li>
+                            <li><a href="../pages/cadastrarUsuario.html">Usuário</a></li>
+                        </ul>
                     </li>
-                    <li class="active">
-                        <a href="../pages/consultar.html" aria-label="Consultar"><i class="fa fa-search"></i>
-                            <span class="nav-label">Consultar</span></a>
+                    <li>
+                        <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span class="nav-label">Consultar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="active"><a href="../pages/consultarAparelho.html">Aparelho</a></li>
+                            <li><a href="../pages/consultarUsuario.html">Usuário</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -58,18 +62,14 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#" aria-label="Menu"><i
-                                class="fa fa-bars"></i>
-                        </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#" aria-label="Menu"><i class="fa fa-bars"></i></a>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li style="padding: 20px">
                             <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
                         </li>
                         <li>
-                            <a href="login.html">
-                                <i class="fa fa-sign-out"></i> Log out
-                            </a>
+                            <a href="login.html"><i class="fa fa-sign-out"></i> Log out</a>
                         </li>
                     </ul>
                 </nav>
@@ -77,7 +77,7 @@
             <!-- Div para título da página -->
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-12">
-                    <h2>Consultar</h2>
+                    <h2>Consultar Aparelho</h2>
                 </div>
             </div>
             <!-- Div para campo de conculta e tabela de aparelhos -->
@@ -95,8 +95,7 @@
                                     <!-- div col formulário -->
                                     <div class="col">
                                         <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
-                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj"
-                                            value="" required maxlength="18" data-user />
+                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj" value="" required maxlength="18" data-user />
                                         <span class="text-muted">Insira apenas números</span>
                                         <div class="row-sm-2 mt-3" id="divRowButtonSearch">
                                             <button class="btn btn-primary btn-block" type="submit" name="buttonSearchUser" id="buttonSearchUser">Pesquisar</button>
@@ -263,8 +262,7 @@
             <input type="hidden" name="inputAuxiliarSearchUser" id="inputAuxiliarSearchUser" value="">
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="modalShowHistorical" tabindex="-1" role="dialog"
-            aria-labelledby="modalShowHistoricalTitle" aria-hidden="true">
+        <div class="modal fade" id="modalShowHistorical" tabindex="-1" role="dialog" aria-labelledby="modalShowHistoricalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -274,7 +272,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -297,12 +294,8 @@
 
     <script src="../js/services/apiFirebase.js"></script>
 
-    <script src="../js/pages/consultar.js"></script>
+    <script src="../js/pages/consultarAparelho.js"></script>
     <script src="../js/helpers/helpers.js"></script>
-
-    <script>
-        
-    </script>
 </body>
 
 </html>

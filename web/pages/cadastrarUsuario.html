@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>Easier ph</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+  <!-- Toastr style -->
+  <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+  <!-- Gritter -->
+  <link href="../js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
+
+  <link href="../css/animate.css" rel="stylesheet" />
+  <link href="../css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="wrapper">
+    <!-- Div para menu lateral -->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+      <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+          <li class="nav-header">
+            <div class="dropdown profile-element">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-label="ADM">
+                <span class="block m-t-xs font-bold">Nome do adm logado</span>
+              </a>
+            </div>
+            <div class="logo-element">Easier pH</div>
+          </li>
+          <li class="">
+            <a href="../index.html" aria-label="Home"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
+          </li>
+          <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
+          <li>
+            <a href="#" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i><span class="nav-label">Cadastrar</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li class=""><a href="../pages/cadastrarAparelho.html">Aparelho</a></li>
+              <li class="active"><a href="../pages/cadastrarUsuario.html">Usuário</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span class="nav-label">Consultar</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li class=""><a href="../pages/consultarAparelho.html">Aparelho</a></li>
+              <li><a href="../pages/consultarUsuario.html">Usuário</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="page-wrapper" class="gray-bg">
+      <!-- Div para header -->
+      <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+          <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i></a>
+          </div>
+          <ul class="nav navbar-top-links navbar-right">
+            <li style="padding: 20px">
+              <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+            </li>
+            <li>
+              <a href="login.html"><i class="fa fa-sign-out"></i> Log out</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Div para título da página -->
+      <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-12">
+          <h2>Cadastrar Usuário</h2>
+        </div>
+      </div>
+      <!-- -->
+      <div class="row justify-content-md-center mt-3">
+        <div class="col-sm-1 col-md-2 col-lg-2 col-xl-3"></div>
+        <div class="col">
+          <!-- Div para informar o cpf/cnpj -->
+          <div class="">
+            <div class="ibox-title">
+              <h5>Informe um CPF/CNPJ</h5>
+            </div>
+            <div class="ibox-content">
+              <form id="formCheckUser">
+                <div class="form-group row">
+                  <div class="col-md-1 col-lg-1 col-xl-2"></div>
+                  <div class="col">
+                    <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
+                    <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj" value="" required maxlength="18" data-user />
+                    <span class="text-muted">Insira apenas números</span>
+                    <div class="row-sm-2 mt-3">
+                      <button class="btn btn-primary btn-block" type="submit" name="buttonCheckUser" id="buttonCheckUser">
+                        Avançar
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-md-1 col-lg-1 col-xl-2"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- Div para informar os dados do usuário -->
+          <div class="mt-3" id="divAddForm">
+            <div class="ibox-title">
+              <h5>Formulário de cadastro</h5>
+              <br>
+              <span class="text-muted" id="spanUserResponse"></span>
+            </div>
+            <div class="ibox-content">
+              <form>
+                <div class="row">
+                  <div class="col-md-1 col-lg-1 col-xl-2"></div>
+                  <div class="col">
+                    <section id="sectionUser">
+                      <div class="row">
+                        <h3>Usuário</h3>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label class="col-form-label" for="inputFullName">Nome completo</label>
+                            <input type="text" class="form-control input" name="inputFullName" id="inputFullName" required data-user data-user-id />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label class="col-form-label" for="selectProfile">Perfil</label>
+                            <select type="text" class="form-control" name="selectProfile" id="selectProfile" required data-user>
+                              <option value="0" selected></option>
+                              <option value="1">Administrador</option>
+                              <option value="2">Usuário</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                    <section id="sectionButtons">
+                      <div class="row mt-3">
+                        <div class="col mb-3">
+                          <button class="btn btn-primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" type="submit" name="buttonSaveUser" id="buttonSaveUser">
+                            Salvar
+                          </button>
+                        </div>
+                        <div class="col">
+                          <button class="btn btn-danger col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" type="submit" name="buttonDeactivateUser" id="buttonDeactivateUser">
+                            Desativar
+                          </button>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="col-md-1 col-lg-1 col-xl-2"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1 col-md-2 col-lg-2 col-xl-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mainly scripts -->
+  <script src="../js/jquery-3.1.1.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap.js"></script>
+  <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+  <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+  <!-- Custom and plugin javascript -->
+  <script src="../js/inspinia.js"></script>
+  <script src="../js/plugins/pace/pace.min.js"></script>
+
+  <script src="../js/services/apiFirebase.js"></script>
+
+  <script src="../js/pages/cadastrarUsuario.js"></script>
+  <script src="../js/helpers/helpers.js"></script>
+</body>
+
+</html>

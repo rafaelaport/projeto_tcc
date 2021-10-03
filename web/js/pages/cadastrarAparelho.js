@@ -68,14 +68,14 @@ function handleAddDevice() {
     if (isDeviceValidated) {
       saveDevice();
       showMessage("Aparelho cadastrado com sucesso!");
-      window.location.href = 'consultar.html';
+      window.location.href = 'consultarAparelho.html';
     }
   } else {
     if (isDeviceValidated && isUserValidated) {
       saveUser();
       saveDevice();
       showMessage("Aparelho e Usuário cadastrado com sucesso!");
-      window.location.href = 'consultar.html';
+      window.location.href = 'consultarAparelho.html';
     }
   }
 }

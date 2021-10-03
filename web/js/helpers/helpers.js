@@ -40,6 +40,13 @@ function validateInputsForm(dataAttribute) {
     } else {
       $(input).css("border-color", "#1ab394");
     }
+
+    if ($(input).val() === '0') {
+      $(input).css("border-color", "#ED5565");
+      result = false;
+    } else {
+      $(input).css("border-color", "#1ab394");
+    }
   });
   return result;
 }
