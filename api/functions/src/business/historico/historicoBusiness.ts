@@ -25,6 +25,7 @@ class HistoricoBusiness {
 
             const historico = {} as Historico;
             historico.ativo = true;
+            historico.dataMedicao = new Date();
             historico.idAparelho = idAparelho;
             // historico.leitura = retornoLeituraArduino.leitura_ph;
             historico.leitura = Math.floor(Math.random() * 10);

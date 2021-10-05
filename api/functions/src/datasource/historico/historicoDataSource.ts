@@ -25,6 +25,7 @@ class HistoricoDataSource {
                 result.docs.map(doc => {
                     const historico = doc.data() as Historico;
                     historico.id = doc.id;
+                    historico.dataMedicao = doc.data().dataMedicao.toDate();
 
                     historicos.push(historico);
                 })
@@ -53,6 +54,7 @@ class HistoricoDataSource {
                 result.docs.map(doc => {
                     const historico = doc.data() as Historico;
                     historico.id = doc.id;
+                    historico.dataMedicao = doc.data().dataMedicao.toDate();
 
                     historicos.push(historico);
                 })

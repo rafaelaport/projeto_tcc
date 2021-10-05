@@ -1,7 +1,8 @@
-export interface Historico {
-    id: string;
-    idAparelho: string;
-    leitura: number;
-    quantidadeProduto: number; // qual unidade de medida?
-    ativo: boolean;
+export class Historico {
+    id: string = '';
+    idAparelho: string = '';
+    leitura: number = 0;
+    quantidadeProduto: number = 0; 
+    dataMedicao: Date = new Date;
+    ativo: boolean = true;
 }
