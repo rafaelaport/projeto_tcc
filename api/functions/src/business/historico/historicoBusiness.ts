@@ -1,5 +1,5 @@
 import { historicoDataSource } from '../../datasource/exportDatasource';
-import { Historico } from '../../interfaces/exportInterfaces';
+import { Historico } from '../../entities/exportEntities';
 import { aparelhoBusiness } from '../exportBusiness';
 
 // const axios = require('axios')

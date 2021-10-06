@@ -1,4 +1,4 @@
-import { MessageTreatment } from "../../interfaces/exportInterfaces";
+import { MessageTreatment } from "../../entities/exportEntities";
 
 class MessageTreatmentBusiness{
 

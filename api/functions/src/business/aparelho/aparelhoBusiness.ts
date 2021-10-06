@@ -1,5 +1,5 @@
 import { aparelhoDataSource } from "../../datasource/exportDatasource";
-import { Aparelho } from "../../interfaces/exportInterfaces";
+import { Aparelho } from "../../entities/exportEntities";
 import { historicoBusiness } from "../exportBusiness";
 
 class AparelhoBusiness {

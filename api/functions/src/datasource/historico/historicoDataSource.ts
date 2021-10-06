@@ -1,4 +1,4 @@
-import { Historico, MessageTreatment } from '../../interfaces/exportInterfaces';
+import { Historico, MessageTreatment } from '../../entities/exportEntities';
 import { messageTreatmentBusiness } from '../../business/exportBusiness';
 
 import * as admin from 'firebase-admin';

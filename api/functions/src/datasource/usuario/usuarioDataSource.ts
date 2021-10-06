@@ -1,4 +1,4 @@
-import { MessageTreatment, Usuario } from "../../interfaces/exportInterfaces";
+import { MessageTreatment, Usuario } from "../../entities/exportEntities";
 import { messageTreatmentBusiness } from "../../business/exportBusiness";
 
 import * as admin from 'firebase-admin';

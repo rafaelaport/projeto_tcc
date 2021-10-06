@@ -1,5 +1,5 @@
 import { usuarioDataSource } from "../../datasource/exportDatasource";
-import { Aparelho, Usuario } from "../../interfaces/exportInterfaces";
+import { Aparelho, Usuario } from "../../entities/exportEntities";
 import { aparelhoBusiness, messageTreatmentBusiness } from "../exportBusiness";
 
 class UsuarioBusiness {

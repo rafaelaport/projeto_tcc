@@ -1,5 +1,5 @@
 import { aparelhoBusiness } from "../../business/exportBusiness";
-import { Aparelho } from "../../interfaces/exportInterfaces";
+import { Aparelho } from "../../entities/exportEntities";
 
 class AparelhoController{
 
