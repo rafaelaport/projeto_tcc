@@ -14,46 +14,31 @@ import { usuariocontroller } from './controller/usuario/usuarioController';
 
 const cors = require('cors');
 
-// APIS
 let appApi = express();
-let appAparelho = express();
-let appHistorico = express();
-let appUsuario = express();
 
 appApi.use(cors());
-appAparelho.use(cors());
-appHistorico.use(cors());
-appUsuario.use(cors());
-
-// ROTA - API
-appApi.get('/', function(req, res){
-  res.send('API');
-});
 
 // ROTA - APARELHOS
-appAparelho.get('/', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
-appAparelho.get('/por-usuario/:cpf_cnpj', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.cpf_cnpj)) });
-appAparelho.get('/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
-appAparelho.post('/salvar', async (req, res) => { res.json(await aparelhoController.salvarAparelho(req.body)) });
-appAparelho.put('/editar/:id', async (req, res) => { res.json(await aparelhoController.editarAparelho(req.params.id, req.body)) });
-appAparelho.put('/desativar/:id', async (req, res) => { res.json(await aparelhoController.desativarAparelho(req.params.id)) });
+appApi.get('/aparelho', async (req, res) => { res.json(await aparelhoController.consultarTodosAparelhos()) });
+appApi.get('/aparelho/por-usuario/:cpf_cnpj', async (req, res) => { res.json(await aparelhoController.consultarAparelhosPorUsuario(req.params.cpf_cnpj)) });
+appApi.get('/aparelho/:id', async (req, res) => { res.json(await aparelhoController.consultarAparelhoPorId(req.params.id)) });
+appApi.post('/aparelho/salvar', async (req, res) => { res.json(await aparelhoController.salvarAparelho(req.body)) });
+appApi.put('/aparelho/editar/:id', async (req, res) => { res.json(await aparelhoController.editarAparelho(req.params.id, req.body)) });
+appApi.put('/aparelho/desativar/:id', async (req, res) => { res.json(await aparelhoController.desativarAparelho(req.params.id)) });
 
 // ROTA - HISTORICOS 
-appHistorico.get('/', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
-appHistorico.get('/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
-appHistorico.post('/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
-appHistorico.put('/desativar/:idAparelho', async (req, res) => { res.json(await historicoController.desativarHistoricoPorAparelho(req.params.idAparelho)) });
+appApi.get('/historico', async (req, res) => { res.json(await historicoController.consultarTodosHistoricos()) });
+appApi.get('/historico/por-aparelho/:idAparelho', async (req, res) => { res.json(await historicoController.consultarHistoricosPorAparelho(req.params.idAparelho)) });
+appApi.post('/historico/salvar/:idAparelho', async (req, res) => { res.json(await historicoController.salvarHistorico(req.params.idAparelho)) });
+appApi.put('/historico/desativar/:idAparelho', async (req, res) => { res.json(await historicoController.desativarHistoricoPorAparelho(req.params.idAparelho)) });
 
 // ROTA - USUARIO
-appUsuario.get('/:id', async (req, res) => { res.json(await usuariocontroller.consultarUsuarioPorId(req.params.id)) });
-appUsuario.get('/por-cpf-cnpj/:cpf_cnpj', async (req, res) => { res.json(await usuariocontroller.ConsultarUsuarioPorCpfCnpj(req.params.cpf_cnpj)) });
-appUsuario.post('/salvar', async (req, res) => { res.json(await usuariocontroller.salvarUsuario(req.body)) });
-appUsuario.put('/editar/:id', async (req, res) => { res.json(await usuariocontroller.editarUsuario(req.params.id, req.body)) });
-appUsuario.put('/desativar/:id', async (req, res) => { res.json(await usuariocontroller.desativarUsuario(req.params.id)) });
+appApi.get('/usuario/:id', async (req, res) => { res.json(await usuariocontroller.consultarUsuarioPorId(req.params.id)) });
+appApi.get('/usuario/por-cpf-cnpj/:cpf_cnpj', async (req, res) => { res.json(await usuariocontroller.ConsultarUsuarioPorCpfCnpj(req.params.cpf_cnpj)) });
+appApi.post('/usuario/salvar', async (req, res) => { res.json(await usuariocontroller.salvarUsuario(req.body)) });
+appApi.put('/usuario/editar/:id', async (req, res) => { res.json(await usuariocontroller.editarUsuario(req.params.id, req.body)) });
+appApi.put('/usuario/desativar/:id', async (req, res) => { res.json(await usuariocontroller.desativarUsuario(req.params.id)) });
 
 // EXPORTS APPS
 exports.api = functions.https.onRequest(appApi);
-exports.aparelho = functions.https.onRequest(appAparelho);
-exports.historico = functions.https.onRequest(appHistorico);
-exports.usuario = functions.https.onRequest(appUsuario);
 
