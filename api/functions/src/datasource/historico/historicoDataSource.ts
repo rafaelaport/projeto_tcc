@@ -70,9 +70,9 @@ class HistoricoDataSource {
     salvarHistorico = async (historico: Historico): Promise<MessageTreatment> => {
 
         try {
-            let documentoInserido = await this.collection.doc().set(historico);
+            await this.collection.doc().set(historico);
 
-            return messageTreatmentBusiness.sucessMsg(`Histórico adicionado.`, documentoInserido);
+            return messageTreatmentBusiness.sucessMsg(`Histórico adicionado.`, historico);
 
         } catch (error) {
             return messageTreatmentBusiness.errorMsg('Falha ao adicionar histórico, entre em contato com o administrador.', error);
