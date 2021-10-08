@@ -102,7 +102,7 @@ function handleFormShow(response, cpfCnpj) {
     if (cpfCnpj === response.response.cpf_cnpj) {
       $("#spanUserResponse").text(userRegisteredMessage);
       $("#divAddForm").fadeIn(1000);
-      $("#inputCpfCnpj").prop('disabled', true);
+      // $("#inputCpfCnpj").prop('disabled', true);
       $("#inputFullName").val(response.response.nome);
       setUserIdInDataAttribute(response.response.id);
       $("#buttonSaveUser").text("Editar");
