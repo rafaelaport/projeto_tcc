@@ -35,13 +35,13 @@ $("#buttonSaveUser").on("click", (event) => {
   }
 });
 
-/* $("#buttonDeactivateUser").on("click", (event) => {
+$("#buttonDeactivateUser").on("click", (event) => {
   event.preventDefault();
   let isUserValidated = validateInputsForm("data-user");
   if (isUserValidated) {
     deactivateUser();
   }
-}); */
+});
 
 function searchUser () {
   let cpfCnpj = removeSpecialCharacters($("#inputCpfCnpj").val());
@@ -77,7 +77,7 @@ function editUser() {
   }).fail(error => console.log(error));
 }
 
-/* function deactivateUser() {
+function deactivateUser() {
   const data = buildDataUser();
   let idUser = $("#inputFullName").attr("data-user-id");
   let url = BASE_URL + `usuario/desativar/${idUser}`;
@@ -87,7 +87,7 @@ function editUser() {
       window.location.href = 'consultarAparelho.html';
     }
   }).fail(error => console.log(error));
-} */
+}
 
 function buildDataUser() {
   const dataUser = {
@@ -106,13 +106,16 @@ function handleFormShow(response, cpfCnpj) {
       $("#inputFullName").val(response.response.nome);
       setUserIdInDataAttribute(response.response.id);
       $("#buttonSaveUser").text("Editar");
+      $("#divButtonDeactivate").show();
     }
   } else {
     $("#spanUserResponse").text(userNotRegisteredMessage);
     $("#divAddForm").fadeIn(1000);
-    $("#inputCpfCnpj").prop('disabled', true);
+    // $("#inputCpfCnpj").prop('disabled', true);
+    $("#buttonSaveUser").text("Salvar");
+    $("#divButtonDeactivate").hide();
   }
-  $("#buttonCheckUser").prop('disabled', true);
+  // $("#buttonCheckUser").prop('disabled', true);
 }
 
 function setUserIdInDataAttribute(id) {
