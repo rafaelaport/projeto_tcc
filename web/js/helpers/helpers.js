@@ -63,18 +63,23 @@ function showMessage(text) {
   alert(text);
 }
 
-function showModalConfirm() {
-  $('#modalConfirm').modal('toggle');
+function showModal(type) {
+  if (type === "alert") {
+    $('#modalAlert').modal('show');
+  } 
+  else if (type === "confirm") {
+    $('#modalConfirm').modal('show');
+  }
 }
 
-function buildTextModal(text) {
+function buildTextModal(text, location, type) {
   let html = ``;
   html += `<div class="container">`;
   html += `${text}`;
   html += `</div>`;
   $(".modal-body").html(html);
-  showModalConfirm();
+  showModal(type);
   $("[name='buttonModalYes']").on('click', () => {
-    window.location.href = '../index.html';
+    window.location.href = location;
   });
 }

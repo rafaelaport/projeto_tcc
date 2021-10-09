@@ -9,7 +9,6 @@ let userNotRegisteredMessage = "Usuário não cadastrado.";
 $(document).ready(function () {
   if ($("#inputCpfCnpj").val() === "") {
     $("#divAddForm").hide();
-    $("#modalConfirm").hide();
   }
 });
 
@@ -60,7 +59,7 @@ function saveUser() {
   const data = buildDataUser();
   let url = BASE_URL + "usuario/salvar";
   $.post(url, data).done(response => {
-    buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`);
+    buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`, '../index.html', "confirm");
     $("#spanUserResponse").text(userRegisteredMessage);
     searchUser();
   }).fail(error => console.log(error));
@@ -74,7 +73,7 @@ function editUser() {
     method: "PUT",
     url: url,
     data: data
-  }).done(response => buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`)).fail(error => console.log(error));
+  }).done(response => buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`, '../index.html', "confirm")).fail(error => console.log(error));
 }
 
 function deactivateUser() {
@@ -85,7 +84,7 @@ function deactivateUser() {
     method: "PUT",
     url: url,
     data: data
-  }).done(response => buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`)).fail(error => console.log(error));
+  }).done(response => buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`, '../index.html', "confirm")).fail(error => console.log(error));
 }
 
 function buildDataUser() {
