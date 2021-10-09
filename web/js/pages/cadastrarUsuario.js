@@ -9,12 +9,17 @@ let userNotRegisteredMessage = "Usuário não cadastrado.";
 $(document).ready(function () {
   if ($("#inputCpfCnpj").val() === "") {
     $("#divAddForm").hide();
+    $("#modalConfirm").hide();
   }
 });
 
-$(".input").on("input", (event) => {event.target.value = event.target.value.toUpperCase();});
+$(".input").on("input", (event) => {
+  event.target.value = event.target.value.toUpperCase();
+});
 
-$("#inputCpfCnpj").on("input", () => {validateCpfCnpj($("#inputCpfCnpj"));});
+$("#inputCpfCnpj").on("input", () => {
+  validateCpfCnpj($("#inputCpfCnpj"));
+});
 
 $("#buttonCheckUser").on("click", (event) => {
   event.preventDefault();
@@ -24,7 +29,7 @@ $("#buttonCheckUser").on("click", (event) => {
 });
 
 $("#buttonSaveUser").on("click", (event) => {
-  event.preventDefault();  
+  event.preventDefault();
   let isUserValidated = validateInputsForm("data-user");
   if (isUserValidated) {
     if (checkIfIsRegistered() === true) {
@@ -43,10 +48,10 @@ $("#buttonDeactivateUser").on("click", (event) => {
   }
 });
 
-function searchUser () {
+function searchUser() {
   let cpfCnpj = removeSpecialCharacters($("#inputCpfCnpj").val());
   let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
-  $.get(url).done(response => response).done(response => {    
+  $.get(url).done(response => response).done(response => {
     handleFormShow(response, cpfCnpj);
   });
 }
@@ -55,12 +60,8 @@ function saveUser() {
   const data = buildDataUser();
   let url = BASE_URL + "usuario/salvar";
   $.post(url, data).done(response => {
-    let decision = confirm(`${response.message}\nDeseja ir para página de consulta?`);
-    if (decision) {
-      window.location.href = 'consultarUsuario.html';
-    } else {
-      $("#spanUserResponse").text(userRegisteredMessage);
-    }
+    buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`);
+    $("#spanUserResponse").text(userRegisteredMessage);
     searchUser();
   }).fail(error => console.log(error));
 }
@@ -69,24 +70,22 @@ function editUser() {
   const data = buildDataUser();
   let idUser = $("#inputFullName").attr("data-user-id");
   let url = BASE_URL + `usuario/editar/${idUser}`;
-  $.ajax({method: "PUT", url: url, data: data}).done(response => {
-    let decision = confirm(`${response.message}\nDeseja ir para página de consulta?`);
-    if (decision) {
-      window.location.href = 'consultarUsuario.html';
-    }
-  }).fail(error => console.log(error));
+  $.ajax({
+    method: "PUT",
+    url: url,
+    data: data
+  }).done(response => buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`)).fail(error => console.log(error));
 }
 
 function deactivateUser() {
   const data = buildDataUser();
   let idUser = $("#inputFullName").attr("data-user-id");
   let url = BASE_URL + `usuario/desativar/${idUser}`;
-  $.ajax({method: "PUT", url: url, data: data}).done(response => {
-    let decision = confirm(`${response.message}\nDeseja ir para a página de cadastro de aparelho?`);
-    if (decision) {
-      window.location.href = 'consultarAparelho.html';
-    }
-  }).fail(error => console.log(error));
+  $.ajax({
+    method: "PUT",
+    url: url,
+    data: data
+  }).done(response => buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`)).fail(error => console.log(error));
 }
 
 function buildDataUser() {
@@ -122,7 +121,7 @@ function setUserIdInDataAttribute(id) {
   $("#inputFullName").attr('data-user-id', id);
 }
 
-function checkIfIsRegistered () {
+function checkIfIsRegistered() {
   if ($("#spanUserResponse").text() === userRegisteredMessage) {
     return true;
   } else {

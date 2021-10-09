@@ -62,3 +62,19 @@ function clearFields(dataAttribute) {
 function showMessage(text) {
   alert(text);
 }
+
+function showModalConfirm() {
+  $('#modalConfirm').modal('toggle');
+}
+
+function buildTextModal(text) {
+  let html = ``;
+  html += `<div class="container">`;
+  html += `${text}`;
+  html += `</div>`;
+  $(".modal-body").html(html);
+  showModalConfirm();
+  $("[name='buttonModalYes']").on('click', () => {
+    window.location.href = '../index.html';
+  });
+}
