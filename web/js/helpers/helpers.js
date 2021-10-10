@@ -79,7 +79,9 @@ function buildTextModal(text, location, type) {
   html += `</div>`;
   $(".modal-body").html(html);
   showModal(type);
-  $("[name='buttonModalYes']").on('click', () => {
-    window.location.href = location;
-  });
+  if (location !== "") {
+    $("[name='buttonModalYes']").on('click', () => {
+      window.location.href = location;
+    });
+  }
 }

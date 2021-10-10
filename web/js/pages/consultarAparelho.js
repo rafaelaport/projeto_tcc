@@ -4,11 +4,10 @@
  * 
  */
 
- $(document).ready(function () {
+$(document).ready(function () {
   if ($("#inputCpfCnpj").val() === "") {
-      $("#sectionUser").hide();
-      $("#divRowTableDevices").hide();
-      $("#modalShowHistorical").hide();
+    $("#sectionUser").hide();
+    $("#divRowTableDevices").hide();
   }
 });
 
@@ -17,8 +16,8 @@ $("#inputCpfCnpj").on("input", event => validateCpfCnpj($("#inputCpfCnpj")));
 $("#buttonSearchUser").on('click', event => {
   event.preventDefault();
   if (validateCpfCnpj($("#inputCpfCnpj"))) {
-      let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
-      searchUser(cpfCnpjUserForm);
+    let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
+    searchUser(cpfCnpjUserForm);
   }
 });
 
@@ -31,62 +30,68 @@ $(".button-deactivate-device-id").on('click', event => handleDeactivateByDeviceI
 function searchUser(cpfCnpj) {
   let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
   $.get(url).done(response => response).done(response => {
-      if (response.message !== "Sucesso: Usuário não encontrado.") {
-          $("#inputAuxiliarSearchUser").val(true);
-          $("#inputCpfCnpj").css("border-color", "#1ab394").prop("disabled", true);
-          $("#sectionUser").fadeIn(1000);
-          $("#inputFullName").val(response.response.nome);
-          $("#divRowButtonSearch").hide();
-          
-          searchAllDevices(cpfCnpj);
-
-      } else {
-          $("#inputAuxiliarSearchUser").val(false);
-          $("#inputCpfCnpj").css("border-color", "#ED5565");
-      }
+    if (response.message !== "Sucesso: Usuário não encontrado.") {
+      $("#inputAuxiliarSearchUser").val(true);
+      $("#inputCpfCnpj").css("border-color", "#1ab394");//.prop("disabled", true);
+      $("#sectionUser").fadeIn(1000);
+      $("#inputFullName").val(response.response.nome);
+      // $("#divRowButtonSearch").hide();
+      searchAllDevices(cpfCnpj);
+    } else {
+      $("#inputAuxiliarSearchUser").val(false);
+      $("#inputCpfCnpj").css("border-color", "#ED5565");
+    }
   });
 }
 
 function searchAllDevices(cpfCnpj) {
   let url = BASE_URL + `aparelho/por-usuario/${cpfCnpj}`;
   $.get(url).done(response => {
-      let data = response.response;
-      let tableIsVisible = $("#divRowTableDevices").is(":visible");
-      if (data === undefined && response.message === "Sucesso: Aparelho não encontrado.") {
-          showMessage("Nenhum aparelho encontrado para esse Usuário.\nFavor contatar o Administrador.");
-          if (tableIsVisible) {$("#divRowTableDevices").fadeOut(500);}
-      } else {
-          buildTableDevices(data);
-      }    
+    let data = response.response;
+    let tableIsVisible = $("#divRowTableDevices").is(":visible");
+    if (data === undefined && response.message === "Sucesso: Aparelho não encontrado.") {
+      buildTextModal("<p>Nenhum aparelho encontrado para esse Usuário.</p><p>Favor contatar o Administrador.</p>", "", "alert");
+      if (tableIsVisible) {
+        $("#divRowTableDevices").fadeOut(500);
+      }
+    } else {
+      buildTableDevices(data);
+    }
   });
 }
 
 function searchHistoricalDeviceById(device) {
   let url = BASE_URL + `historico/por-aparelho/${device.id}`;
   $.get(url).done(response => {
-      if (response.message !== "Sucesso: Histórico não encontrado.") {
-          let data = response.response;
-          buildHistoricalListInModal(data, device);
-      } else {
-          showMessage('Aparelho sem histórico de medições.')
-      }
+    if (response.message !== "Sucesso: Histórico não encontrado.") {
+      let data = response.response;
+      buildHistoricalListInModal(data, device);
+    } else {
+      buildTextModal("<p>Aparelho sem histórico de medições.</p>", "", "alert");
+    }
   });
 }
 
 function saveMeasureByDeviceId(id) {
   let url = BASE_URL + `historico/salvar/${id}`;
   $.post(url).done(response => {
-      showMessage(`Medição realizada. \n${response.message}`)
+    buildTextModal(`<p>Medição realizada.</p><p>${response.message}</p>`, "", "alert");
   });
 }
 
 function deactivateDeviceAndHistoricalById(id) {
-  if (confirm("Você irá desativar este aparelho e seu histórico.\nDeseja continuar?")) {
-      let url = BASE_URL + `aparelho/desativar/${id}`;
-      let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
-      $.ajax({method: "PUT", url: url, /*data: { name: "John", location: "Boston" }*/ }).done( response => showMessage(response.message));
-      searchUser(cpfCnpjUserForm);
-  }    
+  buildTextModal("<p>Você irá desativar este aparelho e seu histórico.</p><p>Deseja continuar?</p>", "", "confirm");
+  $("[name='buttonModalYes']").on('click', () => {
+    $('#modalConfirm').modal('hide');
+    let url = BASE_URL + `aparelho/desativar/${id}`;
+    let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
+    $.ajax({
+      method: "PUT",
+      url: url,
+      /*data: { name: "John", location: "Boston" }*/
+    }).done(response => buildTextModal(`<p>${response.message}</p>`, "", "alert"));
+    searchUser(cpfCnpjUserForm);
+  });
 }
 
 function handleConsultHistoricalByDeviceId(event) {
@@ -103,7 +108,7 @@ function handleMeasurePh(event) {
   saveMeasureByDeviceId(deviceId);
 }
 
-function handleDeactivateByDeviceId (event) {
+function handleDeactivateByDeviceId(event) {
   let tdNode = $(event.target).parent().parent().parent();
   let deviceId = tdNode.attr("data-device-id");
   deactivateDeviceAndHistoricalById(deviceId);
@@ -112,14 +117,14 @@ function handleDeactivateByDeviceId (event) {
 function buildTableDevices(data) {
   let table = $('#tableDevices tr').not(":first");
   if (data.length > 0) {
-      for (var i = 0; i < data.length; i++) {
-          $("#tr-" + i).attr("data-device-id", data[i].id);
-          $("#nameDevice-" + i).text(data[i].nome);
-      }
-      hideRowsUnused(data.length);
-      showTableDevices();
+    for (var i = 0; i < data.length; i++) {
+      $("#tr-" + i).attr("data-device-id", data[i].id);
+      $("#nameDevice-" + i).text(data[i].nome);
+    }
+    hideRowsUnused(data.length);
+    showTableDevices();
   } else {
-      showMessage("Usuário sem aparelhos ativos.");
+    showMessage("Usuário sem aparelhos ativos.");
   }
 }
 
@@ -129,7 +134,7 @@ function buildHistoricalListInModal(data, device) {
           <h4>${device.name}</h4>
       `;
   for (let i = 0; i < data.length; i++) {
-      html += `
+    html += `
       <section class="rounded bg-light mb-1">
           <div class="form-group row ml-1">
               <label for="inputModalDeviceDateMeasuring" class="col-sm-4 col-form-label">Data da medição:</label>
@@ -159,7 +164,7 @@ function buildHistoricalListInModal(data, device) {
 
 function hideRowsUnused(dataLength) {
   for (let i = dataLength; i < 10; i++) {
-      $("#tr-" + i).hide();
+    $("#tr-" + i).hide();
   }
 }
 
