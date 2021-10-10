@@ -1,5 +1,5 @@
 import { historicoDataSource } from '../../datasource/exportDatasource';
-import { Historico } from '../../interfaces/exportInterfaces';
+import { Historico } from '../../entities/exportEntities';
 import { aparelhoBusiness } from '../exportBusiness';
 
 // const axios = require('axios')
@@ -25,6 +25,7 @@ class HistoricoBusiness {
 
             const historico = {} as Historico;
             historico.ativo = true;
+            historico.dataMedicao = new Date();
             historico.idAparelho = idAparelho;
             // historico.leitura = retornoLeituraArduino.leitura_ph;
             historico.leitura = Math.floor(Math.random() * 10);

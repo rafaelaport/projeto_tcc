@@ -1,5 +1,5 @@
 import { usuarioBusiness } from "../../business/exportBusiness";
-import { Usuario } from "../../interfaces/exportInterfaces";
+import { Usuario } from "../../entities/exportEntities";
 
 class UsuarioController{
 

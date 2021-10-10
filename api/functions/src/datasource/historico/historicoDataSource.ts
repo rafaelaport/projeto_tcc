@@ -1,4 +1,4 @@
-import { Historico, MessageTreatment } from '../../interfaces/exportInterfaces';
+import { Historico, MessageTreatment } from '../../entities/exportEntities';
 import { messageTreatmentBusiness } from '../../business/exportBusiness';
 
 import * as admin from 'firebase-admin';
@@ -25,6 +25,7 @@ class HistoricoDataSource {
                 result.docs.map(doc => {
                     const historico = doc.data() as Historico;
                     historico.id = doc.id;
+                    historico.dataMedicao = doc.data().dataMedicao.toDate();
 
                     historicos.push(historico);
                 })
@@ -53,6 +54,7 @@ class HistoricoDataSource {
                 result.docs.map(doc => {
                     const historico = doc.data() as Historico;
                     historico.id = doc.id;
+                    historico.dataMedicao = doc.data().dataMedicao.toDate();
 
                     historicos.push(historico);
                 })
@@ -68,9 +70,9 @@ class HistoricoDataSource {
     salvarHistorico = async (historico: Historico): Promise<MessageTreatment> => {
 
         try {
-            let documentoInserido = await this.collection.doc().set(historico);
+            await this.collection.doc().set(historico);
 
-            return messageTreatmentBusiness.sucessMsg(`Histórico adicionado.`, documentoInserido);
+            return messageTreatmentBusiness.sucessMsg(`Histórico adicionado.`, historico);
 
         } catch (error) {
             return messageTreatmentBusiness.errorMsg('Falha ao adicionar histórico, entre em contato com o administrador.', error);
