@@ -75,7 +75,33 @@ function searchHistoricalDeviceById(device) {
 function saveMeasureByDeviceId(id) {
   let url = BASE_URL + `historico/salvar/${id}`;
   $.post(url).done(response => {
-    buildTextModal(`<p>Medição realizada.</p><p>${response.message}</p>`, "", "alert");
+    let dateMeasure = new Date(response.response.dataMedicao).toLocaleDateString();
+    let resultMessage = `
+    <section class="mb-1">
+      <div class="form-group row">
+        <h4>${response.message}</h4>
+      </div>
+      <div class="form-group row ml-1">
+          <label for="inputModalDeviceDateMeasuring" class="col-sm-4 col-form-label">Data da medição:</label>
+          <div class="col-sm-8">
+              <input type="text" readonly class="form-control-plaintext" id="inputModalDeviceDateMeasuring" value="${dateMeasure}">
+          </div>
+      </div>
+      <div class="form-group row ml-1">
+          <label for="inputModalPhRate" class="col-sm-4 col-form-label">Indice Ph:</label>
+          <div class="col-sm-8">
+              <input type="text" readonly class="form-control-plaintext" id="inputModalPhRate" value="${response.response.leitura}">
+          </div>
+      </div>
+      <div class="form-group row ml-1">
+          <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Elevador/Redutor:</label>
+          <div class="col-sm-8">
+              <input type="text" readonly class="form-control-plaintext" id="inputModalStabilizerProduct" value="${response.response.quantidadeProduto}">
+          </div>
+      </div>
+    </section>
+    `;
+    buildTextModal(resultMessage, "", "alert");
   });
 }
 
