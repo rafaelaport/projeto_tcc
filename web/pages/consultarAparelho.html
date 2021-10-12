@@ -30,7 +30,7 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-label="ADM">
-                                <span class="block m-t-xs font-bold">Nome do adm logado</span>
+                                <span class="block m-t-xs font-bold"><!-- Nome do usuário logado --></span>
                             </a>
                         </div>
                         <div class="logo-element">Easier pH</div>
@@ -39,8 +39,8 @@
                         <a href="../index.html" aria-label="Home"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
                     </li>
                     <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
-                    <li>
-                        <a href="#" aria-label="Cadastrar"><i class="fa fa-cog"></i><span class="nav-label">Gerenciar</span><span class="fa arrow"></span></a>
+                    <li id="liGerenciar">
+                        <a href="#" aria-label="Gerenciar"><i class="fa fa-cog"></i><span class="nav-label">Gerenciar</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class=""><a href="../pages/cadastrarAparelho.html">Aparelho</a></li>
                             <li><a href="../pages/cadastrarUsuario.html">Usuário</a></li>
@@ -66,10 +66,10 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li style="padding: 20px">
-                            <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                            <span class="m-r-sm text-muted welcome-message">Bem-vindo(a)</span>
                         </li>
                         <li>
-                            <a href="login.html"><i class="fa fa-sign-out"></i> Log out</a>
+                            <button type="button" class="btn btn-small btn-primary" id="buttonLoginLogout"><i class="fa fa-sign-out"></i><span>&nbsp;Log out</span></button>
                         </li>
                     </ul>
                 </nav>

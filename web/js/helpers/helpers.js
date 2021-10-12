@@ -1,3 +1,39 @@
+/**
+ * By Wellington Fidelis
+ * at 09/2021
+ * 
+ */
+
+$(document).ready(() => {
+  const buttonLoginLogout = $("#buttonLoginLogout");
+
+  if (localStorage.getItem("fbAuthLogin")) {
+    buttonLoginLogout.children("i").prop("class", "fa fa-sign-in");
+    buttonLoginLogout.children("span").text(" Log out");
+  } else {
+    /* Hide all function when isn't log in */
+    buttonLoginLogout.children("i").prop("class", "fa fa-sign-out");
+    buttonLoginLogout.children("span").text(" Log in");
+    $("#liGerenciar").hide();
+    $(".button-deactivate-device-id").hide();
+  }
+
+  buttonLoginLogout.on("click", (event) => {
+    event.preventDefault();
+
+    if (localStorage.getItem("fbAuthLogin")) {
+      buttonLoginLogout.children("i").prop("class", "fa fa-sign-in");
+      buttonLoginLogout.children("span").text(" Log in");
+      localStorage.removeItem("fbAuthLogin");
+      window.location = "../pages/login.html";
+    } else {
+      buttonLoginLogout.children("i").prop("class", "fa fa-sign-out");
+      buttonLoginLogout.children("span").text(" Log out");
+      window.location = "../pages/login.html";
+    }
+  });
+});
+
 function formatCpfCnpj(text) {
   const badchars = /[^\d]/g
   const maskCpf = /(\d{3})(\d{3})(\d{3})(\d{2})/
@@ -84,4 +120,8 @@ function buildTextModal(text, location, type) {
       window.location.href = location;
     });
   }
+}
+
+function logOut() {
+  localStorage.removeItem("fbAuthLogin");
 }
