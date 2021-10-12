@@ -16,7 +16,7 @@ class UsuarioDataSource {
 
             if (!result.exists) {
 
-                return messageTreatmentBusiness.sucessMsg("Usuário não encontrado.");
+                return messageTreatmentBusiness.sucessMsg("Proprietário não encontrado.");
 
             } else {
 
@@ -25,15 +25,15 @@ class UsuarioDataSource {
 
                 if (usuario.ativo) {
 
-                    return messageTreatmentBusiness.sucessMsg("Usuário encontrado.", usuario);
+                    return messageTreatmentBusiness.sucessMsg("Proprietário encontrado.", usuario);
 
                 } else {
 
-                    return messageTreatmentBusiness.sucessMsg("Usuário não encontrado.");
+                    return messageTreatmentBusiness.sucessMsg("Proprietário não encontrado.");
                 }
             }
         } catch (error) {
-            return messageTreatmentBusiness.errorMsg("Falha ao buscar usuário, entre em contato com o administrador.");
+            return messageTreatmentBusiness.errorMsg("Falha ao buscar proprietário, entre em contato com o administrador.");
         }
     }
 
@@ -44,7 +44,7 @@ class UsuarioDataSource {
 
             if (result.empty) {
 
-                return messageTreatmentBusiness.sucessMsg('Usuário não encontrado.');
+                return messageTreatmentBusiness.sucessMsg('Proprietário não encontrado.');
             }
             else {
 
@@ -55,11 +55,11 @@ class UsuarioDataSource {
                     usuario.id = doc.id;
                 })
 
-                return messageTreatmentBusiness.sucessMsg('Usuário encontrado.', usuario);
+                return messageTreatmentBusiness.sucessMsg('Proprietário encontrado.', usuario);
             }
         }
         catch (error) {
-            return messageTreatmentBusiness.errorMsg('Falha ao buscar usuário, entre em contato com o administrador.', error);
+            return messageTreatmentBusiness.errorMsg('Falha ao buscar proprietário, entre em contato com o administrador.', error);
         }
     }
 
@@ -67,10 +67,10 @@ class UsuarioDataSource {
         try {
             let documentoInserido = await this.collection.doc().set(usuario);
 
-            return messageTreatmentBusiness.sucessMsg(`Usuário ${usuario.nome} adicionado.`, documentoInserido);
+            return messageTreatmentBusiness.sucessMsg(`Proprietário ${usuario.nome} adicionado.`, documentoInserido);
 
         } catch (error) {
-            return messageTreatmentBusiness.errorMsg('Falha ao adicionar usuário, entre em contato com o administrador.', error);
+            return messageTreatmentBusiness.errorMsg('Falha ao adicionar proprietário, entre em contato com o administrador.', error);
         }
 
     }
@@ -80,10 +80,10 @@ class UsuarioDataSource {
         try {
             let documentoInserido = await this.collection.doc(id).set(usuario);
 
-            return messageTreatmentBusiness.sucessMsg(`Usuário ${usuario.nome} alterado.`, documentoInserido);
+            return messageTreatmentBusiness.sucessMsg(`Proprietário ${usuario.nome} alterado.`, documentoInserido);
 
         } catch (error) {
-            return messageTreatmentBusiness.errorMsg('Falha ao alterar usuário, entre em contato com o administrador.', error);
+            return messageTreatmentBusiness.errorMsg('Falha ao alterar proprietário, entre em contato com o administrador.', error);
         }
 
     }
@@ -92,10 +92,10 @@ class UsuarioDataSource {
 
         try {
             await this.collection.doc(id).update({ ativo: false });
-            return messageTreatmentBusiness.sucessMsg(`Usuário com o id ${id} desativado.`);
+            return messageTreatmentBusiness.sucessMsg(`Proprietário com o id ${id} desativado.`);
 
         } catch (error) {
-            return messageTreatmentBusiness.errorMsg('Falha ao desativar usuário, entre em contato com o administrador.', error);
+            return messageTreatmentBusiness.errorMsg('Falha ao desativar proprietário, entre em contato com o administrador.', error);
         }
     }
 

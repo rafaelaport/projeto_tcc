@@ -33,7 +33,7 @@ $("#buttonAddDevice").on("click", function (event) {
 
 function handleFormShow(response, cpfCnpj) {  
     if (cpfCnpj === response.response.cpf_cnpj) {
-      $("#spanUserResponse").text("Usuário já cadastrado.");
+      $("#spanUserResponse").text("Proprietário já cadastrado.");
       $("#divAddForm").fadeIn(1000);
       // $("#inputCpfCnpj").prop('disabled', true);
       $("#inputFullName").val(response.response.nome).prop('disabled', true);
@@ -114,10 +114,10 @@ function consultUser() {
   let cpfCnpj = removeSpecialCharacters($("#inputCpfCnpj").val());
   $.ajax({method: "GET", url: BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`,}).done((response) => {
     console.log(response);
-      if (response.message !== "Sucesso: Usuário não encontrado.") {
+      if (response.message !== "Sucesso: Proprietário não encontrado.") {
         handleFormShow(response, cpfCnpj);
       } else {
-        buildTextModal(`<p>${response.message}</p><p>Deseja ir para página de cadastro de usuário?</p>`, './cadastrarUsuario.html', "confirm");
+        buildTextModal(`<p>${response.message}</p><p>Deseja ir para página de cadastro de proprietário?</p>`, './cadastrarUsuario.html', "confirm");
         $("#divAddForm").fadeOut(1000);
       }
     });

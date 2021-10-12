@@ -30,7 +30,7 @@ $(".button-deactivate-device-id").on('click', event => handleDeactivateByDeviceI
 function searchUser(cpfCnpj) {
   let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
   $.get(url).done(response => response).done(response => {
-    if (response.message !== "Sucesso: Usuário não encontrado.") {
+    if (response.message !== "Sucesso: Proprietário não encontrado.") {
       $("#inputAuxiliarSearchUser").val(true);
       $("#inputCpfCnpj").css("border-color", "#1ab394");//.prop("disabled", true);
       $("#sectionUser").fadeIn(1000);
@@ -50,7 +50,7 @@ function searchAllDevices(cpfCnpj) {
     let data = response.response;
     let tableIsVisible = $("#divRowTableDevices").is(":visible");
     if (data === undefined && response.message === "Sucesso: Aparelho não encontrado.") {
-      buildTextModal("<p>Nenhum aparelho encontrado para esse Usuário.</p><p>Favor contatar o Administrador.</p>", "", "alert");
+      buildTextModal("<p>Nenhum aparelho encontrado para esse proprietário.</p><p>Favor contatar o Administrador.</p>", "", "alert");
       if (tableIsVisible) {
         $("#divRowTableDevices").fadeOut(500);
       }
@@ -95,7 +95,7 @@ function saveMeasureByDeviceId(id) {
           </div>
       </div>
       <div class="form-group row ml-1">
-          <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Elevador/Redutor:</label>
+          <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Elevador/Redutor(ml):</label>
           <div class="col-sm-8">
               <input type="text" readonly class="form-control-plaintext" id="inputModalStabilizerProduct" value="${response.response.quantidadeProduto}">
           </div>
@@ -151,7 +151,7 @@ function buildTableDevices(data) {
     hideRowsUnused(data.length);
     showTableDevices();
   } else {
-    showMessage("Usuário sem aparelhos ativos.");
+    showMessage("Proprietário sem aparelhos ativos.");
   }
 }
 
@@ -181,7 +181,7 @@ function buildHistoricalListInModal(data, device) {
               </div>
           </div>
           <div class="form-group row ml-1">
-              <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Elevador/Redutor:</label>
+              <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Elevador/Redutor(ml):</label>
               <div class="col-sm-8">
                   <input type="text" readonly class="form-control-plaintext" id="inputModalStabilizerProduct" value="${data[i].quantidadeProduto}">
               </div>

@@ -3,8 +3,8 @@
  * at 10/2021
  * 
  */
-let userRegisteredMessage = "Usuário já cadastrado.";
-let userNotRegisteredMessage = "Usuário não cadastrado.";
+let userRegisteredMessage = "Proprietário já cadastrado.";
+let userNotRegisteredMessage = "Proprietário não cadastrado.";
 
 $(document).ready(function () {
   if ($("#inputCpfCnpj").val() === "") {
@@ -96,7 +96,7 @@ function buildDataUser() {
 }
 
 function handleFormShow(response, cpfCnpj) {
-  if (response.message !== "Sucesso: Usuário não encontrado.") {
+  if (response.message !== "Sucesso: Proprietário não encontrado.") {
     if (cpfCnpj === response.response.cpf_cnpj) {
       $("#spanUserResponse").text(userRegisteredMessage);
       $("#divAddForm").fadeIn(1000);
