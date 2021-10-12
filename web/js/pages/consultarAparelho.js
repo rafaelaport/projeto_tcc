@@ -64,6 +64,7 @@ function searchHistoricalDeviceById(device) {
   let url = BASE_URL + `historico/por-aparelho/${device.id}`;
   $.get(url).done(response => {
     if (response.message !== "Sucesso: Histórico não encontrado.") {
+      console.log(response)
       let data = response.response;
       buildHistoricalListInModal(data, device);
     } else {
@@ -155,17 +156,22 @@ function buildTableDevices(data) {
 }
 
 function buildHistoricalListInModal(data, device) {
+  data.sort(function(a, b) {
+    return new Date(b.dataMedicao) - new Date(a.dataMedicao);
+  });
   let html = `
       <div class="">
           <h4>${device.name}</h4>
       `;
   for (let i = 0; i < data.length; i++) {
+    let measureDate = new Date(data[i].dataMedicao);
+    measureDate = `${measureDate.toLocaleDateString()} - ${measureDate.toLocaleTimeString()}`;
     html += `
       <section class="rounded bg-light mb-1">
           <div class="form-group row ml-1">
               <label for="inputModalDeviceDateMeasuring" class="col-sm-4 col-form-label">Data da medição:</label>
               <div class="col-sm-8">
-                  <input type="text" readonly class="form-control-plaintext" id="inputModalDeviceDateMeasuring" value="${'99/99/9999'}">
+                  <input type="text" readonly class="form-control-plaintext" id="inputModalDeviceDateMeasuring" value="${measureDate}">
               </div>
           </div>
           <div class="form-group row ml-1">
