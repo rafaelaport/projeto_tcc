@@ -45,7 +45,7 @@
         </div>
         <button type="submit" class="btn btn-primary block full-width m-b" id="buttonLogin">Login</button>
 
-        <a href="#"><small>Esqueceu a senha?</small></a>
+        <a href="#" id="aResetPassword"><small>Esqueceu a senha?</small></a>
         <p class="text-muted text-center"><small>Não possui uma conta?</small></p>
         <a class="btn btn-sm btn-white btn-block" href="registerAdministrator.html">Crie uma conta</a>
       </form>
@@ -122,6 +122,30 @@
             var errorCode = error.code;
             var errorMessage = error.message;
             buildTextModal(`${errorMessage}`, "", "alert");
+          });
+      });
+      
+      $("#aResetPassword").on('click', (event) => {
+        event.preventDefault();
+        console.log("fdsfdfsd");
+        const login = $("#inputEmailLogin").val();
+        firebase.auth().sendPasswordResetEmail(login)
+          .then(() => {
+            // Password reset email sent!
+            // ..
+            buildTextModal("<p>Um e-mail foi enviado para o endereço informado acima.</p><p>Verifique sua caixa de entrada.</p>", "", "alert");
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorMessage);
+            if ("The email address is badly formatted." === errorMessage) {
+              buildTextModal("<p>O endereço de e-mail não está corretamenta escrito.</p>", "", "alert");
+            }
+            if ("There is no user record corresponding to this identifier. The user may have been deleted." === errorMessage) {
+              buildTextModal("<p>Não existe usuário com este endereço cadastrado.</p><p>O usuário talvez esteja deletado.</p>", "", "alert");
+            }
+            // ..
           });
       });
     });
