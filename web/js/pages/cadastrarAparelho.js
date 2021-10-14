@@ -49,6 +49,7 @@ function handleAddDevice() {
     if (isDeviceValidated) {
       saveDevice();
       buildTextModal("<p>Aparelho cadastrado com sucesso!</p>", "./consultarAparelho.html", "alert");
+      clearFields("data-device");
       // window.location.href = 'consultarAparelho.html';
     }
   //} else {
@@ -113,7 +114,6 @@ function saveDevice() {
 function consultUser() {
   let cpfCnpj = removeSpecialCharacters($("#inputCpfCnpj").val());
   $.ajax({method: "GET", url: BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`,}).done((response) => {
-    console.log(response);
       if (response.message !== "Sucesso: Proprietário não encontrado.") {
         handleFormShow(response, cpfCnpj);
       } else {

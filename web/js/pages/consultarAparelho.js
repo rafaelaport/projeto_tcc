@@ -40,6 +40,7 @@ function searchUser(cpfCnpj) {
     } else {
       $("#inputAuxiliarSearchUser").val(false);
       $("#inputCpfCnpj").css("border-color", "#ED5565");
+      buildTextModal("<p>Proprietário não encontrado.</p><p>Por favor, contatar o Administrador.</p>", "", "alert");
     }
   });
 }

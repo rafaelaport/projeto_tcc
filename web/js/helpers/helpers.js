@@ -68,20 +68,15 @@ function validateCpfCnpj(idField) {
 
 function validateInputsForm(dataAttribute) {
   let inputValues = $("[" + dataAttribute + "]").get();
-  let result = true;
+  let result;
   inputValues.forEach((input, index) => {
-    if ($(input).val().length === 0) {
+    let newValue = new String($(input).val());
+    if (newValue.trim().length > 0) {
+      $(input).css("border-color", "#1ab394");
+      result = true;
+    } else {
       $(input).css("border-color", "#ED5565");
       result = false;
-    } else {
-      $(input).css("border-color", "#1ab394");
-    }
-
-    if ($(input).val() === '0') {
-      $(input).css("border-color", "#ED5565");
-      result = false;
-    } else {
-      $(input).css("border-color", "#1ab394");
     }
   });
   return result;
@@ -102,7 +97,7 @@ function showMessage(text) {
 function showModal(type) {
   if (type === "alert") {
     $('#modalAlert').modal('show');
-  } 
+  }
   else if (type === "confirm") {
     $('#modalConfirm').modal('show');
   }

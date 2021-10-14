@@ -30,7 +30,9 @@
           <li class="nav-header">
             <div class="dropdown profile-element">
               <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-label="ADM">
-                <span class="block m-t-xs font-bold"><!-- Nome do usuário logado --></span>
+                <span class="block m-t-xs font-bold">
+                  <!-- Nome do usuário logado -->
+                </span>
               </a>
             </div>
             <div class="logo-element">Easier pH</div>
@@ -40,14 +42,16 @@
           </li>
           <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
           <li id="liGerenciar">
-            <a href="#" aria-label="Gerenciar"><i class="fa fa-cog"></i><span class="nav-label">Gerenciar</span><span class="fa arrow"></span></a>
+            <a href="#" aria-label="Gerenciar"><i class="fa fa-cog"></i><span class="nav-label">Gerenciar</span><span
+                class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
               <li class=""><a href="../pages/cadastrarAparelho.html">Aparelho</a></li>
               <li class="active"><a href="../pages/cadastrarUsuario.html">Proprietário</a></li>
             </ul>
           </li>
           <li>
-            <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span class="nav-label">Consultar</span><span class="fa arrow"></span></a>
+            <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span class="nav-label">Consultar</span><span
+                class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
               <li class=""><a href="../pages/consultarAparelho.html">Aparelho</a></li>
               <!-- <li><a href="../pages/consultarUsuario.html">Usuário</a></li> -->
@@ -68,7 +72,8 @@
               <span class="m-r-sm text-muted welcome-message">Bem-vindo(a).</span>
             </li>
             <li>
-              <button type="button" class="btn btn-small btn-primary" id="buttonLoginLogout"><i class="fa fa-sign-out"></i><span>&nbsp;Log out</span></button>
+              <button type="button" class="btn btn-small btn-primary" id="buttonLoginLogout"><i
+                  class="fa fa-sign-out"></i><span>&nbsp;Log out</span></button>
             </li>
           </ul>
         </nav>
@@ -94,10 +99,12 @@
                   <div class="col-md-1 col-lg-1 col-xl-2"></div>
                   <div class="col">
                     <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
-                    <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj" value="" required maxlength="18" data-user />
+                    <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj" value="" required
+                      maxlength="18" data-user />
                     <span class="text-muted">Insira apenas números</span>
                     <div class="row-sm-2 mt-3">
-                      <button class="btn btn-primary btn-block" type="submit" name="buttonCheckUser" id="buttonCheckUser">
+                      <button class="btn btn-primary btn-block" type="submit" name="buttonCheckUser"
+                        id="buttonCheckUser">
                         Avançar
                       </button>
                     </div>
@@ -127,7 +134,8 @@
                         <div class="col">
                           <div class="form-group">
                             <label class="col-form-label" for="inputFullName">Nome completo</label>
-                            <input type="text" class="form-control input" name="inputFullName" id="inputFullName" required data-user data-user-id />
+                            <input type="text" class="form-control input" name="inputFullName" id="inputFullName"
+                              required data-user data-user-id />
                           </div>
                         </div>
                       </div>
@@ -135,12 +143,14 @@
                     <section id="sectionButtons">
                       <div class="row mt-3">
                         <div class="col mb-3">
-                          <button class="btn btn-primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" type="submit" name="buttonSaveUser" id="buttonSaveUser">
+                          <button class="btn btn-primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" type="submit"
+                            name="buttonSaveUser" id="buttonSaveUser">
                             Salvar
                           </button>
-                        </div> 
+                        </div>
                         <div class="col" id="divButtonDeactivate">
-                          <button class="btn btn-danger col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" type="submit" name="buttonDeactivateUser" id="buttonDeactivateUser">
+                          <button class="btn btn-danger col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" type="submit"
+                            name="buttonDeactivateUser" id="buttonDeactivateUser">
                             Desativar
                           </button>
                         </div>
@@ -159,7 +169,8 @@
   </div>
 
   <!-- Modal Confirm-->
-  <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirm" aria-hidden="true">
+  <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirm"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -173,6 +184,25 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-success" name="buttonModalYes">Sim</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Alert-->
+  <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="modalAlert" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLongTitle">Atenção</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
         </div>
       </div>
     </div>
