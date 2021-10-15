@@ -23,7 +23,7 @@ $("#inputCpfCnpj").on("input", () => {
 $("#buttonCheckUser").on("click", (event) => {
   event.preventDefault();
   if (validateCpfCnpj($("#inputCpfCnpj"))) {
-    searchUser();
+    searchUserByCpfCnpj();
   }
 });
 
@@ -47,7 +47,12 @@ $("#buttonDeactivateUser").on("click", (event) => {
   }
 });
 
-function searchUser() {
+/*
+$("#buttonSearchAllUsers").on('click', () => {
+  let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
+});
+*/
+function searchUserByCpfCnpj() {
   let cpfCnpj = removeSpecialCharacters($("#inputCpfCnpj").val());
   let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
   $.get(url).done(response => response).done(response => {
@@ -66,7 +71,7 @@ function saveUser() {
   $.post(url, data).done(response => {
     buildTextModal(`<p>${response.message}</p><p>Deseja ir para página Home?</p>`, '../index.html', "confirm");
     $("#spanUserResponse").text(userRegisteredMessage);
-    searchUser();
+    searchUserByCpfCnpj();
   }).fail(error => console.log(error));
 }
 
