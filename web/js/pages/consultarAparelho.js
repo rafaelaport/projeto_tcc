@@ -27,6 +27,10 @@ $(".button-consult-historical-id").on("click", event => handleConsultHistoricalB
 
 $(".button-deactivate-device-id").on('click', event => handleDeactivateByDeviceId(event));
 
+$(".button-edit-by-device-id").on('click', event => handleEditByDeviceId(event));
+
+$("#buttonModalEditDevice").on("click", event => editDeviceById(event));
+
 function searchUser(cpfCnpj) {
   let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
   $.get(url).done(response => response).done(response => {
@@ -40,6 +44,9 @@ function searchUser(cpfCnpj) {
     } else {
       $("#inputAuxiliarSearchUser").val(false);
       $("#inputCpfCnpj").css("border-color", "#ED5565");
+      $("#divRowTableDevices").fadeOut(500);
+      $("#sectionUser").fadeOut(1000);
+
       buildTextModal("<p>Proprietário não encontrado.</p><p>Por favor, contatar o Administrador.</p>", "", "alert");
     }
   });
@@ -72,6 +79,50 @@ function searchHistoricalDeviceById(device) {
       buildTextModal("<p>Aparelho sem histórico de medições.</p>", "", "alert");
     }
   });
+}
+
+function consultDeviceById(deviceId) {
+  let url = BASE_URL + `aparelho/${deviceId}`;
+  $.ajax({
+    method: "GET",
+    url: url,
+  }).done((response) => {
+    if (response.message === "Sucesso: Aparelho encontrado.") {
+      $("#inputDeviceName").val(response.response.nome);
+      $("#inputRecipeCapacity").val(response.response.capacidadeLitros);
+
+      $("#modalEditDevice").modal('show');
+    } else {
+      buildTextModal("<p>Ops. Aparelho não encontrado.</p>", "", "alert");
+    }
+  });
+}
+
+function editDeviceById(event) {
+  event.preventDefault();
+  const device = buildDataDevice();
+  let idDevice = $("#inputHiddenIdDevice").val();
+  let url = BASE_URL + `aparelho/editar/${idDevice}`;
+
+  $.ajax({
+    method: "PUT",
+    url: url,
+    data: device
+  }).done(response => {
+    let message = `Sucesso: Aparelho ${device.nome} alterado.`;
+    if (message === response.message) {
+      $("#modalEditDevice").modal('hide');
+      buildTextModal(
+        `<p>${message}</p>`,
+        "",
+        "alert"
+      );
+      searchUser(device.cpf_cnpj);
+    } else {
+      console.log(response);
+    }
+  }
+  ).fail(error => console.log(error));
 }
 
 function saveMeasureByDeviceId(id) {
@@ -142,6 +193,15 @@ function handleDeactivateByDeviceId(event) {
   deactivateDeviceAndHistoricalById(deviceId);
 }
 
+function handleEditByDeviceId(event) {
+  let tdNode = $(event.target).parent().parent().parent();
+  let deviceId = tdNode.attr("data-device-id");
+
+  $("#inputHiddenIdDevice").val(deviceId);
+
+  consultDeviceById(deviceId);
+}
+
 function buildTableDevices(data) {
   let table = $('#tableDevices tr').not(":first");
   if (data.length > 0) {
@@ -157,7 +217,7 @@ function buildTableDevices(data) {
 }
 
 function buildHistoricalListInModal(data, device) {
-  data.sort(function(a, b) {
+  data.sort(function (a, b) {
     return new Date(b.dataMedicao) - new Date(a.dataMedicao);
   });
   let html = `
@@ -193,6 +253,15 @@ function buildHistoricalListInModal(data, device) {
   html += `</div>`;
   $(".modal-body").html(html);
   showModalHistorical();
+}
+
+function buildDataDevice() {
+  const dataDevice = {
+    "nome": $("#inputDeviceName").val(),
+    "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val()),
+    "capacidadeLitros": parseFloat($("#inputRecipeCapacity").val())
+  }
+  return dataDevice;
 }
 
 function hideRowsUnused(dataLength) {

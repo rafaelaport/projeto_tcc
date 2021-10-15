@@ -135,7 +135,7 @@ function buildDataDevice() {
   const dataDevice = {
     "nome": $("#inputDeviceName").val(),
     "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val()),
-    "capacidadeLitros": $("#inputRecipeCapacity").val()
+    "capacidadeLitros": parseFloat($("#inputRecipeCapacity").val())
   }
   return dataDevice;
 }

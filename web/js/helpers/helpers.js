@@ -3,6 +3,7 @@
  * at 09/2021
  * 
  */
+window.onbeforeunload = () => clearStorage();
 
 $(document).ready(() => {
   const buttonLoginLogout = $("#buttonLoginLogout");
@@ -108,8 +109,16 @@ function buildTextModal(text, location, type) {
   html += `<div class="container">`;
   html += `${text}`;
   html += `</div>`;
-  $(".modal-body").html(html);
+  
+
   showModal(type);
+
+  if (type === "alert") {
+    $("#divModalBodyAlert").html(html);
+  }
+  else if (type === "confirm") {
+    $('#divModalBodyConfirm').html(html);
+  }
   if (location !== "") {
     $("[name='buttonModalYes']").on('click', () => {
       window.location.href = location;
@@ -120,3 +129,16 @@ function buildTextModal(text, location, type) {
 function logOut() {
   localStorage.removeItem("fbAuthLogin");
 }
+
+function clearStorage() {
+
+  let session = sessionStorage.getItem('register');
+
+  if (session == null) {
+  
+      localStorage.removeItem('remove');
+
+  }
+  sessionStorage.setItem('register', 1);
+}
+window.addEventListener('load', clearStorage);
