@@ -63,7 +63,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="divModalBodyAlert">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
@@ -121,13 +121,26 @@
           .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
-            buildTextModal(`${errorMessage}`, "", "alert");
+            if (errorMessage === "The password is invalid or the user does not have a password.") {
+              buildTextModal(
+                "<p>Senha incorreta ou o usuário não possui uma senha.</p>",
+                "",
+                "alert"
+              );
+            } else if (errorMessage === "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.") {
+              buildTextModal(
+                "<p>O acesso a essa conta foi temporariamente desativado devido ao números de tentativas de login falhadas</p><p>Você pode reativar seu acesso imediatamente resetando sua senha ou tentando novamente.</p>",
+                "",
+                "alert"
+              );
+            } else {
+              buildTextModal(`${errorMessage}`, "", "alert");
+            }
           });
       });
       
       $("#aResetPassword").on('click', (event) => {
         event.preventDefault();
-        console.log("fdsfdfsd");
         const login = $("#inputEmailLogin").val();
         firebase.auth().sendPasswordResetEmail(login)
           .then(() => {

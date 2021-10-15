@@ -17,6 +17,7 @@ $(document).ready(() => {
     buttonLoginLogout.children("span").text(" Log in");
     $("#liGerenciar").hide();
     $(".button-deactivate-device-id").hide();
+    $(".button-edit-by-device-id").hide();
   }
 
   buttonLoginLogout.on("click", (event) => {
