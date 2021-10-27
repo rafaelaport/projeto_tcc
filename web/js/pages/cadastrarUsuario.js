@@ -56,9 +56,11 @@ function searchUserByCpfCnpj() {
   let cpfCnpj = removeSpecialCharacters($("#inputCpfCnpj").val());
   let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`;
   $.get(url).done(response => response).done(response => {
+
     if(response.message === "Sucesso: Proprietário não encontrado.") {
-      buildTextModal(`<p>Proprietário não encontrado.</p>`, "", "alert");
-      $("#divAddForm").fadeOut(1000);
+      // buildTextModal(`<p>Proprietário não encontrado.</p>`, "", "alert");
+      // $("#divAddForm").fadeOut(1000);
+      handleFormShow(response, cpfCnpj);
     } else {
       handleFormShow(response, cpfCnpj);
     }
