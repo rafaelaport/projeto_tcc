@@ -36,6 +36,37 @@ $(document).ready(() => {
   });
 });
 
+$(document).ready(() => {
+  const buttonLoginLogoutHome = $("#buttonLoginLogoutHome");
+
+  if (localStorage.getItem("fbAuthLogin")) {
+    buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-in");
+    buttonLoginLogoutHome.children("span").text(" Log out");
+  } else {
+    /* Hide all function when isn't log in */
+    buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-out");
+    buttonLoginLogoutHome.children("span").text(" Log in");
+    $("#liGerenciar").hide();
+    $(".button-deactivate-device-id").hide();
+    $(".button-edit-by-device-id").hide();
+  }
+
+  buttonLoginLogoutHome.on("click", (event) => {
+    event.preventDefault();
+
+    if (localStorage.getItem("fbAuthLogin")) {
+      buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-in");
+      buttonLoginLogoutHome.children("span").text(" Log in");
+      localStorage.removeItem("fbAuthLogin");
+      window.location = "./pages/login.html";
+    } else {
+      buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-out");
+      buttonLoginLogoutHome.children("span").text(" Log out");
+      window.location = "./pages/login.html";
+    }
+  });
+});
+
 function formatCpfCnpj(text) {
   const badchars = /[^\d]/g
   const maskCpf = /(\d{3})(\d{3})(\d{3})(\d{2})/
