@@ -74,7 +74,6 @@ function searchHistoricalDeviceById(device) {
   let url = BASE_URL + `historico/por-aparelho/${device.id}`;
   $.get(url).done(response => {
     if (response.message !== "Sucesso: Histórico não encontrado.") {
-      console.log(response)
       let data = response.response;
       buildHistoricalListInModal(data, device);
     } else {
@@ -153,7 +152,7 @@ function saveMeasureByDeviceId(id) {
           </div>
       </div>
       <div class="form-group row ml-1">
-          <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Elevador/Redutor(ml):</label>
+          <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Qtd. de ${response.response.tipoProduto}</label>
           <div class="col-sm-8">
               <input type="text" readonly class="form-control-plaintext" id="inputModalStabilizerProduct" value="${response.response.quantidadeProduto}">
           </div>
@@ -202,7 +201,6 @@ function handleDeactivateByDeviceId(event) {
 function handleEditByDeviceId(event) {
   let tdNode = $(event.target).parent().parent().parent();
   let deviceId = tdNode.attr("data-device-id");
-  console.log(deviceId)
   $("#inputHiddenIdDevice").val(deviceId);
   consultDeviceById(deviceId);
 }
