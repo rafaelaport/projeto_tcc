@@ -11,6 +11,8 @@ $(document).ready(function () {
   }
 });
 
+$(".input").on("input", (event) => { event.target.value = event.target.value.toUpperCase(); });
+
 $("#inputCpfCnpj").on("input", event => validateCpfCnpj($("#inputCpfCnpj")));
 
 $("#buttonSearchUser").on('click', event => {
@@ -104,31 +106,35 @@ function editDeviceById(event) {
   let idDevice = $("#inputHiddenIdDevice").val();
   let url = BASE_URL + `aparelho/editar/${idDevice}`;
 
-  $.ajax({
-    method: "PUT",
-    url: url,
-    data: device
-  }).done(response => {
-    let message = `Sucesso: Aparelho ${device.nome} alterado.`;
-    if (message === response.message) {
-      $("#modalEditDevice").modal('hide');
-      buildTextModal(
-        `<p>${message}</p>`,
-        "",
-        "alert"
-      );
-      searchUser(device.cpf_cnpj);
-    } else {
-      console.log(response);
+  let isDeviceValidated = validateInputsForm("data-device");
+
+  if (isDeviceValidated) {
+    $.ajax({
+      method: "PUT",
+      url: url,
+      data: device
+    }).done(response => {
+      let message = `Sucesso: Aparelho ${device.nome} alterado.`;
+      if (message === response.message) {
+        $("#modalEditDevice").modal('hide');
+        buildTextModal(
+          `<p>${message}</p>`,
+          "",
+          "alert"
+        );
+        searchUser(device.cpf_cnpj);
+      } else {
+        console.log(response);
+      }
     }
+    ).fail(error => console.log(error));
   }
-  ).fail(error => console.log(error));
 }
 
 function saveMeasureByDeviceId(id) {
   let url = BASE_URL + `historico/salvar/${id}`;
   $.post(url).done(response => {
-    let dateMeasure = new Date(response.response.dataMedicao).toLocaleDateString();
+    let dateMeasure = new Date(response.response.dataMedicao).toLocaleDateString('pt-br');
     let resultMessage = `
     <section class="mb-1">
       <div class="form-group row">
@@ -196,9 +202,8 @@ function handleDeactivateByDeviceId(event) {
 function handleEditByDeviceId(event) {
   let tdNode = $(event.target).parent().parent().parent();
   let deviceId = tdNode.attr("data-device-id");
-
+  console.log(deviceId)
   $("#inputHiddenIdDevice").val(deviceId);
-
   consultDeviceById(deviceId);
 }
 
@@ -226,7 +231,7 @@ function buildHistoricalListInModal(data, device) {
       `;
   for (let i = 0; i < data.length; i++) {
     let measureDate = new Date(data[i].dataMedicao);
-    measureDate = `${measureDate.toLocaleDateString()} - ${measureDate.toLocaleTimeString()}`;
+    measureDate = `${measureDate.toLocaleDateString()} - ${measureDate.toLocaleTimeString('pt-br')}`;
     html += `
       <section class="rounded bg-light mb-1">
           <div class="form-group row ml-1">
