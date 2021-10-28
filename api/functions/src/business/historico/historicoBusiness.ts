@@ -36,24 +36,28 @@ class HistoricoBusiness {
                 // 1000 L = 1m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 13 * capacidadeMetrosCubicos;
+                historico.tipoProduto = 'Redutor(ml)';
             }
 
             if (historico.leitura > 8) {
                 //redutor 25ml/m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 25 * capacidadeMetrosCubicos;
+                historico.tipoProduto = 'Redutor(ml)';
             }
 
             if (historico.leitura >= 6.8 && historico.leitura <= 7) {
                 //elevador 15ml/m3            
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 15 * capacidadeMetrosCubicos;
+                historico.tipoProduto = 'Elevador(ml)';
             }
 
             if (historico.leitura < 6.8) {
                 //elevador 20ml/m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 20 * capacidadeMetrosCubicos;
+                historico.tipoProduto = 'Elevador(ml)';
             }
 
             //SALVAR HISTORICO
