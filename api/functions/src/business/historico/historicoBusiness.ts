@@ -27,7 +27,9 @@ class HistoricoBusiness {
             historico.ativo = true;
             historico.dataMedicao = new Date();
             historico.idAparelho = idAparelho;
-            // historico.leitura = retornoLeituraArduino.leitura_ph;
+            //historico.leitura = retornoLeituraArduino.leitura_ph;
+            //historico.leitura.toFixed(2);
+
             historico.leitura = Math.floor(Math.random() * 10);
 
             //CALCULAR PRODUTO
@@ -36,6 +38,7 @@ class HistoricoBusiness {
                 // 1000 L = 1m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 13 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
                 historico.tipoProduto = 'Redutor(ml)';
             }
 
@@ -43,6 +46,7 @@ class HistoricoBusiness {
                 //redutor 25ml/m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 25 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
                 historico.tipoProduto = 'Redutor(ml)';
             }
 
@@ -50,6 +54,7 @@ class HistoricoBusiness {
                 //elevador 15ml/m3            
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 15 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
                 historico.tipoProduto = 'Elevador(ml)';
             }
 
@@ -57,6 +62,7 @@ class HistoricoBusiness {
                 //elevador 20ml/m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 20 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
                 historico.tipoProduto = 'Elevador(ml)';
             }
 
