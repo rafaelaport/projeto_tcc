@@ -133,7 +133,8 @@ function editDeviceById(event) {
 function saveMeasureByDeviceId(id) {
   let url = BASE_URL + `historico/salvar/${id}`;
   $.post(url).done(response => {
-    let dateMeasure = new Date(response.response.dataMedicao).toLocaleDateString('pt-br');
+    let dateMeasure = new Date(response.response.dataMedicao);
+    dateMeasure = `${dateMeasure.toLocaleDateString()} - ${dateMeasure.toLocaleTimeString('pt-br')}`;
     let resultMessage = `
     <section class="mb-1">
       <div class="form-group row">
@@ -146,13 +147,13 @@ function saveMeasureByDeviceId(id) {
           </div>
       </div>
       <div class="form-group row ml-1">
-          <label for="inputModalPhRate" class="col-sm-4 col-form-label">Indice Ph:</label>
+          <label for="inputModalPhRate" class="col-sm-4 col-form-label">Índice Ph:</label>
           <div class="col-sm-8">
               <input type="text" readonly class="form-control-plaintext" id="inputModalPhRate" value="${response.response.leitura}">
           </div>
       </div>
       <div class="form-group row ml-1">
-          <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Qtd. de ${response.response.tipoProduto}</label>
+          <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Quantidade de ${response.response.tipoProduto}:</label>
           <div class="col-sm-8">
               <input type="text" readonly class="form-control-plaintext" id="inputModalStabilizerProduct" value="${response.response.quantidadeProduto}">
           </div>
@@ -239,17 +240,17 @@ function buildHistoricalListInModal(data, device) {
               </div>
           </div>
           <div class="form-group row ml-1">
-              <label for="inputModalPhRate" class="col-sm-4 col-form-label">Indice Ph:</label>
+              <label for="inputModalPhRate" class="col-sm-4 col-form-label">Índice Ph:</label>
               <div class="col-sm-8">
                   <input type="text" readonly class="form-control-plaintext" id="inputModalPhRate" value="${data[i].leitura}">
               </div>
           </div>
           <div class="form-group row ml-1">
-              <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Elevador/Redutor(ml):</label>
+            <label for="inputModalStabilizerProduct" class="col-sm-4 col-form-label">Quantidade de ${data[i].tipoProduto}:</label>
               <div class="col-sm-8">
                   <input type="text" readonly class="form-control-plaintext" id="inputModalStabilizerProduct" value="${data[i].quantidadeProduto}">
               </div>
-          </div>
+            </div>
       </section>
       `;
   }
