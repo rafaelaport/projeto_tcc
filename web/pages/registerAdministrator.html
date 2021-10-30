@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>Easier ph</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+  <!-- Toastr style -->
+  <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+  <!-- Gritter -->
+  <link href="../js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
+
+  <link href="../css/animate.css" rel="stylesheet" />
+  <link href="../css/style.css" rel="stylesheet" />
+
+  <!-- Firebase tools -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
+</head>
+
+<body class="gray-bg">
+
+  <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+      <div>
+        <h1 class="logo-name">Ph</h1>
+      </div>
+      <h3>Easier Ph</h3>
+      <p>Acesso destinado apenas para os administradores da plataforma.</p>
+      <p>Cadastre-se e aproveite.</p>
+      <form class="m-t" id="formLogin" role="form" action="index.html">
+        <div class="form-group">
+          <input type="email" class="form-control" id="inputEmailLogin" placeholder="email@mail.com" required="">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="inputPasswordLogin" placeholder="Password" required="">
+        </div>
+        <button type="button" class="btn btn-primary block full-width m-b"
+          id="buttonRegisterAdministrator">Registrar</button>
+
+        <p class="text-muted text-center"><small>Já possui uma conta?</small></p>
+        <a class="btn btn-sm btn-white btn-block" href="./login.html">Log in</a>
+      </form>
+      <p class="m-t"> <small>Easier Ph &copy; 2021</small></p>
+    </div>
+  </div>
+
+  <!-- Modal Alert-->
+  <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="modalAlert" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLongTitle">Atenção</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="divModalBodyAlert">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mainly scripts -->
+  <script src="../js/jquery-3.1.1.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap.js"></script>
+  <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+  <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+  <!-- Custom and plugin javascript -->
+  <script src="../js/inspinia.js"></script>
+  <script src="../js/plugins/pace/pace.min.js"></script>
+
+  <script src="../js/helpers/helpers.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const firebaseConfig = {
+        apiKey: "AIzaSyAqgVP-3PZM9PwGhV6P7TzfP7shVMI0rP8",
+        authDomain: "projeto-tcc-209b6.firebaseapp.com",
+        projectId: "projeto-tcc-209b6",
+        storageBucket: "projeto-tcc-209b6.appspot.com",
+        messagingSenderId: "288708444896",
+        appId: "1:288708444896:web:47307b9bceaf1172998685",
+        measurementId: "G-15D2TW3FHF"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      $('#buttonRegisterAdministrator').on('click', function (event) {
+        event.preventDefault();
+        var email = $('#inputEmailLogin').val();
+        var pw = $('#inputPasswordLogin').val();
+
+        firebase.auth().createUserWithEmailAndPassword(email, pw).then(response => {
+          window.location = "./login.html";
+        }).catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorMessage);
+          if ("The password must be 6 characters long or more." === errorMessage) {
+            buildTextModal("A senha deve possuir 6 caracteres ou mais.", "", "alert");
+          }
+          if ("Password should be at least 6 characters" === errorMessage) {
+            buildTextModal("A senha deve conter, no mínimo, 6 caracteres.", "", "alert");
+          }
+          if ("The email address is already in use by another account." === errorMessage) {
+            buildTextModal("O endereço de e-mail já está cadastrado.", "", "alert");
+          }
+          if ("The email address is badly formatted." === errorMessage) {
+            buildTextModal("O endereço de e-mail não está corretamenta escrito.", "", "alert");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

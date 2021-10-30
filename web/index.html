@@ -1,102 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>Easier ph</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <title>Easier ph</title>
 
-    <!-- Toastr style -->
-    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet" />
+  <link href="./css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./font-awesome/css/font-awesome.css" rel="stylesheet" />
 
-    <!-- Gritter -->
-    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
+  <!-- Toastr style -->
+  <link href="./css/plugins/toastr/toastr.min.css" rel="stylesheet" />
 
-    <link href="css/animate.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
-  </head>
+  <!-- Gritter -->
+  <link href="./js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
 
-  <body>
-    <div id="wrapper">
-      <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-          <ul class="nav metismenu" id="side-menu">
-            <li class="nav-header">
-              <div class="dropdown profile-element">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-label="ADM">
-                  <span class="block m-t-xs font-bold">Nome do adm logado</span>
-                </a>
-              </div>
-              <div class="logo-element">Easier pH</div>
-            </li>
-            <li class="active">
-              <a href="./index.html" aria-label="Home"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
-            </li>
+  <link href="./css/animate.css" rel="stylesheet" />
+  <link href="./css/style.css" rel="stylesheet" />
+</head>
 
-            <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
-            <li>
-              <a href="#" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i><span class="nav-label">Cadastrar</span><span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-                <li class=""><a href="./pages/cadastrarAparelho.html">Aparelho</a></li>
-                <li><a href="./pages/cadastrarUsuario.html">Usuário</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span class="nav-label">Consultar</span><span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-                <li class=""><a href="./pages/consultarAparelho.html">Aparelho</a></li>
-                <li><a href="./pages/consultarUsuario.html">Usuário</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row border-bottom">
-          <nav
-            class="navbar navbar-static-top"
-            role="navigation"
-            style="margin-bottom: 0"
-          >
-            <div class="navbar-header">
-              <a
-                class="navbar-minimalize minimalize-styl-2 btn btn-primary"
-                href="#"
-                ><i class="fa fa-bars"></i>
+<body>
+  <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+      <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+          <li class="nav-header">
+            <div class="dropdown profile-element">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-label="ADM">
+                <span class="block m-t-xs font-bold"><!-- Nome do usuário logado --></span>
               </a>
             </div>
-            <ul class="nav navbar-top-links navbar-right">
-              <li style="padding: 20px">
-                <span class="m-r-sm text-muted welcome-message"
-                  >Welcome to INSPINIA+ Admin Theme.</span
-                >
-              </li>
-
-              <li>
-                <a href="login.html">
-                  <i class="fa fa-sign-out"></i> Log out
-                </a>
-              </li>
+            <div class="logo-element">Easier pH</div>
+          </li>
+          <li class="active">
+            <a href="./index.html" aria-label="Home"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
+          </li>
+          <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
+          <li id="liGerenciar">
+            <a href="#" aria-label="Gerenciar"><i class="fa fa-cog"></i><span class="nav-label">Gerenciar</span><span
+                class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li class=""><a href="./pages/cadastrarAparelho.html">Aparelho</a></li>
+              <li><a href="./pages/cadastrarUsuario.html">Proprietário</a></li>
             </ul>
-          </nav>
+          </li>
+          <li>
+            <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span class="nav-label">Consultar</span><span
+                class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li class=""><a href="./pages/consultarAparelho.html">Aparelho</a></li>
+              <!-- <li><a href="./pages/consultarUsuario.html">Usuário</a></li> -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+      <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+          <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i>
+            </a>
+          </div>
+          <ul class="nav navbar-top-links navbar-right">
+            <li style="padding: 20px">
+              <span class="m-r-sm text-muted welcome-message">Bem-vindo(a).</span>
+            </li>
+
+            <li>
+              <button type="button" class="btn btn-small btn-primary" id="buttonLoginLogoutHome"><i class="fa fa-sign-out"></i><span>&nbsp;Log out</span></button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-12">
+          <h2>Home</h2>
+        </div>
+      </div>
+      <!-- Div para campo de conculta e tabela de aparelhos -->
+      <div class="wrapper wrapper-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row d-flex">
+              <div class="col-lg-4">
+                <div class="ibox">
+                  <div class="ibox-title">
+                    <h3>Organize</h3>
+                  </div>
+                  <div class="ibox-content">
+                    <img class="d-block w-100" src="./img/fahrul-azmi-cFUZ-6i83vs-unsplash.jpg" alt="Organize"
+                      srcset="" style="height: 500px;">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="ibox">
+                  <div class="ibox-title">
+                    <h3>Gerencie</h3>
+                  </div>
+                  <div class="ibox-content">
+                    <img class="d-block w-100" src="./img/campaign-creators-pypeCEaJeZY-unsplash.jpg" alt="Gerencie"
+                      srcset="" style="height: 500px;">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="ibox">
+                  <div class="ibox-title">
+                    <h3>Usufrua</h3>
+                  </div>
+                  <div class="ibox-content">
+                    <img class="d-block w-100" src="./img/mrjn-photography-YpZ2cj4s0oo-unsplash.jpg" alt="Usufrua"
+                      srcset="" style="height: 500px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Mainly scripts -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="./js/popper.min.js"></script>
-    <script src="./js/bootstrap.js"></script>
-    <script src="./js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="./js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- Mainly scripts -->
+  <script src="./js/jquery-3.1.1.min.js"></script>
+  <script src="./js/popper.min.js"></script>
+  <script src="./js/bootstrap.js"></script>
+  <script src="./js/plugins/metisMenu/jquery.metisMenu.js"></script>
+  <script src="./js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="./js/inspinia.js"></script>
-    <script src="./js/plugins/pace/pace.min.js"></script>
-  </body>
+  <!-- Custom and plugin javascript -->
+  <script src="./js/inspinia.js"></script>
+  <script src="./js/plugins/pace/pace.min.js"></script>
+
+  <script src="./js/helpers/helpers.js"></script>
+</body>
+
 </html>

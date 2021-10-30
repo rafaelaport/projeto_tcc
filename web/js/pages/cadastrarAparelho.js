@@ -10,18 +10,14 @@ $(document).ready(function () {
   }
 });
 
-$(".input").on("input", function (event) {
-  this.value = this.value.toUpperCase();
-})
+$(".input").on("input", (event) => { event.target.value = event.target.value.toUpperCase();});
 
-$("#inputCpfCnpj").on("input", function (event) {
-  validateCpfCnpj($("#inputCpfCnpj"));
-});
+$("#inputCpfCnpj").on("input", () => {validateCpfCnpj($("#inputCpfCnpj"));});
 
 $("#buttonCheckUser").on("click", function (event) {
   event.preventDefault();
   if (validateCpfCnpj($("#inputCpfCnpj"))) {
-    handleFormShow();
+    consultUser();
   }
 });
 
@@ -30,56 +26,44 @@ $("#buttonAddDevice").on("click", function (event) {
   handleAddDevice();
 });
 
-$("#buttonAddAnotherDevice").on("click", function (event) {
+/* $("#buttonAddAnotherDevice").on("click", function (event) {
   event.preventDefault();
   handleAddAnotherDevice();
-});
+}); */
 
-function handleFormShow() {
-  let cpfCnpjUserForm = removeSpecialCharacters($("#inputCpfCnpj").val());
-  let idUser = $.ajax({
-    method: "GET",
-    url: BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpjUserForm}`,
-  })
-    .done(function (response) {
-      if (response.message !== "Sucesso: Usuário não encontrado.") {
-        if (cpfCnpjUserForm === response.response.cpf_cnpj) {
-          $("#spanUserResponse").text("Usuário já cadastrado.");
-          $("#divAddForm").fadeIn(1000);
-          $("#inputCpfCnpj").prop('disabled', true);
-          $("#inputFullName").val(response.response.nome).prop('disabled', true);
-          //$("#selectProfile").prop('disabled', true);
-          return response.response.cpf_cnpj;
-        }
-      } else {
-        $("#spanUserResponse").text("Usuário não cadastrado.")
-        $("#divAddForm").fadeIn(1000);
-        $("#inputCpfCnpj").prop('disabled', true);
-        return response.message;
-      }
-    });
+function handleFormShow(response, cpfCnpj) {  
+    if (cpfCnpj === response.response.cpf_cnpj) {
+      $("#spanUserResponse").text("Proprietário já cadastrado.");
+      $("#divAddForm").fadeIn(1000);
+      // $("#inputCpfCnpj").prop('disabled', true);
+      $("#inputFullName").val(response.response.nome).prop('disabled', true);
+    }
+    // $("#buttonCheckUser").prop('disabled', true);
 }
 
 function handleAddDevice() {
-  let isUserValidated = validateInputsForm("data-user");
+  // let isUserValidated = validateInputsForm("data-user");
   let isDeviceValidated = validateInputsForm("data-device");
 
-  if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
+  //if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
     if (isDeviceValidated) {
       saveDevice();
-      showMessage("Aparelho cadastrado com sucesso!");
-      window.location.href = 'consultarAparelho.html';
+      buildTextModal("<p>Aparelho cadastrado com sucesso!</p>", "./consultarAparelho.html", "alert");
+      clearFields("data-device");
+      // window.location.href = 'consultarAparelho.html';
     }
-  } else {
-    if (isDeviceValidated && isUserValidated) {
+  //} else {
+   // console.log("Usuário não cadastrado.");
+    /* if (isDeviceValidated && isUserValidated) {
       saveUser();
       saveDevice();
-      showMessage("Aparelho e Usuário cadastrado com sucesso!");
-      window.location.href = 'consultarAparelho.html';
-    }
-  }
+      buildTextModal("Aparelho e Usuário cadastrado com sucesso!", "./consultarAparelho.html");
+      // window.location.href = 'consultarAparelho.html';
+    } */
+ // }
 }
 
+/* 
 function handleAddAnotherDevice() {
   let isUserValidated = validateInputsForm("data-user");
   let isDeviceValidated = validateInputsForm("data-device");
@@ -87,22 +71,22 @@ function handleAddAnotherDevice() {
   if ($("#spanUserResponse").text() === "Usuário já cadastrado.") {
     if (isDeviceValidated) {
       saveDevice();
-      showMessage("Aparelho cadastrado com sucesso!");
+      buildTextModal("Aparelho cadastrado com sucesso!");
       clearFields("data-device");
     }
   } else {
     if (isDeviceValidated && isUserValidated) {
       saveUser();
       saveDevice();
-      showMessage("Aparelho e Usuário cadastrado com sucesso!");
+      buildTextModal("Aparelho e Usuário cadastrado com sucesso!");
       $("#inputFullName").prop('disabled', true);
       $("#selectProfile").prop('disabled', true);
       $("#spanUserResponse").text("Usuário já cadastrado.");
       clearFields("data-device");
     }
   }
-}
-
+} */
+/* 
 function saveUser() {
   const data = buildDataUser();
 
@@ -114,6 +98,7 @@ function saveUser() {
     .done(response => response)
     .fail(error => console.log(error));
 }
+ */
 
 function saveDevice() {
   const data = buildDataDevice();
@@ -126,25 +111,31 @@ function saveDevice() {
     .fail(error => console.log(error));
 }
 
-function consultUser(cpfCnpf) {
-  let url = BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpf}`;
-  return $.get(url).done(response => response.response).done(cpf_cnpj => cpf_cnpj);
+function consultUser() {
+  let cpfCnpj = removeSpecialCharacters($("#inputCpfCnpj").val());
+  $.ajax({method: "GET", url: BASE_URL + `usuario/por-cpf-cnpj/${cpfCnpj}`,}).done((response) => {
+      if (response.message !== "Sucesso: Proprietário não encontrado.") {
+        handleFormShow(response, cpfCnpj);
+      } else {
+        buildTextModal(`<p>${response.message}</p><p>Deseja ir para página de cadastro de proprietário?</p>`, './cadastrarUsuario.html', "confirm");
+        $("#divAddForm").fadeOut(1000);
+      }
+    });
 }
-
+/* 
 function buildDataUser() {
   const dataUser = {
     "nome": $("#inputFullName").val(),
     "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val())
   }
   return dataUser;
-}
+} */
 
 function buildDataDevice() {
   const dataDevice = {
     "nome": $("#inputDeviceName").val(),
     "cpf_cnpj": removeSpecialCharacters($("#inputCpfCnpj").val()),
-    "capacidadeLitros": $("#inputRecipeCapacity").val()
-
+    "capacidadeLitros": parseFloat($("#inputRecipeCapacity").val())
   }
   return dataDevice;
 }

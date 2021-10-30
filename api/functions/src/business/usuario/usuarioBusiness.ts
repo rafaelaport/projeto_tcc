@@ -32,7 +32,7 @@ class UsuarioBusiness {
             return usuarioDataSource.desativarUsuario(id);
         }
 
-        return messageTreatmentBusiness.infoMsg('Não é possível excluir o usuário pois existem aparelhos ativos.');
+        return messageTreatmentBusiness.infoMsg('Não é possível excluir o proprietário pois existem aparelhos ativos.');
     }
 
 }

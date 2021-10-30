@@ -1,3 +1,72 @@
+/**
+ * By Wellington Fidelis
+ * at 09/2021
+ * 
+ */
+window.onbeforeunload = () => clearStorage();
+
+$(document).ready(() => {
+  const buttonLoginLogout = $("#buttonLoginLogout");
+
+  if (localStorage.getItem("fbAuthLogin")) {
+    buttonLoginLogout.children("i").prop("class", "fa fa-sign-in");
+    buttonLoginLogout.children("span").text(" Log out");
+  } else {
+    /* Hide all function when isn't log in */
+    buttonLoginLogout.children("i").prop("class", "fa fa-sign-out");
+    buttonLoginLogout.children("span").text(" Log in");
+    $("#liGerenciar").hide();
+    $(".button-deactivate-device-id").hide();
+    $(".button-edit-by-device-id").hide();
+  }
+
+  buttonLoginLogout.on("click", (event) => {
+    event.preventDefault();
+
+    if (localStorage.getItem("fbAuthLogin")) {
+      buttonLoginLogout.children("i").prop("class", "fa fa-sign-in");
+      buttonLoginLogout.children("span").text(" Log in");
+      localStorage.removeItem("fbAuthLogin");
+      window.location = "../pages/login.html";
+    } else {
+      buttonLoginLogout.children("i").prop("class", "fa fa-sign-out");
+      buttonLoginLogout.children("span").text(" Log out");
+      window.location = "../pages/login.html";
+    }
+  });
+});
+
+$(document).ready(() => {
+  const buttonLoginLogoutHome = $("#buttonLoginLogoutHome");
+
+  if (localStorage.getItem("fbAuthLogin")) {
+    buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-in");
+    buttonLoginLogoutHome.children("span").text(" Log out");
+  } else {
+    /* Hide all function when isn't log in */
+    buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-out");
+    buttonLoginLogoutHome.children("span").text(" Log in");
+    $("#liGerenciar").hide();
+    $(".button-deactivate-device-id").hide();
+    $(".button-edit-by-device-id").hide();
+  }
+
+  buttonLoginLogoutHome.on("click", (event) => {
+    event.preventDefault();
+
+    if (localStorage.getItem("fbAuthLogin")) {
+      buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-in");
+      buttonLoginLogoutHome.children("span").text(" Log in");
+      localStorage.removeItem("fbAuthLogin");
+      window.location = "./pages/login.html";
+    } else {
+      buttonLoginLogoutHome.children("i").prop("class", "fa fa-sign-out");
+      buttonLoginLogoutHome.children("span").text(" Log out");
+      window.location = "./pages/login.html";
+    }
+  });
+});
+
 function formatCpfCnpj(text) {
   const badchars = /[^\d]/g
   const maskCpf = /(\d{3})(\d{3})(\d{3})(\d{2})/
@@ -32,20 +101,15 @@ function validateCpfCnpj(idField) {
 
 function validateInputsForm(dataAttribute) {
   let inputValues = $("[" + dataAttribute + "]").get();
-  let result = true;
+  let result;
   inputValues.forEach((input, index) => {
-    if ($(input).val().length === 0) {
+    let newValue = new String($(input).val());
+    if (newValue.trim().length > 0) {
+      $(input).css("border-color", "#1ab394");
+      result = true;
+    } else {
       $(input).css("border-color", "#ED5565");
       result = false;
-    } else {
-      $(input).css("border-color", "#1ab394");
-    }
-
-    if ($(input).val() === '0') {
-      $(input).css("border-color", "#ED5565");
-      result = false;
-    } else {
-      $(input).css("border-color", "#1ab394");
     }
   });
   return result;
@@ -62,3 +126,51 @@ function clearFields(dataAttribute) {
 function showMessage(text) {
   alert(text);
 }
+
+function showModal(type) {
+  if (type === "alert") {
+    $('#modalAlert').modal('show');
+  }
+  else if (type === "confirm") {
+    $('#modalConfirm').modal('show');
+  }
+}
+
+function buildTextModal(text, location, type) {
+  let html = ``;
+  html += `<div class="container">`;
+  html += `${text}`;
+  html += `</div>`;
+  
+
+  showModal(type);
+
+  if (type === "alert") {
+    $("#divModalBodyAlert").html(html);
+  }
+  else if (type === "confirm") {
+    $('#divModalBodyConfirm').html(html);
+  }
+  if (location !== "") {
+    $("[name='buttonModalYes']").on('click', () => {
+      window.location.href = location;
+    });
+  }
+}
+
+function logOut() {
+  localStorage.removeItem("fbAuthLogin");
+}
+
+function clearStorage() {
+
+  let session = sessionStorage.getItem('register');
+
+  if (session == null) {
+  
+      localStorage.removeItem('remove');
+
+  }
+  sessionStorage.setItem('register', 1);
+}
+window.addEventListener('load', clearStorage);

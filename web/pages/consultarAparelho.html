@@ -30,27 +30,32 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-label="ADM">
-                                <span class="block m-t-xs font-bold">Nome do adm logado</span>
+                                <span class="block m-t-xs font-bold">
+                                    <!-- Nome do usuário logado -->
+                                </span>
                             </a>
                         </div>
                         <div class="logo-element">Easier pH</div>
                     </li>
                     <li class="">
-                        <a href="../index.html" aria-label="Home"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
+                        <a href="../index.html" aria-label="Home"><i class="fa fa-home"></i><span
+                                class="nav-label">Home</span></a>
                     </li>
                     <!-- EXIBIR MENU CADASTRAR APENAS PARA ADM -->
-                    <li>
-                        <a href="#" aria-label="Cadastrar"><i class="fa fa-plus-circle"></i><span class="nav-label">Cadastrar</span><span class="fa arrow"></span></a>
+                    <li id="liGerenciar">
+                        <a href="#" aria-label="Gerenciar"><i class="fa fa-cog"></i><span
+                                class="nav-label">Gerenciar</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class=""><a href="../pages/cadastrarAparelho.html">Aparelho</a></li>
-                            <li><a href="../pages/cadastrarUsuario.html">Usuário</a></li>
+                            <li><a href="../pages/cadastrarUsuario.html">Proprietário</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span class="nav-label">Consultar</span><span class="fa arrow"></span></a>
+                        <a href="#" aria-label="Consultar"><i class="fa fa-search"></i><span
+                                class="nav-label">Consultar</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="active"><a href="../pages/consultarAparelho.html">Aparelho</a></li>
-                            <li><a href="../pages/consultarUsuario.html">Usuário</a></li>
+                            <!-- <li><a href="../pages/consultarUsuario.html">Usuário</a></li> -->
                         </ul>
                     </li>
                 </ul>
@@ -62,14 +67,16 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#" aria-label="Menu"><i class="fa fa-bars"></i></a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#" aria-label="Menu"><i
+                                class="fa fa-bars"></i></a>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li style="padding: 20px">
-                            <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                            <span class="m-r-sm text-muted welcome-message">Bem-vindo(a)</span>
                         </li>
                         <li>
-                            <a href="login.html"><i class="fa fa-sign-out"></i> Log out</a>
+                            <button type="button" class="btn btn-small btn-primary" id="buttonLoginLogout"><i
+                                    class="fa fa-sign-out"></i><span>&nbsp;Log out</span></button>
                         </li>
                     </ul>
                 </nav>
@@ -95,21 +102,26 @@
                                     <!-- div col formulário -->
                                     <div class="col">
                                         <label class="col-form-label" for="inputCpfCnpj">CPF / CNPJ</label>
-                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj" value="" required maxlength="18" data-user />
+                                        <input type="text" class="form-control" name="inputCpfCnpj" id="inputCpfCnpj"
+                                            value="" required maxlength="18" data-user />
                                         <span class="text-muted">Insira apenas números</span>
                                         <div class="row-sm-2 mt-3" id="divRowButtonSearch">
-                                            <button class="btn btn-primary btn-block" type="submit" name="buttonSearchUser" id="buttonSearchUser">Pesquisar</button>
+                                            <button class="btn btn-primary btn-block" type="submit"
+                                                name="buttonSearchUser" id="buttonSearchUser">Pesquisar</button>
                                         </div>
                                         <section id="sectionUser">
                                             <div class="hr-line-dashed"></div>
                                             <div class="row">
-                                                <h3>Usuário</h3>
+                                                <h3>Proprietário</h3>
                                             </div>
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label class="col-form-label" for="inputFullName">Nome completo</label>
-                                                        <input type="text" class="form-control input" name="inputFullName" id="inputFullName" required data-user disabled />
+                                                        <label class="col-form-label" for="inputFullName">Nome
+                                                            completo</label>
+                                                        <input type="text" class="form-control input"
+                                                            name="inputFullName" id="inputFullName" required data-user
+                                                            disabled />
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,119 +142,249 @@
                                             <table class="table table-striped" id="tableDevices">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Descrição</th>
-                                                        <th></th>
+                                                        <th class="text-center">ID</th>
+                                                        <th class="text-center">Descrição</th>
+                                                        <th class="text-center"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr id="tr-0" data-device-id>
-                                                        <td>1</td>
-                                                        <td id="nameDevice-0"></td>
+                                                        <td class="text-center">1</td>
+                                                        <td id="nameDevice-0" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr id="tr-1" data-device-id>
-                                                        <td>2</td>
-                                                        <td id="nameDevice-1"></td>
+                                                        <td class="text-center">2</td>
+                                                        <td id="nameDevice-1" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-2">
-                                                        <td>3</td>
-                                                        <td id="nameDevice-2"></td>
+                                                    <tr id="tr-2" data-device-id>
+                                                        <td class="text-center">3</td>
+                                                        <td id="nameDevice-2" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-3">
-                                                        <td>4</td>
-                                                        <td id="nameDevice-3"></td>
+                                                    <tr id="tr-3" data-device-id>
+                                                        <td class="text-center">4</td>
+                                                        <td id="nameDevice-3" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-4">
-                                                        <td>5</td>
-                                                        <td id="nameDevice-4"></td>
+                                                    <tr id="tr-4" data-device-id>
+                                                        <td class="text-center">5</td>
+                                                        <td id="nameDevice-4" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-5">
-                                                        <td>6</td>
-                                                        <td id="nameDevice-5"></td>
+                                                    <tr id="tr-5" data-device-id>
+                                                        <td class="text-center">6</td>
+                                                        <td id="nameDevice-5" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-6">
-                                                        <td>7</td>
-                                                        <td id="nameDevice-6"></td>
+                                                    <tr id="tr-6" data-device-id>
+                                                        <td class="text-center">7</td>
+                                                        <td id="nameDevice-6" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-7">
-                                                        <td>8</td>
-                                                        <td id="nameDevice-7"></td>
+                                                    <tr id="tr-7" data-device-id>
+                                                        <td class="text-center">8</td>
+                                                        <td id="nameDevice-7" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-8">
-                                                        <td>9</td>
-                                                        <td id="nameDevice-8"></td>
+                                                    <tr id="tr-8" data-device-id>
+                                                        <td class="text-center">9</td>
+                                                        <td id="nameDevice-8" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr id="tr-9">
-                                                        <td>10</td>
-                                                        <td id="nameDevice-9"></td>
+                                                    <tr id="tr-9" data-device-id>
+                                                        <td class="text-center">10</td>
+                                                        <td id="nameDevice-9" class="text-center"></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <button class="btn btn-info mr-1 button-measure-by-device-id" type="button" id="">Medir</button>
-                                                                <button class="btn btn-primary mr-1 button-consult-historical-id" type="button">Consultar</button>
-                                                                <button class="btn btn-danger mr-1 button-deactivate-device-id" type="button">Desativar</button>
+                                                            <div class="row justify-content-center">
+                                                                <button
+                                                                    class="btn btn-info mr-1 button-measure-by-device-id"
+                                                                    type="button" title="Medir"><i
+                                                                        class="fa fa-check"></i></button>
+                                                                <button
+                                                                    class="btn btn-primary mr-1 button-consult-historical-id"
+                                                                    type="button" title="Consultar"><i
+                                                                        class="fa fa-search"></i></button>
+                                                                <button
+                                                                    class="btn btn-secondary mr-1 button-edit-by-device-id"
+                                                                    type="button" title="Editar"><i
+                                                                        class="fa fa-edit"></i></button>
+                                                                <button
+                                                                    class="btn btn-danger mr-1 button-deactivate-device-id"
+                                                                    type="button" title="Desativar"><i
+                                                                        class="fa fa-times"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -261,21 +403,95 @@
         <div>
             <input type="hidden" name="inputAuxiliarSearchUser" id="inputAuxiliarSearchUser" value="">
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="modalShowHistorical" tabindex="-1" role="dialog" aria-labelledby="modalShowHistoricalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id=""></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+    </div>
+
+    <!-- Modal Historical-->
+    <div class="modal fade" id="modalShowHistorical" tabindex="-1" role="dialog"
+        aria-labelledby="modalShowHistoricalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id=""></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirm-->
+    <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirm"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle">Atenção</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="divModalBodyConfirm">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" name="buttonModalYes">Sim</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alert-->
+    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="modalAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle">Atenção</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="divModalBodyAlert">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Device -->
+    <div class="modal fade" id="modalEditDevice" tabindex="-1" role="dialog" aria-labelledby="modalEditDeviceLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditDeviceLabel">Editar Aparelho</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputDeviceName" class="col-form-label">Nome/Local</label>
+                            <input type="text" class="form-control input" id="inputDeviceName" data-device>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRecipeCapacity" class="col-form-label">Capacidade(L)</label>
+                            <input type="number" class="form-control" id="inputRecipeCapacity" data-device>
+                        </div>
+                    </form>
+                </div>
+                <input type="hidden" id="inputHiddenIdDevice">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="buttonModalEditDevice">Salvar</button>
                 </div>
             </div>
         </div>

@@ -27,7 +27,9 @@ class HistoricoBusiness {
             historico.ativo = true;
             historico.dataMedicao = new Date();
             historico.idAparelho = idAparelho;
-            // historico.leitura = retornoLeituraArduino.leitura_ph;
+            //historico.leitura = retornoLeituraArduino.leitura_ph;
+            //historico.leitura.toFixed(2);
+
             historico.leitura = Math.floor(Math.random() * 10);
 
             //CALCULAR PRODUTO
@@ -36,24 +38,32 @@ class HistoricoBusiness {
                 // 1000 L = 1m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 13 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
+                historico.tipoProduto = 'Redutor(ml)';
             }
 
             if (historico.leitura > 8) {
                 //redutor 25ml/m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 25 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
+                historico.tipoProduto = 'Redutor(ml)';
             }
 
             if (historico.leitura >= 6.8 && historico.leitura <= 7) {
                 //elevador 15ml/m3            
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 15 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
+                historico.tipoProduto = 'Elevador(ml)';
             }
 
             if (historico.leitura < 6.8) {
                 //elevador 20ml/m3
                 let capacidadeMetrosCubicos = capacidadeLitros / 1000;
                 historico.quantidadeProduto = 20 * capacidadeMetrosCubicos;
+                historico.quantidadeProduto.toFixed(2);
+                historico.tipoProduto = 'Elevador(ml)';
             }
 
             //SALVAR HISTORICO
