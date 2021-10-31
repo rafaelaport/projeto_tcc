@@ -2,7 +2,7 @@ import { historicoDataSource } from '../../datasource/exportDatasource';
 import { Historico } from '../../entities/exportEntities';
 import { aparelhoBusiness } from '../exportBusiness';
 
-// const axios = require('axios')
+const axios = require('axios')
 
 class HistoricoBusiness {
 
@@ -21,16 +21,14 @@ class HistoricoBusiness {
             const capacidadeLitros = (await aparelhoBusiness.consultarAparelhoPorId(idAparelho)).response.capacidadeLitros;
 
             //MEDIR PH 
-            // const retornoLeituraArduino = (await axios.post('http://192.168.0.20')).data;
+            const retornoLeituraArduino = (await axios.post('http://192.168.0.21')).data;
 
             const historico = {} as Historico;
             historico.ativo = true;
             historico.dataMedicao = new Date();
             historico.idAparelho = idAparelho;
-            //historico.leitura = retornoLeituraArduino.leitura_ph;
-            //historico.leitura.toFixed(2);
-
-            historico.leitura = Math.floor(Math.random() * 10);
+            historico.leitura = retornoLeituraArduino.leitura_ph;
+            historico.leitura.toFixed(2);
 
             //CALCULAR PRODUTO
             if (historico.leitura >= 7.4 && historico.leitura <= 8) {
