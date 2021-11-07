@@ -13,6 +13,10 @@ WiFiEspServer server(80); // Porta 80
 unsigned long int soma; 
 int buffer_arr[10], temp;
 float ph;
+String req = "";
+float capacidadeLitros;
+float quantidadeProduto;
+String tipoProduto = "";
 
 void setup() 
 {
@@ -21,7 +25,7 @@ void setup()
   Serial1.begin(9600);
   WiFi.init(&Serial1);
 
-  WiFi.config(IPAddress(192,168,0,21)); //Faixa de IP disponível no roteador, configurada previamente
+  WiFi.config(IPAddress(192,168,0,22)); //Faixa de IP disponível no roteador, configurada previamente
 
   if(WiFi.status() == WL_NO_SHIELD){
     while (true);
@@ -34,6 +38,7 @@ void setup()
   server.begin();
   
   Serial.begin(9600);
+  req = "";
 }
 
 void loop() {
@@ -44,7 +49,7 @@ void loop() {
 
 void wifi(){
 
-  WiFiEspClient client = server.available(); 
+  WiFiEspClient client = server.available();
   
   if (client) { 
 
@@ -55,11 +60,23 @@ void wifi(){
       if(client.available()){ 
       
         char c = client.read();
-
-        if(c == '\n' && currentLineIsBlank){ 
         
-          sensor();
-          
+        req += c;
+
+        if (c == '\n' && currentLineIsBlank) {
+
+          if (req.indexOf("?")<=0){
+            Serial.println("Parâmetro de Capacidade obrigatório.");
+            
+          }else {
+            String inicioStringCapacidade = req.substring(req.indexOf("?")+12);
+            String finalStringCapacidade = inicioStringCapacidade.substring(0, inicioStringCapacidade.indexOf(" "));
+            capacidadeLitros = finalStringCapacidade.toFloat();
+          }
+
+          leituraPh();
+          calcularSubstancia();
+
           // Montando json de retorno 
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: application/json");
@@ -67,22 +84,26 @@ void wifi(){
           client.println();
           client.println("{ \"leitura_ph\": ");
           client.println(ph);
+          client.println(",");
+          client.println("\"quantidade_produto\": ");
+          client.println(quantidadeProduto);
+          client.println(",");
+          client.println("\"tipo_produto\": ");
+          client.print("\"");
+          client.print(tipoProduto);
+          client.print("\"");
           client.println("}");
 
-          delay(1);
-          client.stop();
-          
+          req="";
+          break;
         }
+
+        if (c == '\n') 
+        currentLineIsBlank = true; 
         
-        if (c == '\n') {
-          
-          currentLineIsBlank = true;
-          
-        } else if (c != '\r') {
-          
-          currentLineIsBlank = false;
-        
-        }
+        else if (c != '\r') 
+        currentLineIsBlank = false;
+       
       }
     }
     
@@ -91,7 +112,7 @@ void wifi(){
   }
 }
 
-void sensor(){
+void leituraPh(){
 
   // Captura 10 leituras das tensões da porta analógica
   for(int i = 0; i < 10; i++) 
@@ -133,4 +154,51 @@ void sensor(){
     Serial.print("pH Val: ");
     Serial.println(ph);
     
+}
+
+void calcularSubstancia(){
+
+  if (ph >= 7.4 && ph <= 8) {
+    
+    // redutor 13ml/m3
+    // 1000 L = 1m3
+    
+    float capacidadeMetrosCubicos = capacidadeLitros / 1000;
+    quantidadeProduto = 13 * capacidadeMetrosCubicos;
+    tipoProduto = "Redutor(ml)";
+  }
+
+  if (ph > 8) {
+    
+    //redutor 25ml/m3
+
+    float capacidadeMetrosCubicos = capacidadeLitros / 1000;
+    quantidadeProduto = 25 * capacidadeMetrosCubicos;
+    tipoProduto =  "Redutor(ml)";
+  }
+
+  if (ph >= 6.8 && ph <= 7) {
+    
+    //elevador 15ml/m3            
+    
+    float capacidadeMetrosCubicos = capacidadeLitros / 1000;
+    quantidadeProduto = 15 * capacidadeMetrosCubicos;
+    tipoProduto = "Elevador(ml)";
+  }
+
+  if (ph < 6.8) {
+    
+    //elevador 20ml/m3
+    
+    float capacidadeMetrosCubicos = capacidadeLitros / 1000;
+    quantidadeProduto = 20 * capacidadeMetrosCubicos;
+    tipoProduto = 'Elevador(ml)';
+  }
+
+  Serial.print("Quantidade Produto: ");
+  Serial.println(quantidadeProduto);
+
+  Serial.print("Tipo Produto: ");
+  Serial.println(tipoProduto);
+
 }
