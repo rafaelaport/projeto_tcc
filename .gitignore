@@ -78,3 +78,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Environment of Django project
+/project_django/env-django/
