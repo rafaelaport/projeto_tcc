@@ -81,3 +81,6 @@ node_modules/
 
 # Environment of Django project
 /project_django/env-django/
+
+/project_django/project_core/__pycache__/
+/project_django/users/__pycache__/

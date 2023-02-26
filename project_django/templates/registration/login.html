@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container w-50">
+    <h1 class="text-center mb-5">
+        Cadastro de usuário
+    </h1>
+
+    <form class="form-signin" action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <h3 class="mb-3 font-weight-normal">
+            Informe os dados do usuário
+        </h3>
+
+        <label for="username" class="sr-only">E-mail</label>
+        <input type="email" name="username" id="username" class="form-control mb-3" placeholder="Informe o e-mail" required autofocus>
+
+        <label for="password" class="sr-only">Senha</label>
+        <input type="email" name="password" id="password" class="form-control mb-3" placeholder="Informe a senha" required>
+
+        <button class="btn btn-primary btn-block" type="submit">Acessar</button>
+
+        <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %}</p>
+    </form>
+</div>
+{% endblock content %}
