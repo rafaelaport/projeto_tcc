@@ -82,5 +82,12 @@ node_modules/
 # Environment of Django project
 /project_django/env-django/
 
+
+# Byte-compiled / optimized / DLL files
 /project_django/project_core/__pycache__/
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+
 /project_django/users/__pycache__/

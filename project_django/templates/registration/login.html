@@ -1,25 +1,29 @@
 {% extends 'base.html' %}
+{% block title %}Log In{% endblock %}
 {% block content %}
 <div class="container w-50">
     <h1 class="text-center mb-5">
-        Cadastro de usuário
+        Acesso seus aparelhores
     </h1>
 
     <form class="form-signin" action="" method="post" autocomplete="off">
         {% csrf_token %}
-        <h3 class="mb-3 font-weight-normal">
-            Informe os dados do usuário
-        </h3>
+        <h4 class="mb-3 font-weight-normal text-black-50 text-center">
+            Informe os dados de acesso
+        </h4>
+        <div class="form-floating mb-3">
+            <input type="email" name="username" id="username" class="form-control" placeholder="Informe o e-mail" required autofocus>
+            <label for="username" class="sr-only">E-mail</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" name="password" id="password" class="form-control" placeholder="Informe a senha" required>
+            <label for="password" class="sr-only">Senha</label>
+        </div>
 
-        <label for="username" class="sr-only">E-mail</label>
-        <input type="email" name="username" id="username" class="form-control mb-3" placeholder="Informe o e-mail" required autofocus>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="submit">Acessar</button>
+        </div>
 
-        <label for="password" class="sr-only">Senha</label>
-        <input type="email" name="password" id="password" class="form-control mb-3" placeholder="Informe a senha" required>
-
-        <button class="btn btn-primary btn-block" type="submit">Acessar</button>
-
-        <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %}</p>
     </form>
 </div>
 {% endblock content %}
