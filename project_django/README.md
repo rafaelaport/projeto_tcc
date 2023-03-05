@@ -1,10 +1,13 @@
 # To do
+
 - [x] Create a docker compose to make more simple the execution of the app
 - [ ] Create a User model to user owners of the devices and for administrators
 - [ ] Create a functionality to log in and log out for the user
 - [ ] Create a Devices model for their owners
 - [ ] Create a integration with Marmeid Diagram to Show a Process of instalation
 - [ ] Create a integration with Marmeid Diagram to Show a Process of create device's user
+
+----> superuser credentias = e-mail + 123456
 
 # First execution
 ## Precondition
@@ -52,4 +55,11 @@ python manage.py runserver
 2. Runs the follow code in the terminal:
 ```bash
 docker-compose up --build
+```
+
+# Fixing problems with...
+## Table Custom User not exists
+If the error message "django.db.utils.OperationalError: no such table: users_customuser" appear when you are trying to execute "python manage.py runserver", run the follow command to solve it:
+```bash
+python manage.py migrate --run-syncdb
 ```

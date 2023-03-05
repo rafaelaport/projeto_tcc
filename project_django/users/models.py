@@ -27,7 +27,7 @@ class ManagerUser(BaseUserManager):
   def create_superuser(self, email, password, **extra_fields):
     extra_fields.setdefault('is_staff', True)
     extra_fields.setdefault('is_superuser', True)
-    extra_fields.setdefault('is_active', False)
+    extra_fields.setdefault('is_active', True)
     
     if extra_fields.get('is_superuser') is not True:
       raise ValueError('O administrador precisa ter a propriedade "is_superuser" marcada')
@@ -43,7 +43,6 @@ class CustomUser(AbstractUser):
   email =  models.EmailField('E-mail', unique=True)
   cpf_cnpj =  models.EmailField('CPF/CNPJ', unique=True)
   phone = models.CharField('Telefone', max_length=15)
-  is_administrator = models.BooleanField('Administrado', default=False)
   
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']

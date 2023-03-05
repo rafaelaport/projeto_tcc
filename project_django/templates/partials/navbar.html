@@ -22,14 +22,18 @@
           <a class="nav-link" href="#">Contato</a>
         </li>
       </ul>
-      <div class="d-flex">
+      <div class="">
           {% if user.is_anonymous %}
               <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Login</a>
           {% else %}
-              <div class="alert alert-primary" role="alert">
-                  {{ user.get_full_name }}!
+              <div class="d-flex">
+                  <div class="me-2">
+                      <span>{{ user.get_full_name }}</span>
+                  </div>
+                  <div class="">
+                      <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm">Logout</a>
+                  </div>
               </div>
-              <a href="{% url 'logout' %}" class="btn btn-primary btn-sm">Logout</a>
           {% endif %}
       </div>
     </div>
