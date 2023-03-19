@@ -45,7 +45,7 @@ class CustomUser(AbstractUser):
   phone = models.CharField('Telefone', max_length=15)
   
   USERNAME_FIELD = 'email'
-  REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
+  REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'cpf_cnpj']
   
   
   def __str__(self):

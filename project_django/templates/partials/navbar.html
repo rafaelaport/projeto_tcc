@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">
+    <a class="navbar-brand" href="{% url 'pages:home' %}">
       <img src="{% static 'img/favicon/favicon-32x32.png' %}" alt="Easier Ph" class="d-inline-block align-text-bottow">
       Easier Ph
     </a>
@@ -12,28 +12,31 @@
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         {% if not user.is_anonymous %}
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Página inicial</a>
+              <a class="nav-link {% if request.path == '/' %}active{% endif %}" 
+                aria-current="page" 
+                href="{% url 'pages:home' %}">
+                  Página inicial
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Meus aparelhos</a>
+              <a class="nav-link {% if request.path == '/devices' %}active{% endif %}" href="#" tabindex="-1" aria-disabled="true">Meus aparelhos</a>
             </li>
         {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href="#">Contato</a>
+          <a class="nav-link {% if request.path == '/contact' %}active{% endif %}" href="#">Contato</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/about' %}active{% endif %}" href="{% url 'pages:about' %}">Sobre Easier Ph</a>
         </li>
       </ul>
-      <div class="">
+      <div class="d-flex">
           {% if user.is_anonymous %}
               <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Login</a>
           {% else %}
-              <div class="d-flex">
-                  <div class="me-2">
-                      <span>{{ user.get_full_name }}</span>
-                  </div>
-                  <div class="">
-                      <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm">Logout</a>
-                  </div>
+              <div class="" role="">
+                <span><span class="text-black-50">Olá</span> {{ user.get_full_name }} &nbsp;&nbsp;</span>
               </div>
+              <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm">Logout</a>
           {% endif %}
       </div>
     </div>
