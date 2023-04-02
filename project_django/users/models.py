@@ -41,7 +41,7 @@ class ManagerUser(BaseUserManager):
   
 class CustomUser(AbstractUser):
   email =  models.EmailField('E-mail', unique=True)
-  cpf_cnpj =  models.EmailField('CPF/CNPJ', unique=True)
+  cpf_cnpj =  models.CharField('CPF/CNPJ', max_length=14, unique=True)
   phone = models.CharField('Telefone', max_length=15)
   
   USERNAME_FIELD = 'email'
@@ -49,7 +49,7 @@ class CustomUser(AbstractUser):
   
   
   def __str__(self):
-    return self.email
+    return f"{self.first_name} {self.last_name}"
   
   
   objects = ManagerUser()

@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # My apps
-    'users'
+    'users.apps.UsersConfig',
+    'devices.apps.DevicesConfig',
     #Third apps
 ]
 
@@ -155,6 +156,6 @@ LOGOUT_REDIRECT_URL = 'pages:home'
 #
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'wellingtonf20@gmail.com'
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
