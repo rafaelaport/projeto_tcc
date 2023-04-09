@@ -19,7 +19,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {% if request.path == '/devices' %}active{% endif %}" href="#" tabindex="-1" aria-disabled="true">Meus aparelhos</a>
+              <a class="nav-link {% if request.path == '/devices/list/' %}active{% endif %}" href="{% url 'devices:devices-list' %}" tabindex="-1" aria-disabled="true">Meus aparelhos</a>
             </li>
         {% endif %}
         <li class="nav-item">

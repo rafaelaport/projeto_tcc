@@ -1,8 +1,8 @@
 # To do
 
 - [x] Create a docker compose to make more simple the execution of the app
-- [ ] Create a User model to user owners of the devices and for administrators
-- [ ] Create a functionality to log in and log out for the user
+- [x] Create a User model to user owners of the devices and for administrators
+- [x] Create a functionality to log in and log out for the user
 - [ ] Create a Devices model for their owners
 - [ ] Create a integration with Marmeid Diagram to Show a Process of instalation
 - [ ] Create a integration with Marmeid Diagram to Show a Process of create device's user
@@ -63,3 +63,10 @@ If the error message "django.db.utils.OperationalError: no such table: users_cus
 ```bash
 python manage.py migrate --run-syncdb
 ```
+
+# Technologies used
+- [Ionic](https://ionic.io/ionicons)
+- [Bootstrap 5](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+- [Django](https://www.djangoproject.com/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)

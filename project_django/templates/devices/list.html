@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Meus Aparelhos{% endblock %}
+{% block content %}
+<div class="container">
+  <h1>Meus Aparelhos</h1>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Capacidade</th>
+          <th scope="col">Localização</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for device in object_list %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ device.name }}</td>
+            <td>{{ device.capacity }}</td>
+            <td>{{ device.place }}</td>
+            <td>
+              <a class"btn text-decoration-none" href=""><ion-icon name="create-outline"></ion-icon></a>
+              <a class"btn text-decoration-none" href=""><ion-icon name="search-circle-outline"></ion-icon></a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>No Devices yet.</tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
