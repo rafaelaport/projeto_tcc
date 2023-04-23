@@ -2,7 +2,9 @@
 {% block title %}Meus Aparelhos{% endblock %}
 {% block content %}
 <div class="container">
-  <h1>Meus Aparelhos</h1>
+  <div class="mb-3 text-center text-black-50">
+    <h1>Meus Aparelhos</h1>
+  </div>
   <div>
     <table class="table">
       <thead>
@@ -15,15 +17,23 @@
         </tr>
       </thead>
       <tbody>
-        {% for device in object_list %}
+        {% for device in devices %}
           <tr>
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ device.name }}</td>
             <td>{{ device.capacity }}</td>
             <td>{{ device.place }}</td>
             <td>
-              <a class"btn text-decoration-none" href=""><ion-icon name="create-outline"></ion-icon></a>
-              <a class"btn text-decoration-none" href=""><ion-icon name="search-circle-outline"></ion-icon></a>
+              <a class"btn"
+                href="" 
+                data-bs-toggle="tooltip" 
+                data-bs-placement="top" 
+                title="Editar"><ion-icon name="create-outline"></ion-icon></a>
+              <a class"btn"
+                href="" 
+                data-bs-toggle="tooltip" 
+                data-bs-placement="top" 
+                title="Consultar"><ion-icon name="search-circle-outline"></ion-icon></a>
             </td>
           </tr>
         {% empty %}

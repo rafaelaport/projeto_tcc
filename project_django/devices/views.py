@@ -1,22 +1,27 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from devices.models import Device
-from users.models import CustomUser
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView
 
 
 # Create your views here.
-class DevicesView(ListView):
+class DeviceCreateView(CreateView):
+    model = Device
+    template_name = "devices/create.html"
+    fields = ["user", "name", "capacity", "place"]
+    success_url = reverse_lazy("device-list")
+
+
+class DeviceListView(ListView):
     template_name = "devices/list.html"
     model = Device
+    context_object_name = "devices"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context["devices"] = Device.objects.all()
-        print("##########  ", self.request.user.id)
         return context
 
     def get_queryset(self):
-        queryset = super(DevicesView, self).get_queryset()
+        queryset = super(DeviceListView, self).get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset

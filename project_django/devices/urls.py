@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import DevicesView
+from .views import DeviceListView, DeviceCreateView
 
 
 app_name = 'devices'
 
 urlpatterns = [
-  path('list/', DevicesView.as_view(), name='devices-list'),
+  path('list/', DeviceListView.as_view(), name='device-list'),
+  path('create/', DeviceCreateView.as_view(), name='device-create'),
 ]

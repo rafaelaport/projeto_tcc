@@ -3,11 +3,16 @@
 - [x] Create a docker compose to make more simple the execution of the app
 - [x] Create a User model to user owners of the devices and for administrators
 - [x] Create a functionality to log in and log out for the user
-- [ ] Create a Devices model for their owners
-- [ ] Create a integration with Marmeid Diagram to Show a Process of instalation
+- [x] Create a Devices model for their owners
+  - [ ] Create a detail page for each device
+    - [ ] Create function to activate or deactivate device
+    - [ ] Create function to take measurement on page of device detail - force
+  - [ ] Create a chart with last month's measurements
+  - [ ] Create function to take measurement by period setted by device owner - automatic
+- [ ] Create a integration with Marmeid Diagram to Show a Process of installation
 - [ ] Create a integration with Marmeid Diagram to Show a Process of create device's user
 
-----> superuser credentias = e-mail + 123456
+----> superuser credentials = e-mail + 123456
 
 # First execution
 ## Precondition
