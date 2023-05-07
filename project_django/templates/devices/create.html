@@ -10,6 +10,14 @@
     <div class="row">
       <div class="col-8 mx-auto">
         <div class="form-floating mb-3">
+          <select class="form-select" name="{{ form.user.name }}" id="{{ form.user.id_for_label }}">
+            {% for value, label in form.fields.user.choices %}
+            <option value="{{ value }}"> {{ label }}</option>
+            {% endfor %}
+          </select>
+          <label for="{{ form.user.name }}">Dono do aparelho</label>
+        </div>
+        <div class="form-floating mb-3">
           <input type="text" class="form-control" id="name" name="name" placeholder="">
           <label for="name">Nome do aparelho</label>
         </div>

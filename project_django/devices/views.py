@@ -9,7 +9,7 @@ class DeviceCreateView(CreateView):
     model = Device
     template_name = "devices/create.html"
     fields = ["user", "name", "capacity", "place"]
-    success_url = reverse_lazy("device-list")
+    success_url = reverse_lazy("devices:device-list")
 
 
 class DeviceListView(ListView):
