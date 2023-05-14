@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'devices.apps.DevicesConfig',
     #Third apps
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +161,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
+
+
+# Crispy settings
+#
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

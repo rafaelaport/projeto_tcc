@@ -25,7 +25,7 @@
             <td>{{ device.place }}</td>
             <td>
               <a class"btn"
-                href="" 
+                 href="{% url 'devices:device-update' device.pk %}" 
                 data-bs-toggle="tooltip" 
                 data-bs-placement="top" 
                 title="Editar"><ion-icon name="create-outline"></ion-icon></a>

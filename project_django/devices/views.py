@@ -25,3 +25,10 @@ class DeviceListView(ListView):
         queryset = super(DeviceListView, self).get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
+
+
+class DeviceUpdateView(UpdateView):
+    model = Device
+    template_name = "devices/update.html"
+    fields = ["user", "name", "capacity", "place"]
+    success_url = reverse_lazy("devices:device-list")
