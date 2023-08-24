@@ -13,6 +13,7 @@
           <th scope="col">Nome</th>
           <th scope="col">Capacidade</th>
           <th scope="col">Localização</th>
+          <th scope="col">Ativo ?</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -24,16 +25,46 @@
             <td>{{ device.capacity }}</td>
             <td>{{ device.place }}</td>
             <td>
-              <a class"btn"
-                 href="{% url 'devices:device-update' device.pk %}" 
+              {% if device.is_active %}
+                <div
+                  class="text-success"
+                  data-bs-toggle="tooltip" 
+                  data-bs-placement="left" 
+                  title="Desativado"
+                  >
+                  <ion-icon name="thumbs-up-outline"></ion-icon>
+                </div>
+              {% else %}
+                <div
+                  class="text-danger" 
+                  data-bs-toggle="tooltip" 
+                  data-bs-placement="left" 
+                  title="Desativado">
+                    <ion-icon name="thumbs-down-outline"></ion-icon>
+                </div>
+              {% endif %}
+            </td>
+            <td>
+              <a 
+                class"btn"
+                href="{% url 'devices:device-update' device.pk %}" 
                 data-bs-toggle="tooltip" 
                 data-bs-placement="top" 
-                title="Editar"><ion-icon name="create-outline"></ion-icon></a>
-              <a class"btn"
+                title="Editar"
+                style="text-decoration:none"
+              >
+                    <ion-icon name="create-outline" class="text-dark"></ion-icon>
+              </a>
+              <a
+                class"btn"
                 href="" 
                 data-bs-toggle="tooltip" 
                 data-bs-placement="top" 
-                title="Consultar"><ion-icon name="search-circle-outline"></ion-icon></a>
+                title="Consultar"
+                style="text-decoration:none"
+              >
+                <ion-icon name="search-circle-outline" class="text-dark"></ion-icon>
+              </a>
             </td>
           </tr>
         {% empty %}

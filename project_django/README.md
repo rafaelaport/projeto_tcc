@@ -4,8 +4,9 @@
 - [x] Create a User model to user owners of the devices and for administrators
 - [x] Create a functionality to log in and log out for the user
 - [x] Create a Devices model for their owners
-  - [ ] Create a detail page for each device
-    - [ ] Create function to activate or deactivate device
+  - [x] Create a detail page for each device
+    - [x] Solve problem with update page, name of fields are in English and the field user are enable
+    - [x] Create field to activate or deactivate device
     - [ ] Create function to take measurement on page of device detail - force
   - [ ] Create a chart with last month's measurements
   - [ ] Create function to take measurement by period setted by device owner - automatic

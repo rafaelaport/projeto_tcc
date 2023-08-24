@@ -12,12 +12,20 @@
     {% csrf_token %}
     <div class="row">
       <div class="col-8 mx-auto">
+        <div class="mb-3">
+          <label for="user-input" class="form-label">Nome do Proprietário</label>
+          <input
+            class="form-control" 
+            type="text" 
+            placeholder="{{ device.user }}" 
+            aria-label="{{ device.user }}" 
+            disabled
+          >
+        </div>
         {{ form|crispy }}
       </div>
-    </div>
-
     <div class="row col-8 mx-auto">
-      <button class="btn btn-success" type="submit">Adicionar</button>
+      <button class="btn btn-success" type="submit">Salvar</button>
     </div>
 
   </form>
