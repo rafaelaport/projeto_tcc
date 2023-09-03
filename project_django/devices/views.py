@@ -33,8 +33,9 @@ class DeviceListView(ListView):
 
 class DeviceUpdateView(UpdateView):
     model = Device
+    # form_class = DeviceModelForm
     # model = DeviceModelForm
     template_name = "devices/update.html"
-    fields = ["name", "capacity", "place", "is_active"]
+    fields = ["name", "capacity", "place", "is_active", "measurement_range"]
     context_object_name = "device"
     success_url = reverse_lazy("devices:device-list")

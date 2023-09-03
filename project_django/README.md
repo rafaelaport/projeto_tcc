@@ -8,6 +8,7 @@
     - [x] Solve problem with update page, name of fields are in English and the field user are enable
     - [x] Create field to activate or deactivate device
     - [ ] Create function to take measurement on page of device detail - force
+        - [x] Create a field to save the range of period to measurement
   - [ ] Create a chart with last month's measurements
   - [ ] Create function to take measurement by period setted by device owner - automatic
 - [ ] Create a integration with Marmeid Diagram to Show a Process of installation
