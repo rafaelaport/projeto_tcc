@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator,StepValueValidator 
 from django.db import models
 from users.models import CustomUser
+import random
 
 
 # Create your models here.
@@ -41,3 +42,23 @@ class Device(models.Model):
     def __str__(self):
         return self.name
 
+    def measurement_ph (self):
+        # para gerar um valor aleatório para o pH, pois, o senso não está conectado
+        ph = float(random(0, 14))
+        return ph
+    
+    def measurement_substance (self):
+        ph = self.measurement_ph
+        # para obter a capacidade em metros cúbicos será necessário dividir por 1000
+        capacity = float(self.capacity) / 1000
+        
+        if ph >= 7.3 & ph <= 8:
+            quantity_substance = 13 * capacity
+        elif ph > 8:
+            quantity_substance = 25 * capacity
+        elif ph >= 6.8 & ph <= 7:
+            quantity_substance = 15 * capacity
+        elif ph < 6.8:
+            quantity_substance = 20 * capacity
+            
+        return quantity_substance
