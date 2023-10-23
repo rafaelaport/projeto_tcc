@@ -1,5 +1,6 @@
-from devices.models import Device
-# from devices.forms import DeviceModelForm
+from devices.models import Device, Measure
+from django.http import HttpResponse
+from devices.forms import MeasureModelForm
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -39,3 +40,31 @@ class DeviceUpdateView(UpdateView):
     fields = ["name", "capacity", "place", "is_active", "measurement_range"]
     context_object_name = "device"
     success_url = reverse_lazy("devices:device-list")
+
+
+def measureCreateView(request, pk_device):
+    try:
+        user = request.user
+        device = Device.objects.get(id=pk_device)
+        measure_form = MeasureModelForm(request.POST or None)
+
+        measure_form.instance.user_id = user.id
+        measure_form.instance.device_id = pk_device
+        measure_form.instance.capacity = device.capacity
+        measure_form.instance.ph = Measure.measurement_ph()
+        measure_form.instance.quantity_substance = Measure.measurement_substance(
+            measure_form.instance.ph, device.capacity
+        )
+        measure_form.instance.substance_type = Measure.substance_type_name(
+            measure_form.instance.ph
+        )
+
+        if request.method == "POST":
+            if measure_form.is_valid():
+                measure_form.save()
+
+            return HttpResponse(status=201)
+
+    except:
+        print("=> ERROR => Não foi possível criar uma medição.")
+        raise ValueError("=> ERROR => Não foi possível criar uma medição.")
