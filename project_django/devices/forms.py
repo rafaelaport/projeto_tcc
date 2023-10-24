@@ -46,9 +46,3 @@ class DeviceModelForm(forms.ModelForm):
 
     # def __init__ (self, *args, **kwargs):
     #   self.fields['name'].widget.attrs['readonly'] = True
-
-
-class MeasureModelForm(forms.ModelForm):
-    class Meta:
-        model = Measure
-        fields = "__all__"

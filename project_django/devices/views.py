@@ -1,6 +1,5 @@
 from devices.models import Device, Measure
 from django.http import HttpResponse
-from devices.forms import MeasureModelForm
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -46,24 +45,22 @@ def measureCreateView(request, pk_device):
     try:
         user = request.user
         device = Device.objects.get(id=pk_device)
-        measure_form = MeasureModelForm(request.POST or None)
 
-        measure_form.instance.user_id = user.id
-        measure_form.instance.device_id = pk_device
-        measure_form.instance.capacity = device.capacity
-        measure_form.instance.ph = Measure.measurement_ph()
-        measure_form.instance.quantity_substance = Measure.measurement_substance(
-            measure_form.instance.ph, device.capacity
+        ph = Measure.measurement_ph()
+        quantity_substance = Measure.measurement_substance(ph, device.capacity)
+        substance_type = Measure.substance_type_name(ph)
+
+        new_measure = Measure.objects.create(
+            user_id=user.id,
+            device_id=pk_device,
+            capacity=device.capacity,
+            ph=ph,
+            quantity_substance=quantity_substance,
+            substance_type=substance_type,
         )
-        measure_form.instance.substance_type = Measure.substance_type_name(
-            measure_form.instance.ph
-        )
+        new_measure.save()
 
-        if request.method == "POST":
-            if measure_form.is_valid():
-                measure_form.save()
-
-            return HttpResponse(status=201)
+        return HttpResponse(status=201)
 
     except:
         print("=> ERROR => Não foi possível criar uma medição.")
