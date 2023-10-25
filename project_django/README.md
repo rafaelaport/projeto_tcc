@@ -9,7 +9,7 @@
     - [x] Create field to activate or deactivate device
     - [x] Create function to take measurement on page of device detail - force
       - [x] Create a field to save the range of period to measurement
-  - [ ] Create a chart with last month's measurements
+  - [x] Create a chart with last month's measurements
   - [ ] Create function to take measurement by period setted by device owner - automatic
 - [ ] Create a integration with Marmeid Diagram to Show a Process of installation
 - [ ] Create a integration with Marmeid Diagram to Show a Process of create device's user

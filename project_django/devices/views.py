@@ -44,7 +44,9 @@ class DeviceUpdateView(UpdateView):
 
 def MeasureListView(request, pk):
     template_name = "measures/measure-list.html"
-    measures = Measure.objects.filter(user_id=request.user.id, device_id=pk)
+    measures = Measure.objects.filter(user_id=request.user.id, device_id=pk).order_by(
+        "created_date"
+    )
     device_name = Device.objects.get(id=pk).name
     capacity = Device.objects.get(id=pk).capacity
     device_id = pk
