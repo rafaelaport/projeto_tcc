@@ -91,3 +91,4 @@ __pycache__/
 *$py.class
 
 /project_django/users/__pycache__/
+project_django/db.sqlite3
