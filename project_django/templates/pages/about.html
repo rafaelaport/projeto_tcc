@@ -2,6 +2,93 @@
 {% block title %}Sobre Easier Ph{% endblock %}
 {% block content %}
 <div class="container">
-  <h1> Sobre nós</h1>
+  <div class="row mb-5">
+    <h1>Os criadores</h1>
+  </div>
+  <div class="row justify-content-around">
+    <div class="col-4 align-self-start">
+      <div class="card" style="width: 25rem;">
+        <img src="https://avatars.githubusercontent.com/u/19836846?v=4" class="card-img-top" alt="Rafaela Portual">
+        <div class="card-body">
+          <h5 class="card-title">Rafaela Portugal</h5>
+          <p class="card-text">Idealizadora deste projeto e desenvolvedora | Eng. de Computação | Analista |
+            Desenvolvedora</p>
+          <p class="card-text">Formada em Engenharia da Computação, adora ... </p>
+          <p class="card-text">Atualmente atua como Analista de Sistemas ...</p>
+          <a href="https://www.linkedin.com/in/rafaela-portugal/" class="btn btn-primary" target="_blank">
+            <span class="align-middle"><ion-icon name="logo-linkedin"></ion-icon></span>
+            Meu LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 align-self-start">
+      <div class="card" style="width: 25rem;">
+        <img src="https://avatars.githubusercontent.com/u/50756615?v=4" class="card-img-top" alt="Wellington Fidelis">
+        <div class="card-body">
+          <h5 class="card-title">Wellington Fidelis</h5>
+          <p class="card-text">Eng. de Computação | Analista | Desenvolvedor</p>
+          <p class="card-text">Formado em Engenharia da Computação, apaixonado por tecnologias e ultimamente venho me
+            especialiando em python e Ciências de Dados.</p>
+          <p class="card-text">Atualmento atuo como Analista de Processos e Negócios proporcioando a implantações de
+            novos negócios e processos, melhorando-os, sempre com foco na Qualidade para os clientes e usuários.</p>
+          <a href="https://www.linkedin.com/in/wellington-fidelis-7b02b167/" class="btn btn-primary" target="_blank">
+            <span class="align-middle"><ion-icon name="logo-linkedin"></ion-icon></span>
+            Meu LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="row">
+      <h2>Sobre o projeto</h2>
+    </div>
+    <div class="row">
+      <p>Este projeto foi idealizado e construído para nosso TCC (Trabalho de conclusão de curso) de Engenharia da
+        Computação.</p>
+      <p>Essa parte, visível pelos usuários e utilizada via web, é um dos componentes do projeto o outro é um
+        dispositivo embarcado (algo como um dispositivo IOT) que realiza as medições do pH da água, a princípio focamos
+        em medir o pH somente da água mas a ideia pode contemplar outros fluídos que precisem de um pH pré-estabelecido,
+        e envia para um servidor e atráves desta aplicação web conseguimos gerenciar as medições.</p>
+      <h2>A aplicação web</h2>
+      <p>A aplicação web agora tem duas versões, a primeira foi totalmente construída com HTML, Javascript, CSS e partes
+        do ecossistema do Firebase (usamos o Firestore para o armazenamento dos dados em nuvem não relacional e o Cloud
+        Functions como API para receber as gravações e consultas dos dados vindos pelo aplicativo web).</p>
+      <p>Na versão dois, essa que você está navegando, foi construída com o framework Django baseado na linguagem
+        python. Só que
+        dessa vez o armazenamento está em SQLite, mas a ferramenta dispõe de opções para conexão com vários sistemas
+        gerenciadores de banco de dados da atualidade.</p>
+      <h2>O dispositivo</h2>
+      <p>O dispositivo ou aparelho, como chamamos neste projeto, é um hardware montado com uma placa de Arduino Uno, que
+        nada mais é que um microcontrolador que permite criar soluções para uma gama enorme de problemas reais. Esse
+        nosso aparelho possui um sensor para medição do potencial de hidrgênia na água, esse sensor possui um eletrodo
+        que está conectado a um potenciômetro, que converte o valor potencial medido pelo eletrodo em unidade de pH. O
+        aparelho possui também uma placa Wi-Fi que permite que o aparelho fique localizado em qualquer lugar que o sinal
+        dos roteadores cheguem.</p>
+      <p>O cáculo da conversão, assim como as funcionalidades de conexão com a web via, foram programados utilizando o
+        Arduino IDE e a linguagem C++.</p>
+      <h2>Usabilidade</h2>
+      <p>A usabilidade, de forma bem simplista, trata-se de:</p>
+      <ol>
+        <li>
+          Configurações/cadastros dos proprietários dos aparelhos no sistema;
+        </li>
+        <li>
+          Cadastro dos aparelhos do proprietário;
+        </li>
+        <li>
+          Envio dos aparelhos para os proprietários;
+        </li>
+        <li>
+          Instalação dos aparelhos nos locais desejados pelos proprietários e que recebam o sinal do Wi-Fi;
+        </li>
+        <li>Teste inicial de conexão e envio de dados;</li>
+        <li>Propietário deve realizar o acesso na aplicação web e consultar as medições realizadas por cada aparelho.
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="row mb-5"></div>
 </div>
 {% endblock content %}

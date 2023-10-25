@@ -4,11 +4,13 @@ services:
   django-app:
     build:
       context: "./project_django"
+    container_name: django-app
+    # env-file: ./project_django/.env
     # first run docker-compose up --build with the follow command
     ## command: "django-admin startproject name_project"
     # after, comment the command above and uncomment the command below
-    command: "python manage.py runserver 0.0.0.0:8000"
+    # command: "python manage.py runserver 0.0.0.0:8000"
     volumes:
-     - "./project_django:/app"
+     - "./project_django:/usr/src/app"
     ports:
       - "8000:8000"

@@ -1,4 +1,5 @@
 from devices.models import Device, Measure
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
@@ -41,26 +42,42 @@ class DeviceUpdateView(UpdateView):
     success_url = reverse_lazy("devices:device-list")
 
 
+def MeasureListView(request, pk):
+    template_name = "measures/measure-list.html"
+    measures = Measure.objects.filter(user_id=request.user.id, device_id=pk)
+    device_name = Device.objects.get(id=pk).name
+    capacity = Device.objects.get(id=pk).capacity
+    device_id = pk
+    device_status = Device.objects.get(id=pk).is_active
+
+    context = {
+        "measures": measures,
+        "device_name": device_name,
+        "capacity": capacity,
+        "device_id": device_id,
+        "device_status": device_status,
+    }
+
+    return render(request=request, template_name=template_name, context=context)
+
+
 def measureCreateView(request, pk_device):
     try:
         user = request.user
         device = Device.objects.get(id=pk_device)
+        template_name = "measures/measure-list.html"
 
-        ph = Measure.measurement_ph()
-        quantity_substance = Measure.measurement_substance(ph, device.capacity)
-        substance_type = Measure.substance_type_name(ph)
-
+        # if request.method == "POST":
         new_measure = Measure.objects.create(
             user_id=user.id,
             device_id=pk_device,
             capacity=device.capacity,
-            ph=ph,
-            quantity_substance=quantity_substance,
-            substance_type=substance_type,
         )
         new_measure.save()
 
-        return HttpResponse(status=201)
+        # return render(request=request, template_name=template_name)
+        # HttpResponse(status=201)
+        return redirect(f"devices:measures-list", pk=pk_device)
 
     except:
         print("=> ERROR => Não foi possível criar uma medição.")

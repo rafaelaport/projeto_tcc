@@ -1,4 +1,8 @@
-from django.core.validators import MinValueValidator, StepValueValidator
+from django.core.validators import (
+    MinValueValidator,
+    StepValueValidator,
+    MaxValueValidator,
+)
 from django.db import models
 from users.models import CustomUser
 import random
@@ -28,7 +32,11 @@ class Device(models.Model):
     is_active = models.BooleanField(verbose_name="Ativo?", null=False)
     measurement_range = models.IntegerField(
         verbose_name="Intervalo de medicão",
-        validators=[StepValueValidator(15, "O número informado não é valido.")],
+        validators=[
+            StepValueValidator(1, "O número informado não é valido."),
+            MinValueValidator(1, "A quantidade mínima para medição diária é 1."),
+            MaxValueValidator(5, "A quantidade máxima para medição diária é de 5."),
+        ],
         blank=True,
     )
 
@@ -37,50 +45,6 @@ class Device(models.Model):
 
 
 class Measure(models.Model):
-    # Methods
-    #
-    """
-    def create_measurement(self):
-        self.ph = self.measurement_ph
-        self.quantity_substance = self.measurement_substance
-        self.substance_type = self.substance_type_name
-    """
-
-    def measurement_ph():
-        # para gerar um valor aleatório para o pH, pois, o senso não está conectado
-        ph = float(random.randint(0, 14))
-        return ph
-
-    def measurement_substance(ph, capacity):
-        # ph = self.measurement_ph()
-        # para obter a capacidade em metros cúbicos será necessário dividir por 1000
-        # ph = self.ph
-        # capacity = self.capacity
-        capacity = capacity / 1000.0
-
-        if ph >= 7.3 and ph <= 8:
-            quantity_substance = 13 * capacity
-        elif ph > 8:
-            quantity_substance = 25 * capacity
-        elif ph >= 6.8 and ph <= 7:
-            quantity_substance = 15 * capacity
-        elif ph < 6.8:
-            quantity_substance = 20 * capacity
-
-        return quantity_substance
-
-    def substance_type_name(ph):
-        substances_types = {
-            "elevator": {"description": "Elevador (ml)"},
-            "reducer": {"description": "Redutor (ml)"},
-        }
-        # ph = self.measurement_ph()
-
-        if (ph >= 7.3 and ph <= 8) | (ph > 8):
-            return substances_types["reducer"]["description"]
-        elif (ph >= 6.8 and ph <= 7) | (ph < 6.8):
-            return substances_types["elevator"]["description"]
-
     # Fields
     #
     user = models.ForeignKey(
@@ -107,6 +71,52 @@ class Measure(models.Model):
         max_length=15,
         blank=True,
     )
+    created_date = models.DateTimeField(
+        verbose_name="Data da medição", auto_now_add=True
+    )
 
     def __str__(self):
         return f"Medição {self.id}, do aparelho {self.device}."
+
+    def save(self, *args, **kwargs):
+        if self.user and self.device:
+            ph = MeasureCalcs.measurement_ph()
+            capacity = self.capacity
+            self.ph = ph
+            self.quantity_substance = MeasureCalcs.measurement_substance(ph, capacity)
+            self.substance_type = MeasureCalcs.substance_type_name(ph)
+            super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+
+
+class MeasureCalcs:
+    def measurement_ph():
+        # para gerar um valor aleatório para o pH, pois, o senso não está conectado
+        ph = float(random.randint(0, 14))
+        return ph
+
+    def measurement_substance(ph, capacity):
+        capacity = capacity / 1000.0
+
+        if ph >= 7.3 and ph <= 8:
+            quantity_substance = 13 * capacity
+        elif ph > 8:
+            quantity_substance = 25 * capacity
+        elif ph >= 6.8 and ph <= 7:
+            quantity_substance = 15 * capacity
+        elif ph < 6.8:
+            quantity_substance = 20 * capacity
+
+        return quantity_substance
+
+    def substance_type_name(ph):
+        substances_types = {
+            "elevator": {"description": "Elevador (ml)"},
+            "reducer": {"description": "Redutor (ml)"},
+        }
+
+        if (ph >= 7.3 and ph <= 8) | (ph > 8):
+            return substances_types["reducer"]["description"]
+        elif (ph >= 6.8 and ph <= 7) | (ph < 6.8):
+            return substances_types["elevator"]["description"]

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # Third apps
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_crontab",
 ]
 
 MIDDLEWARE = [
@@ -166,3 +167,21 @@ EMAIL_PORT = 587
 #
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Cron Jobs
+#
+CRONJOBS = [
+    # Every 5 minutes
+    (
+        "*/1 * * * *",
+        "devices.cron.make_measures",
+        ">> /cron/django_cron.log 2>&1",
+    ),
+    (
+        "*/1 * * * * /home/well/anaconda3/bin/python /home/well/Documents/Projects/projeto_tcc/project_django/manage.py ",
+        "devices.cron.make_measures",
+        ">> /cron/django_cron.log 2>&1",
+    ),
+]
+
+# CRONTAB_COMMAND_PREFIX = f""

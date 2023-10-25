@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Medições{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="mb-4 border-bottom">
+        <div class="row mb-2">
+            <div class="col col-10">
+                <h1><span class="text-black-50">Medições do Aparelho</span></h1>
+            </div>
+            <div class="col col-2">
+                {% if device_status %}
+                <a href="{% url 'devices:make-measure' device_id %}" class="btn btn-sm btn-secondary">
+                    Realizar medição manual
+                </a>
+                {% else %}
+                <span class="badge bg-danger">Aparelho desativado</span>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <div class="row mb-5">
+            <div class="col">
+                <div class="row">
+                    <label for="name" class="col-4 col-form-label">Nome do aparelho</label>
+                    <div class="col-8">
+                        <input type="text" readonly class="form-control" id="name" value="{{ device_name }}"
+                            disabled="true">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <label for="capacity" class="col-4 col-form-label">Capacidade do aparelho</label>
+                    <div class="col-8">
+                        <input type="text" readonly class="form-control" id="capacity"
+                            value="{{ capacity | floatformat:'g' }}" disabled="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+        </div>
+    </div>
+
+    <div class="border-top">
+        {% if measures %}
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">pH</th>
+                    <th scope="col">Tipo da substância</th>
+                    <th scope="col">Quantidade de substância (ml)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for measure in measures %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ measure.created_date }}</td>
+                    <td>{{ measure.ph }}</td>
+                    <td>{{ measure.substance_type }}</td>
+                    <td>{{ measure.quantity_substance | floatformat:'g' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="row">
+            <h4>Ainda não há medições para o aperelho {{ device_name }}</h4>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

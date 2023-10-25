@@ -12,4 +12,4 @@ class DeviceModelAdmin(admin.ModelAdmin):
 @admin.register(Measure)
 class MeasureModelAdmin(admin.ModelAdmin):
     model = Measure
-    list_display = ["user", "device", "capacity"]
+    list_display = ["user", "device", "capacity", "ph", "quantity_substance"]
