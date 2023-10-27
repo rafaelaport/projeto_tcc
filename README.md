@@ -68,6 +68,7 @@ A usabilidade, de forma bem simplista, trata-se de:
 * [Ionicons](https://ionic.io/ionicons/)
 * [FreePik](https://www.freepik.com/)
 * [Docker](https://www.docker.com/)
+* [Mermaid](https://mermaid.js.org/)
 
 ---
 

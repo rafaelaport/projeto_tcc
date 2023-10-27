@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Sobre Easier Ph{% endblock %}
 {% block content %}
 <div class="container">
@@ -13,8 +14,10 @@
           <h5 class="card-title">Rafaela Portugal</h5>
           <p class="card-text">Idealizadora deste projeto e desenvolvedora | Eng. de Computação | Analista |
             Desenvolvedora</p>
-          <p class="card-text">Formada em Engenharia da Computação, adora ... </p>
-          <p class="card-text">Atualmente atua como Analista de Sistemas ...</p>
+          <p class="card-text">Formada em Engenharia da Computação e cursando o MIT de Eng. de Software .NET.</p>
+          <p class="card-text">Hoje trabalha como Analista de Sistemas realizando levantamento de requisitos, propondo
+            soluções técnicas, testando e validando o desenvolvimento. Também desenvolve pontualmente para área da
+            sustentação de sistemas corporativos da empresa que trabalha.</p>
           <a href="https://www.linkedin.com/in/rafaela-portugal/" class="btn btn-primary" target="_blank">
             <span class="align-middle"><ion-icon name="logo-linkedin"></ion-icon></span>
             Meu LinkedIn
@@ -40,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="row mb-5">
+  <div class="row mb-5 mt-5">
     <div class="row">
       <h2>Sobre o projeto</h2>
     </div>
@@ -70,23 +73,11 @@
         Arduino IDE e a linguagem C++.</p>
       <h2>Usabilidade</h2>
       <p>A usabilidade, de forma bem simplista, trata-se de:</p>
-      <ol>
-        <li>
-          Configurações/cadastros dos proprietários dos aparelhos no sistema;
-        </li>
-        <li>
-          Cadastro dos aparelhos do proprietário;
-        </li>
-        <li>
-          Envio dos aparelhos para os proprietários;
-        </li>
-        <li>
-          Instalação dos aparelhos nos locais desejados pelos proprietários e que recebam o sinal do Wi-Fi;
-        </li>
-        <li>Teste inicial de conexão e envio de dados;</li>
-        <li>Propietário deve realizar o acesso na aplicação web e consultar as medições realizadas por cada aparelho.
-        </li>
-      </ol>
+      <div class="row">
+        <iframe
+          src="{% static 'img/diagram/diagrama-sequencia-processo-inicial-mermaid-diagram-2023-10-27-200514.svg' %}"
+          frameborder="0" class="" width="800" height="1200"></iframe>
+      </div>
     </div>
   </div>
   <div class="row mb-5"></div>

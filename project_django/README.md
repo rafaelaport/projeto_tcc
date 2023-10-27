@@ -11,8 +11,8 @@
       - [x] Create a field to save the range of period to measurement
   - [x] Create a chart with last month's measurements
   - [ ] Create function to take measurement by period setted by device owner - automatic
-- [ ] Create a integration with Marmeid Diagram to Show a Process of installation
-- [ ] Create a integration with Marmeid Diagram to Show a Process of create device's user
+- [x] Create a integration with Marmeid Diagram to Show a Process of installation
+- [x] Create a integration with Marmeid Diagram to Show a Process of create device's user
 
 ----> superuser credentials = e-mail + 123456
 

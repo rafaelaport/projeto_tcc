@@ -12,13 +12,13 @@ from django import forms
 # Create your views here.
 class DeviceCreateView(CreateView):
     model = Device
-    template_name = "devices/create.html"
+    template_name = "create.html"
     fields = ["user", "name", "capacity", "place"]
     success_url = reverse_lazy("devices:device-list")
 
 
 class DeviceListView(ListView):
-    template_name = "devices/list.html"
+    template_name = "list.html"
     model = Device
     context_object_name = "devices"
 
@@ -36,14 +36,14 @@ class DeviceUpdateView(UpdateView):
     model = Device
     # form_class = DeviceModelForm
     # model = DeviceModelForm
-    template_name = "devices/update.html"
+    template_name = "update.html"
     fields = ["name", "capacity", "place", "is_active", "measurement_range"]
     context_object_name = "device"
     success_url = reverse_lazy("devices:device-list")
 
 
 def MeasureListView(request, pk):
-    template_name = "measures/measure-list.html"
+    template_name = "measure-list.html"
     measures = Measure.objects.filter(user_id=request.user.id, device_id=pk).order_by(
         "created_date"
     )
@@ -67,7 +67,7 @@ def measureCreateView(request, pk_device):
     try:
         user = request.user
         device = Device.objects.get(id=pk_device)
-        template_name = "measures/measure-list.html"
+        template_name = "measure-list.html"
 
         # if request.method == "POST":
         new_measure = Measure.objects.create(
