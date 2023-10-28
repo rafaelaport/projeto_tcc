@@ -112,8 +112,8 @@ class MeasureCalcs:
 
     def substance_type_name(ph):
         substances_types = {
-            "elevator": {"description": "Elevador (ml)"},
-            "reducer": {"description": "Redutor (ml)"},
+            "elevator": {"description": "Elevador"},  # ml
+            "reducer": {"description": "Redutor"},  # ml
         }
 
         if (ph >= 7.3 and ph <= 8) | (ph > 8):

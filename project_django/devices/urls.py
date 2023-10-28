@@ -5,6 +5,7 @@ from devices.views import (
     DeviceUpdateView,
     measureCreateView,
     MeasureListView,
+    MeasureListView,
 )
 
 
@@ -14,6 +15,7 @@ urlpatterns = [
     path("list/", DeviceListView.as_view(), name="device-list"),
     path("create/", DeviceCreateView.as_view(), name="device-create"),
     path("update/<int:pk>", DeviceUpdateView.as_view(), name="device-update"),
-    path("measures/<int:pk>", MeasureListView, name="measures-list"),
+    # path("measures/<int:pk>", MeasureListView, name="measures-list"),
+    path("measures/<int:pk>", MeasureListView.as_view(), name="measures-list"),
     path("make-measure/<int:pk_device>/", measureCreateView, name="make-measure"),
 ]

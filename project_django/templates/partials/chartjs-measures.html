@@ -1,0 +1,59 @@
+<div class="row">
+    <canvas id="myChart" width="200" height="210"></canvas>
+</div>
+
+
+<script>
+    const annotation = {
+        type: 'line',
+        borderColor: 'black',
+        borderDash: [6, 6],
+        borderDashOffset: 0,
+        borderWidth: 3,
+        label: {
+            enabled: true,
+            content: 'Média esperada',
+            position: 'end'
+        },
+        scaleID: 'y',
+        value: 7
+    };
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+
+            labels: [{% for measure in measures_chart %}"{{ measure.created_date | date:'d/m/Y, H:i' }}",{% endfor %}],
+
+    datasets: [{
+        label: "Pontecial pH",
+
+        data: [{% for measure in measures_chart %}{{ measure.ph | floatformat:'g' }}, {% endfor %}],
+
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+          }]
+      },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            },
+            x: {
+                ticks: {
+                    maxRotation: 90,
+                        minRotation: 90
+                }
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                    text: "Medidas dos últimos 15 dias"
+            }
+        }
+    }
+  });
+</script>

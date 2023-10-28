@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
+from datetime import date, timedelta
 
 
 from django import forms
@@ -44,9 +45,21 @@ class DeviceUpdateView(UpdateView):
 
 def MeasureListView(request, pk):
     template_name = "measure-list.html"
-    measures = Measure.objects.filter(user_id=request.user.id, device_id=pk).order_by(
-        "created_date"
-    )
+
+    measures_chart = Measure.objects.filter(
+        user_id=request.user.id,
+        device_id=pk,
+        created_date__range=(
+            str(date.today() - timedelta(days=15)),
+            str(date.today() + timedelta(days=1)),
+        ),
+    ).order_by("created_date")
+
+    measures = Measure.objects.filter(
+        user_id=request.user.id,
+        device_id=pk,
+    ).order_by("-created_date")
+
     device_name = Device.objects.get(id=pk).name
     capacity = Device.objects.get(id=pk).capacity
     device_id = pk
@@ -58,6 +71,7 @@ def MeasureListView(request, pk):
         "capacity": capacity,
         "device_id": device_id,
         "device_status": device_status,
+        "measures_chart": measures_chart,
     }
 
     return render(request=request, template_name=template_name, context=context)
@@ -84,3 +98,28 @@ def measureCreateView(request, pk_device):
     except:
         print("=> ERROR => Não foi possível criar uma medição.")
         raise ValueError("=> ERROR => Não foi possível criar uma medição.")
+
+
+class MeasureListView(ListView):
+    model = Measure
+    template_name = "measure-list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["measures_chart"] = Measure.objects.filter(
+            user_id=self.request.user.id,
+            device_id=self.kwargs["pk"],
+            created_date__range=(
+                str(date.today() - timedelta(days=15)),
+                str(date.today() + timedelta(days=1)),
+            ),
+        ).order_by("created_date")
+        context["measures"] = Measure.objects.filter(
+            user_id=self.request.user.id,
+            device_id=self.kwargs["pk"],
+        ).order_by("-created_date")
+        context["device_name"] = Device.objects.get(id=self.kwargs["pk"]).name
+        context["capacity"] = Device.objects.get(id=self.kwargs["pk"]).capacity
+        context["device_id"] = self.kwargs["pk"]
+        context["device_status"] = Device.objects.get(id=self.kwargs["pk"]).is_active
+        return context

@@ -11,7 +11,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Nome</th>
-          <th scope="col">Capacidade</th>
+          <th scope="col">Capacidade (L)</th>
           <th scope="col">Localização</th>
           <th scope="col">Ativo ?</th>
           <th scope="col"></th>
@@ -22,11 +22,11 @@
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
           <td>{{ device.name }}</td>
-          <td>{{ device.capacity }}</td>
+          <td>{{ device.capacity | floatformat:'g' }}</td>
           <td>{{ device.place }}</td>
           <td>
             {% if device.is_active %}
-            <div class="text-success" data-bs-toggle="tooltip" data-bs-placement="left" title="Desativado">
+            <div class="text-success" data-bs-toggle="tooltip" data-bs-placement="left" title="Ativado">
               <ion-icon name="thumbs-up-outline"></ion-icon>
             </div>
             {% else %}

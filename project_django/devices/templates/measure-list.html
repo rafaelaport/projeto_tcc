@@ -32,7 +32,7 @@
             </div>
             <div class="col">
                 <div class="row">
-                    <label for="capacity" class="col-4 col-form-label">Capacidade do aparelho</label>
+                    <label for="capacity" class="col-4 col-form-label">Capacidade do reservatório (L)</label>
                     <div class="col-8">
                         <input type="text" readonly class="form-control" id="capacity"
                             value="{{ capacity | floatformat:'g' }}" disabled="true">
@@ -47,33 +47,36 @@
     <div class="border-top mb-5">
         {% if measures %}
         <div class="row mb-3">
-            <table class="table mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Data</th>
-                        <th scope="col">pH</th>
-                        <th scope="col">Tipo da substância</th>
-                        <th scope="col">Quantidade de substância (ml)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for measure in measures %}
-                    <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ measure.created_date }}</td>
-                        <td>{{ measure.ph }}</td>
-                        <td>{{ measure.substance_type }}</td>
-                        <td>{{ measure.quantity_substance | floatformat:'g' }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="row mb-3 justify-content-center">
-            <div class="col-12 align-self-center">
-                <canvas id="myChart" width="800" height="300"></canvas>
+            <div class="col">
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">pH</th>
+                            <th scope="col">Tipo da substância</th>
+                            <th scope="col">Quantidade de substância (ml)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for measure in measures %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ measure.created_date | date:'d/m/Y, H:i' }}</td>
+                            <td>{{ measure.ph }}</td>
+                            <td>{{ measure.substance_type }}</td>
+                            <td>{{ measure.quantity_substance | floatformat:'g' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
+            <div class="col col-4 align-self-center">
+                {% include 'partials/chartjs-measures.html' %}
+            </div>
+
+        </div>
+        <div class="row mb-3">
         </div>
         {% else %}
         <div class="row mb-3 mt-3">
@@ -85,44 +88,4 @@
     </div>
 </div>
 
-
-
-<script>
-    const annotation = {
-        type: 'line',
-        borderColor: 'black',
-        borderDash: [6, 6],
-        borderDashOffset: 0,
-        borderWidth: 3,
-        label: {
-            enabled: true,
-            content: 'Média esperada',
-            position: 'end'
-        },
-        scaleID: 'y',
-        value: 7
-    };
-
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: [{% for measure in measures %}"{{ measure.created_date }}",{% endfor %}],
-    datasets: [{
-        label: "Pontecial pH por dia",
-        data: [{% for measure in measures %}{{ measure.ph }}, {% endfor %}],
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-          }]
-      },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        },
-    }
-  });
-</script>
 {% endblock content %}
