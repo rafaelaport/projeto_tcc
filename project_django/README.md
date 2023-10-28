@@ -13,6 +13,10 @@
   - [ ] Create function to take measurement by period setted by device owner - automatic
 - [x] Create a integration with Marmeid Diagram to Show a Process of installation
 - [x] Create a integration with Marmeid Diagram to Show a Process of create device's user
+- [ ] Create a integration with google maps to marker on maps the locations of the devices
+- [ ] Create a function to get the temperature of the local
+    - If the local is opened, use meteorology temperature prediction
+    - If the local is closed, simulate the temperature come by sensor integrated with the device 
 
 ----> superuser credentials = e-mail + 123456
 
