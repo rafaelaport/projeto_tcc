@@ -1,20 +1,24 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'leaflet/leaflet.css' %}" />
+<style>
+    #map {
+        height: 500px;
+    }
+</style>
 
 <div id="map" class=""></div>
 
-<script src="{% static 'leaflet/leaflet.js"></script>
+
 
 <script>
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    var map = L.map('map').setView([-22.996618, -43.439295], 15);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    var marker = L.marker([51.5, -0.09]).addTo(map);
+    var marker = L.marker([-22.996618, -43.439295]).addTo(map);
 
     /*
     var circle = L.circle([51.508, -0.11], {

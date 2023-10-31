@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Cadastrar Aparelho{% endblock %}
+{% block content %}
+<div class="">
+  <div class="mb-3 text-center text-black-50">
+    <h1>Cadastrar Aparelhos</h1>
+  </div>
+
+  <div class="row g-3 mx-auto">
+    <div class="col col-7 mx-auto">
+
+      <div class="row mb-5">
+        <label for="user-input" class="form-label col-3 col-form-label">Nome do Proprietário</label>
+        <div class="col-9">
+          <input class="form-control-plaintext" type="text" placeholder="{{ device.user }}"
+            aria-label="{{ device.user }}" disabled>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button class="btn btn-success" type="submit">Salvar</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="col col-5">
+      {% include 'partials/map.html' %}
+    </div>
+  </div>
+
+</div>
+{% endblock content %}
