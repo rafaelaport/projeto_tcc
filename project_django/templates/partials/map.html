@@ -9,7 +9,7 @@
 <div id="map" class=""></div>
 
 <script>
-    var map = L.map('map').setView([-22.996618, -43.439295], 15);
+    var map = L.map('map').setView([{{ device.longitude | escape }}, {{ device.latitude | escape }}], 15);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
