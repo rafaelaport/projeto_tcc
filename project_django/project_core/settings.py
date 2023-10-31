@@ -70,7 +70,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             "templates",
-            "pages/templates",
+            # "pages/templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -171,6 +171,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Cron Jobs
 #
+"""
 CRONJOBS = [
     # Every 5 minutes
     (
@@ -186,3 +187,4 @@ CRONJOBS = [
 ]
 
 # CRONTAB_COMMAND_PREFIX = f""
+"""

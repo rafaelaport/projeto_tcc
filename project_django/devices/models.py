@@ -26,10 +26,12 @@ class Device(models.Model):
         blank=False,
         validators=[MinValueValidator(0, "O valor deve ser maior que 0.")],
     )
-    place = models.CharField(verbose_name="Localização do aparelho", max_length=100)
+    place = models.CharField(verbose_name="Descrição da localização", max_length=100)
+    longitude = models.FloatField(verbose_name="Longitude", blank=True)
+    latitude = models.FloatField(verbose_name="Latitude", blank=True)
     is_active = models.BooleanField(verbose_name="Ativo?", null=False)
     measurement_range = models.IntegerField(
-        verbose_name="Intervalo de medicão",
+        verbose_name="Qtd. medições/dia",
         validators=[
             StepValueValidator(1, "O número informado não é valido."),
             MinValueValidator(1, "A quantidade mínima para medição diária é 1."),

@@ -9,40 +9,20 @@ class DeviceModelForm(forms.ModelForm):
     class Meta:
         model = Device
         # fields = "__all__"
-        fields = ["user", "name", "capacity", "place", "is_active", "measurement_range"]
+        fields = [
+            "user",
+            "name",
+            "capacity",
+            "place",
+            "is_active",
+            "measurement_range",
+            "longitude",
+            "latitude",
+        ]
 
-        widgets = {
-            "user": forms.TextInput(
-                attrs={
-                    "readonly": "true",
-                    "disabled": "true",
-                    "class": "form-control",
-                    "value": CustomUser(Device.user).get_username(),
-                }
-            ),
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "capacity": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "min": "0",
-                }
-            ),
-            "place": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                }
-            ),
-            "is_active": forms.CheckboxInput(
-                attrs={
-                    "class": "form-control",
-                }
-            ),
-            "measurement_range": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                }
-            ),
-        }
+    user = forms.CharField(widget=forms.HiddenInput())
+    longitude = forms.CharField(widget=forms.HiddenInput())
+    latitude = forms.CharField(widget=forms.HiddenInput())
 
     # def __init__ (self, *args, **kwargs):
     #   self.fields['name'].widget.attrs['readonly'] = True

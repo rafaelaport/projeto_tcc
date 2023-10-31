@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from datetime import date, timedelta
+from devices.forms import DeviceModelForm
 
 
 from django import forms
@@ -35,10 +36,10 @@ class DeviceListView(ListView):
 
 class DeviceUpdateView(UpdateView):
     model = Device
-    # form_class = DeviceModelForm
+    form_class = DeviceModelForm
     # model = DeviceModelForm
     template_name = "devices/update.html"
-    fields = ["name", "capacity", "place", "is_active", "measurement_range"]
+    # fields = ["name", "capacity", "place", "is_active", "measurement_range"]
     context_object_name = "device"
     success_url = reverse_lazy("devices:device-list")
 
