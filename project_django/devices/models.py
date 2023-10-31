@@ -10,8 +10,6 @@ import random
 
 # Create your models here.
 class Device(models.Model):
-    default_measurement_number = 15
-
     user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
