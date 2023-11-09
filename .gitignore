@@ -78,3 +78,17 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Environment of Django project
+/project_django/env-django/
+
+
+# Byte-compiled / optimized / DLL files
+/project_django/project_core/__pycache__/
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+
+/project_django/users/__pycache__/
+project_django/db.sqlite3

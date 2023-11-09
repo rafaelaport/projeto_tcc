@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Medição manual{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="mb-3 text-center text-black-50">
+        <h1>Forçar medição</h1>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-8 mx-auto">
+                {{ form|crispy }}
+            </div>
+        </div>
+
+        <div class="row col-8 mx-auto">
+            <button class="btn btn-success" type="submit">Salvar</button>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}
